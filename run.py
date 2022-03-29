@@ -8,6 +8,8 @@ df = pd.read_csv(gsheet_url)
 by_year = df.groupby('Year', sort=False)['Country'].count()
 #print('in these years have been producted\n', by_year)
 
-print('the movies with score 8 or higher')
-print(df[(df['IMDB Score'] > 8.0)])
+sort_by_lowest = df.sort_values(by='IMDB Score', ascending=False)
+print(sort_by_lowest.head(10))
 
+sort_by_genere = df.loc[df.Genres == 'Comedy']
+print(sort_by_genere.head(10))
