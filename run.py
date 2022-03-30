@@ -107,7 +107,9 @@ def get_info():
         print('Element exists in Dataframe')
         #print(df[df['Title'].astype(str).str.contains('request')])
         #print(df.loc[df['Title'].astype(str).str.contains('request')])
-        print(df[df['Title'].str.contains('request')])
+        mask = df['Title'].apply(lambda x: 'request' if 'request' in x else x)
+        df1 = df[mask]
+        print(df1)
     else:
         print('The movie does not exist')
 get_info()
