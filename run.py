@@ -45,3 +45,44 @@ sort_mostroi = df[['Title', 'ROI']].sort_values(by='ROI', ascending=False).dropn
 df['Profit'] = (df['Gross Earnings'] - df['Budget']).dropna().astype(int).apply(lambda x: f'{x:,}')
 sort_leastprofitable = df[['Title', 'Profit']].sort_values(by='Profit', ascending=True)
 #print('Top 10 box-office flop\n', sort_leastprofitable.head(10), '\n')
+
+"""
+INPUT
+"""
+def get_input():
+    """
+    gets an integer in range 1-10
+    """
+    while True:
+        print("please chose a number between 1 and 10")
+        user_input = input("Enter a number: ")
+
+        if validate(user_input):
+            print("Data is valid!")
+            break
+    return user_input
+
+
+def validate(data):
+    try:
+        if data not in range(1,10):
+            raise ValueError('not in range')
+        if type(data) !== int:
+            raise ValueError('not an integer')
+    except ValueError as error:
+        print(f"Invalid data: {error}, please try again.\n")
+        return False
+
+    return True
+
+
+def main():
+    """
+    Run all program functions
+    """
+    data = get_input()
+
+print("Welcome Movie database")
+
+main()
+    
