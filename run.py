@@ -49,12 +49,9 @@ sort_leastprofitable = df[['Title', 'Profit']].sort_values(by='Profit', ascendin
 """
 INPUT
 """
+
 def get_input():
-    """
-    gets an integer in range 1-10
-    """
     while True:
-        print("please chose a number between 1 and 10")
         user_input = input("Enter a number: ")
 
         if validate(user_input):
@@ -62,27 +59,28 @@ def get_input():
             break
     return user_input
 
-
 def validate(data):
     try:
-        if data not in range(1,10):
-            raise ValueError('not in range')
-        if type(data) !== int:
-            raise ValueError('not an integer')
-    except ValueError as error:
-        print(f"Invalid data: {error}, please try again.\n")
+        val = int(data)
+    except ValueError:
+        print('please provide a number\n')
         return False
-
+    pass
+    
+    try:
+        int(data) in range(1, 10)
+    except ValueError:
+        print('not in range\n')
+        return False
+    pass
     return True
 
-
 def main():
-    """
-    Run all program functions
-    """
-    data = get_input()
+    get_input()
 
-print("Welcome Movie database")
+print("Welcome to the 2000s Movie database\n")
+print("Please provide a number between one and ten")
 
 main()
+
     
