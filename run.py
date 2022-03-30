@@ -93,10 +93,22 @@ print(one_row)
 
 """
 def get_info():
-    request = input("enter a movie")
+    request = input("enter a movie ")
     if request in df.values:
         print('Element exists in Dataframe')
     else:
         print('The movie does not exist')
 get_info()
 """
+
+def get_info():
+    request = input("enter a movie ")
+    if request in df.values:
+        print('Element exists in Dataframe')
+        #print(df[df['Title'].astype(str).str.contains('request')])
+        #print(df.loc[df['Title'].astype(str).str.contains('request')])
+        print(df[df['Title'].str.contains('request')])
+    else:
+        print('The movie does not exist')
+get_info()
+
