@@ -82,3 +82,21 @@ print("Please provide a number between one and ten")
 main()
 """
 
+"""
+A DIFFERENT INPUT
+"""
+
+"""
+one_row = df.loc[df['Title'] == "Brother"]
+print(one_row)
+"""
+
+"""
+def get_info():
+    request = input("enter a movie")
+    if request in df.values:
+        print('Element exists in Dataframe')
+    else:
+        print('The movie does not exist')
+get_info()
+"""
