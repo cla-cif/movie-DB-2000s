@@ -60,27 +60,6 @@ sort_leastprofitable = df[['Title', 'Profit']
 SINGLE QUERIES
 """
 
-
-def query_choice():
-    while True:
-        user_input = input(
-            "Do you want to search by actor, genre, director or title?: ")
-
-        if validate_query_choice(user_input):
-            print("Data is valid!")
-            break
-    return user_input
-query_choice()
-
-def validate_query_choice(choice):
-    choices = ['director', 'actor', 'genre', 'title']
-    try:
-        if str(choice) in choices:
-            return True
-        else:
-            print('please provide a suitable input\n')
-
-
 """
 def get_movie_info():
     request_movie = input("Enter a Title: ")
@@ -91,7 +70,6 @@ def get_movie_info():
         print('The movie is not present in the database')
 get_movie_info()
 """
-
 """
 def get_movie_genres():
     request_genre = input("Enter a genre: ")
@@ -125,10 +103,27 @@ def get_director():
 get_director()
 """
 
+def query_choice():
+    while True:
+        user_input = input(
+            "Do you want to search by actor, genre, director or title?: ")
 
-"""
-DATA QUERIES
-"""
+        if validate_query_choice(user_input):
+            print("Data is valid!")
+            break
+    return user_input
+query_choice()
+
+def validate_query_choice(choice):
+    choices = ['director', 'actor', 'genre', 'title']
+    try:
+        if str(choice) in choices:
+            return True
+        else:
+            print('please provide a suitable input\n')
+
+
+#DATA QUERIES
 
 """
 def get_input():
