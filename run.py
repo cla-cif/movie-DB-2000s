@@ -49,83 +49,41 @@ sort_mostroi = df[['Title', 'ROI']].sort_values(
     by='ROI', ascending=False).dropna()
 #print('The most profitable movies of the decade\n', sort_mostroi, '\n')
 
-df['Profit'] = (df['Gross Earnings'] - df['Budget']
-                ).dropna().astype(int).apply(lambda x: f'{x:,}')
-sort_leastprofitable = df[['Title', 'Profit']
-                          ].sort_values(by='Profit', ascending=True)
+df['Profit'] = (df['Gross Earnings'] - df['Budget']).dropna().astype(int).apply(lambda x: f'{x:,}')
+sort_leastprofitable = df[['Title', 'Profit']].sort_values(by='Profit', ascending=True)
 #print('Top 10 box-office flop\n', sort_leastprofitable.head(10), '\n')
 
 
 """
-SINGLE QUERIES
+WELCOME!
 """
-
-"""
-def get_movie_info():
-    request_movie = input("Enter a Title: ")
-    if request_movie in df.values:
-       movie_data = df.loc[(df['Title'].str.contains(request_movie, case=False))]
-       print('All you need to know about the movie you were looking for\n', movie_data, '\n')
-    else:
-        print('The movie is not present in the database')
-get_movie_info()
-"""
-"""
-def get_movie_genres():
-    request_genre = input("Enter a genre: ")
-    if request_genre in df.values:
-       movie_genre = df.loc[(df['Genres'].str.contains(request_genre))],
-       print('All the movies of the genre you were looking for\n', movie_genre, '\n')
-    else:
-        print('The genre is not present in the database')
-get_movie_genres()
-"""
-
-"""
-def get_actor():
-    request_actor = input("Enter an actor: ")
-    if request_actor in df.values:
-       actor_data = df.loc[(df['Cast'].str.contains(request_actor))],
-       print('All the movies of the actor you were looking for\n', actor_data, '\n')
-    else:
-        print('The actor is not present in the database')
-get_actor()
-"""
-
-"""
-def get_director():
-    request_director = input("Enter a director: ")
-    if request_director in df.values:
-       director_data = df.loc[(df['Director'].str.contains(request_director))],
-       print('All the movies from the director you were looking for\n', director_data, '\n')
-    else:
-        print('The director is not present in the database')
-get_director()
-"""
-
-def query_choice():
-    while True:
-        user_input = input(
-            "Do you want to search by actor, genre, director or title?: ")
-
-        if validate_query_choice(user_input):
+def welcome():
+    While True: 
+        welcome_input = input ("Please type data or search")
+        welcome_input = welcome_input.lower()
+      if validate_welcome(user_input):
             print("Data is valid!")
+            if welcome_input == 'search':
+                query_choice()
+            elif user_input == 'data':
+                get_input()
             break
-    return user_input
-query_choice()
 
-def validate_query_choice(choice):
-    choices = ['director', 'actor', 'genre', 'title']
+def validate_welcome(welcome_choice):
+    welcome_choices = ['data', 'search']
     try:
-        if str(choice) in choices:
+        if str(welcome_choice) in welcome_choices:
             return True
         else:
-            print('please provide a suitable input\n')
-
-
-#DATA QUERIES
+            raise ValueError
+    except ValueError:
+        print('please provide a suitable input')
+        return False
 
 """
+DATA QUERIES
+"""
+
 def get_input():
     while True:
         user_input = input("Enter a number: ")
@@ -148,11 +106,81 @@ def validate(data):
             print('not in range\n')
 
 
+
+"""
+SINGLE QUERIES
+"""
+
+def get_movie_info():
+    request_movie = input("Enter a Title: ")
+    if request_movie in df.values:
+       movie_data = df.loc[(df['Title'].str.contains(request_movie, case=False))]
+       print('All you need to know about the movie you were looking for\n', movie_data, '\n')
+    else:
+        print('The movie is not present in the database')
+
+def get_movie_genres():
+    request_genre = input("Enter a genre: ")
+    if request_genre in df.values:
+       movie_genre = df.loc[(df['Genres'].str.contains(request_genre))],
+       print('All the movies of the genre you were looking for\n', movie_genre, '\n')
+    else:
+        print('The genre is not present in the database')
+
+def get_actor():
+    request_actor = input("Enter an actor: ")
+    if request_actor in df.values:
+       actor_data = df.loc[(df['Cast'].str.contains(request_actor))],
+       print('All the movies of the actor you were looking for\n', actor_data, '\n')
+    else:
+        print('The actor is not present in the database')
+
+def get_director():
+    request_director = input("Enter a director: ")
+    if request_director in df.values:
+       director_data = df.loc[(df['Director'].str.contains(request_director))],
+       print('All the movies from the director you were looking for\n', director_data, '\n')
+    else:
+        print('The director is not present in the database')
+
+def query_choice():
+    while True:
+        user_input = input(
+            "Do you want to search by actor, genre, director or title?: ")
+        user_input = user_input.lower()
+        if validate_query_choice(user_input):
+            print("Data is valid!")
+            if user_input == 'director':
+                get_director()
+            elif user_input == 'actor':
+                get_actor()
+            elif user_input == 'genre':
+                get_movie_genres
+            elif user_input == 'title':
+                get_movie_info()
+            break
+    return user_input
+
+
+def validate_query_choice(choice):
+    choices = ['director', 'actor', 'genre', 'title']
+    try:
+        if str(choice) in choices:
+            return True
+        else:
+            raise ValueError
+    except ValueError:
+        print('please provide a suitable input')
+        return False
+
 def main():
     get_input()
+    welcome()
+    query_choice()
 
 print("Welcome to the 2000s Movie database\n")
-print("Please provide a number between one and ten")
+print("What do you want to do today, get data or search?")
 
 main()
-"""
+
+
