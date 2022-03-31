@@ -114,7 +114,7 @@ SINGLE QUERIES
 def get_movie_info():
     request_movie = input("Enter a Title: ")
     if request_movie in df.values:
-        movie_data = df.loc[(df['Title'].str.contains(request_movie, case=False))]
+        movie_data = df.loc[(df['Title'].str.contains(request_movie))]
         print('All you need to know about the movie you were looking for\n', movie_data, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
@@ -124,7 +124,7 @@ def get_movie_info():
 def get_movie_genres():
     request_genre = input("Enter a genre: ")
     if request_genre in df.values:
-        movie_genre = df.loc[(df['Genres'].str.contains(request_genre))],
+        movie_genre = df.loc[(df['Genres'].str.contains(request_genre))]
         print('All the movies of the genre you were looking for\n', movie_genre, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
@@ -136,7 +136,7 @@ def get_movie_genres():
 def get_actor():
     request_actor = input("Enter an actor: ")
     if request_actor in df.values:
-        actor_data = df.loc[(df['Actor1'].str.contains(request_actor))],
+        actor_data = df.loc[(df['Actor1'].str.contains(request_actor))]
         print('All the movies of the actor you were looking for\n', actor_data, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
