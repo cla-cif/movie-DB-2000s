@@ -3,8 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 pd.set_option("display.max_rows", 20)
-pd.set_option("display.max_columns", 20)
-
 
 gsheetid = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
 sheet_name = "Data"
@@ -61,6 +59,7 @@ sort_leastprofitable = df[['Title', 'Profit']].sort_values(by='Profit', ascendin
 """
 WELCOME!
 """
+
 def welcome():
     while True: 
         welcome_input = input ("Please type data or search: ")
@@ -117,6 +116,7 @@ SINGLE QUERIES
 
 def get_movie_info():
     request_movie = input("Enter a Title: ")
+    request_movie = request_movie.lower().title()
     if request_movie in df.values:
         movie_data = df.loc[(df['Title'].str.contains(request_movie))]
         print('All you need to know about the movie you were looking for\n', movie_data, '\n')
@@ -124,12 +124,15 @@ def get_movie_info():
         welcome()
     else:
         print('The movie is not present in the database')
+        print('Do you want to do a new search or find data?')
+        welcome()
 
 def get_movie_genres():
     request_genre = input("Enter a genre: ")
     request_genre = request_genre.lower().title()
     if request_genre in df.values:
-        movie_genre = df.loc[(df['Genres'].str.contains(request_genre))]
+        mask = df['Genres'].str.contains(request_genre)
+        movie_genre = df.loc[mask, ['Title', 'Year', 'Director', 'Actor1', 'Actor2', 'Actor3']]
         print('All the movies of the genre you were looking for\n', movie_genre, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
@@ -159,7 +162,8 @@ def get_director():
     request_director = input("Enter a director: ")
     request_director = request_director.lower().title()
     if request_director in df.values:
-        director_data = df.loc[(df['Director'].str.contains(request_director))]
+        mask = df['Director'].str.contains(request_director)
+        director_data = df.loc[mask, ['Title', 'Year', 'Genres', 'Actor1', 'Actor2', 'Actor3']]
         print('All the movies from the director you were looking for\n', director_data, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
