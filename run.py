@@ -142,9 +142,10 @@ def get_actor():
     request_actor = input("Enter an actor: ")
     request_actor = request_actor.lower().title()
     if request_actor in df.values:
-        cols_to_check = ['Actor1', 'Actor2', 'Actor3']
-        mask = df[cols_to_check].apply(lambda col : col.str.contains(request_actor)).all(axis=1)
-        actor_data = df.loc[mask, ['Title', 'Year', 'Genres', 'Director']]
+        mask1 = df['Actor1'].str.contains(request_actor)
+        mask2 = df['Actor2'].str.contains(request_actor)
+        mask3 = df['Actor3'].str.contains(request_actor)
+        actor_data = df.loc[mask1 | mask2| mask3, ['Title', 'Year', 'Genres', 'Director']]
         print('All the movies of the actor you were looking for\n', actor_data, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
