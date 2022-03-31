@@ -3,8 +3,9 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 gsheetid = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
-sheet_name ="Data"
-gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(gsheetid, sheet_name)
+sheet_name = "Data"
+gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(
+    gsheetid, sheet_name)
 df = pd.read_csv(gsheet_url)
 
 """
@@ -26,31 +27,59 @@ df_year = df.groupby('Year', sort=False)['Country'].count()
 RANKINGS
 """
 
-df_score_country = df.groupby('Country', sort=False)['IMDB Score'].mean().round(1).sort_values(ascending=False)
+df_score_country = df.groupby('Country', sort=False)[
+    'IMDB Score'].mean().round(1).sort_values(ascending=False)
 #print('Countries with the highest IMDB Score\n', df_score_country, '\n')
 
-sort_highest_score = df[['Title', 'IMDB Score']].sort_values(by='IMDB Score', ascending=False)
+sort_highest_score = df[['Title', 'IMDB Score']
+                        ].sort_values(by='IMDB Score', ascending=False)
 #print('The best movies of the decade\n', sort_by_highest_score.head(10), '\n')
 
-sort_lowest_score = df[['Title', 'IMDB Score']].sort_values(by='IMDB Score', ascending=True)
+sort_lowest_score = df[['Title', 'IMDB Score']
+                       ].sort_values(by='IMDB Score', ascending=True)
 #print('The worst movies of the decade\n', sort_by_lowest_score.head(10), '\n')
 
-#I'VE CREATED A FUNCTION FOR THIS
-gb_specific_genre = df.groupby(['Title', 'IMDB Score'])['Genres'].apply(lambda x: x[x.str.contains('War', case=False)])
+# I'VE CREATED A FUNCTION FOR THIS
+gb_specific_genre = df.groupby(['Title', 'IMDB Score'])['Genres'].apply(
+    lambda x: x[x.str.contains('War', case=False)])
 #print('All the War movies\n', gb_specific_genre, '\n')
 
 df['ROI'] = (df["Gross Earnings"] / df["Budget"] * 100).round(2)
-sort_mostroi = df[['Title', 'ROI']].sort_values(by='ROI', ascending=False).dropna()
+sort_mostroi = df[['Title', 'ROI']].sort_values(
+    by='ROI', ascending=False).dropna()
 #print('The most profitable movies of the decade\n', sort_mostroi, '\n')
 
-df['Profit'] = (df['Gross Earnings'] - df['Budget']).dropna().astype(int).apply(lambda x: f'{x:,}')
-sort_leastprofitable = df[['Title', 'Profit']].sort_values(by='Profit', ascending=True)
+df['Profit'] = (df['Gross Earnings'] - df['Budget']
+                ).dropna().astype(int).apply(lambda x: f'{x:,}')
+sort_leastprofitable = df[['Title', 'Profit']
+                          ].sort_values(by='Profit', ascending=True)
 #print('Top 10 box-office flop\n', sort_leastprofitable.head(10), '\n')
 
 
 """
 SINGLE QUERIES
 """
+
+
+def query_choice():
+    while True:
+        user_input = input(
+            "Do you want to search by actor, genre, director or title?: ")
+
+        if validate_query_choice(user_input):
+            print("Data is valid!")
+            break
+    return user_input
+query_choice()
+
+def validate_query_choice(choice):
+    choices = ['director', 'actor', 'genre', 'title']
+    try:
+        if str(choice) in choices:
+            return True
+        else:
+            print('please provide a suitable input\n')
+
 
 """
 def get_movie_info():
