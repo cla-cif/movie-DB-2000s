@@ -136,10 +136,11 @@ def get_movie_genres():
 def get_actor():
     request_actor = input("Enter an actor: ")
     if request_actor in df.values:
-        actor_data = df.loc[(df['Cast'].str.contains(request_actor))],
+        actor_data = df.loc[(df['Actor1'].str.contains(request_actor))],
         print('All the movies of the actor you were looking for\n', actor_data, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
+
     else:
         print('The actor is not present in the database')
         print('Do you want to do a new search or find data?')
