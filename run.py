@@ -2,6 +2,10 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 
+pd.set_option("display.max_rows", 20)
+pd.set_option("display.max_columns", 20)
+
+
 gsheetid = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
 sheet_name = "Data"
 gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(
@@ -123,6 +127,7 @@ def get_movie_info():
 
 def get_movie_genres():
     request_genre = input("Enter a genre: ")
+    request_genre = request_genre.lower().title()
     if request_genre in df.values:
         movie_genre = df.loc[(df['Genres'].str.contains(request_genre))]
         print('All the movies of the genre you were looking for\n', movie_genre, '\n')
@@ -135,8 +140,11 @@ def get_movie_genres():
 
 def get_actor():
     request_actor = input("Enter an actor: ")
+    request_actor = request_actor.lower().title()
     if request_actor in df.values:
-        actor_data = df.loc[(df['Actor1'].str.contains(request_actor))]
+        cols_to_check = ['Actor1', 'Actor2', 'Actor3']
+        mask = df[cols_to_check].apply(lambda col : col.str.contains(request_actor)).all(axis=1)
+        actor_data = df.loc[mask, ['Title', 'Year', 'Genres', 'Director']]
         print('All the movies of the actor you were looking for\n', actor_data, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
@@ -148,6 +156,7 @@ def get_actor():
 
 def get_director():
     request_director = input("Enter a director: ")
+    request_director = request_director.lower().title()
     if request_director in df.values:
         director_data = df.loc[(df['Director'].str.contains(request_director))]
         print('All the movies from the director you were looking for\n', director_data, '\n')
