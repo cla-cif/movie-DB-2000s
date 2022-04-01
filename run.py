@@ -60,9 +60,10 @@ sort_leastprofitable = df[['Title', 'Profit']].sort_values(by='Profit', ascendin
 WELCOME!
 """
 
+
 def welcome():
-    while True: 
-        welcome_input = input ("Please type data or search: ")
+    while True:
+        welcome_input = input("Please type data or search: ")
         welcome_input = welcome_input.lower()
 
         if validate_welcome(welcome_input):
@@ -72,6 +73,7 @@ def welcome():
             elif welcome_input == 'data':
                 get_input()
             break
+
 
 def validate_welcome(welcome_choice):
     welcome_choices = ['data', 'search']
@@ -88,6 +90,7 @@ def validate_welcome(welcome_choice):
 DATA QUERIES
 """
 
+
 def get_input():
     while True:
         user_input = input("Enter a number: ")
@@ -102,7 +105,7 @@ def validate(data):
     try:
         val = int(data)
     except ValueError:
-        print('please provide a number\n') 
+        print('please provide a number\n')
     else:
         if 0 < int(data) < 11:
             return True
@@ -113,6 +116,7 @@ def validate(data):
 """
 SINGLE QUERIES
 """
+
 
 def get_movie_info():
     request_movie = input("Enter a Title: ")
@@ -126,6 +130,7 @@ def get_movie_info():
         print('The movie is not present in the database')
         print('Do you want to do a new search or find data?')
         welcome()
+
 
 def get_movie_genres():
     request_genre = input("Enter a genre: ")
@@ -141,6 +146,7 @@ def get_movie_genres():
         print('Do you want to do a new search or find data?')
         welcome()
 
+
 def get_actor():
     request_actor = input("Enter an actor: ")
     request_actor = request_actor.lower().title()
@@ -148,7 +154,7 @@ def get_actor():
         mask1 = df['Actor1'].str.contains(request_actor)
         mask2 = df['Actor2'].str.contains(request_actor)
         mask3 = df['Actor3'].str.contains(request_actor)
-        actor_data = df.loc[mask1 | mask2| mask3, ['Title', 'Year', 'Genres', 'Director']]
+        actor_data = df.loc[mask1 | mask2 | mask3, ['Title', 'Year', 'Genres', 'Director']]
         print('All the movies of the actor you were looking for\n', actor_data, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
@@ -157,6 +163,7 @@ def get_actor():
         print('The actor is not present in the database')
         print('Do you want to do a new search or find data?')
         welcome()
+
 
 def get_director():
     request_director = input("Enter a director: ")
@@ -171,6 +178,7 @@ def get_director():
         print('The director is not present in the database\n')
         print('Do you want to do a new search or find data?\n')
         welcome()
+
 
 def query_choice():
     while True:
@@ -202,6 +210,7 @@ def validate_query_choice(choice):
         print('please provide a suitable choice\n')
         return False
 
+
 def main():
     welcome()
     get_input()
@@ -211,5 +220,3 @@ print("Welcome to the 2000s Movie database\n")
 print("What do you want to do today, get data or search?\n")
 
 main()
-
-
