@@ -135,7 +135,7 @@ def get_movie_info():
 
 
 def get_movie_genres():
-    request_genre = raw_input("Enter a genre: ")
+    request_genre = input("Enter a genre: ")
     request_genre = request_genre.lower().title()
     if request_genre in df.values:
         mask = df['Genres'].str.contains(request_genre)
@@ -148,7 +148,6 @@ def get_movie_genres():
         print('Do you want to do a new search or find data?')
         welcome()
 
-
 def get_actor():
     request_actor = input("Enter an actor: ")
     request_actor = request_actor.lower().title()
@@ -165,24 +164,6 @@ def get_actor():
         print('The actor is not present in the database')
         print('Do you want to do a new search or find data?')
         welcome()
-"""
-def get_actor():
-    request_actor = input("Enter an actor: ")
-    request_actor = request_actor.lower().title()
-    if request_actor in df.values:
-        mask1 = df['Actor1'].str.contains(request_actor)
-        mask2 = df['Actor2'].str.contains(request_actor)
-        mask3 = df['Actor3'].str.contains(request_actor)
-        actor_data = df.loc[mask1 | mask2 | mask3, ['Title', 'Year', 'Genres', 'Director']]
-        print('All the movies of the actor you were looking for\n', actor_data, '\n')
-        print('Do you want to do a new search or find data?')
-        welcome()
-
-    else:
-        print('The actor is not present in the database')
-        print('Do you want to do a new search or find data?')
-        welcome()
-"""
 
 def get_director():
     request_director = input("Enter a director: ")
