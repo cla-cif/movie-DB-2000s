@@ -12,6 +12,7 @@ df = pd.read_csv(gsheet_url)
 WELCOME!
 """
 
+
 def welcome():
     while True:
         welcome_input = input("Please type data or search: ")
@@ -46,6 +47,7 @@ DATA
 DATA AT A GLANCE
 """
 
+
 def budget():
     df_budget = df['Budget'].mean().astype(int)
     print('The average budget is', df_budget, '$' '\n')
@@ -77,6 +79,7 @@ def year():
 RANKINGS
 """
 
+
 def score_country():
     df_score_country = df.groupby('Country', sort=False)[
         'IMDB Score'].mean().round(1).sort_values(ascending=False)
@@ -93,8 +96,7 @@ def highest_score():
 
 
 def lowest_score():
-    sort_lowest_score = df[['Title', 'IMDB Score']
-                       ].sort_values(by='IMDB Score', ascending=True)
+    sort_lowest_score = df[['Title', 'IMDB Score']].sort_values(by='IMDB Score', ascending=True)
     print('The worst movies of the decade\n', sort_lowest_score.head(10), '\n')
     print('Do you want to do a new search or find data?')
     welcome()
@@ -155,7 +157,7 @@ def data_choice():
             if int(user_input) == 10:
                 print('function not defined yet')
             break
-              
+
     return user_input
 
 
@@ -172,7 +174,7 @@ def validate_data_choice(data):
 
 
 """
-SEARCH  
+SEARCH
 """
 
 
@@ -254,7 +256,7 @@ def get_director():
         for item in value:
             if request_director in str(item):
                 search = True
-    
+
     if search:
         mask = df['Director'].str.contains(request_director)
         director_data = df.loc[mask, ['Title', 'Year', 'Genres', 'Actor1', 'Actor2', 'Actor3']]
