@@ -119,6 +119,18 @@ def profit():
 
 def data_choice():
     while True:
+        print('Chose one of the following numbers')
+        print("""
+        1:   budget
+        2:  score
+        3:  language
+        4:  year
+        5:  score country
+        6:  highest score
+        7:  lowest score
+        8:  roi
+        9:  profit
+        10  NOT DEFINED!!!!""")
         user_input = input("Enter a number: ")
 
         if validate_data_choice(user_input):
