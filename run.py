@@ -17,9 +17,13 @@ def welcome():
     while True:
         welcome_input = input("Please type data or search: ")
         welcome_input = welcome_input.lower()
+        
+        if welcome_input.lower() == "exit":
+            print('Thank you! Goodbye!')
+            exit()
 
         if validate_welcome(welcome_input):
-            print("All right!")
+            print("All right!\n")
             if welcome_input == 'search':
                 search_choice()
             elif welcome_input == 'data':
@@ -123,7 +127,7 @@ def data_choice():
     while True:
         print('Chose one of the following numbers')
         print("""
-        1:   budget
+        1:  budget
         2:  score
         3:  language
         4:  year
@@ -132,8 +136,11 @@ def data_choice():
         7:  lowest score
         8:  roi
         9:  profit
-        10  NOT DEFINED!!!!""")
+        10  NOT DEFINED!!!!\n""")
         user_input = input("Enter a number: ")
+        if user_input.lower() == "exit":
+            print('Thank you! Goodbye!')
+            exit()
 
         if validate_data_choice(user_input):
             if int(user_input) == 1:
@@ -275,6 +282,9 @@ def search_choice():
         user_input = input(
             "Do you want to search by actor, genre, director or title? ")
         user_input = user_input.lower()
+        if user_input.lower() == "exit":
+            print('Thank you! Goodbye!')
+            exit()        
         if validate_search_choice(user_input):
             print("All right!")
             if user_input == 'director':
@@ -308,6 +318,6 @@ def main():
 
 print("""
 Welcome to the 2000s Movie database
-What do you want to do today, get data or search?""")
+What do you want to do today, get data or search?\n""")
 
 main()
