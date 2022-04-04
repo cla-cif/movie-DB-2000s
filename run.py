@@ -304,7 +304,8 @@ def main():
     data_choice()
     search_choice()
 
-print("Welcome to the 2000s Movie database\n")
-print("What do you want to do today, get data or search?\n")
+print("""
+Welcome to the 2000s Movie database
+What do you want to do today, get data or search?""")
 
 main()
