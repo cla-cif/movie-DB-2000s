@@ -25,3 +25,7 @@ def budget():
     df_budget = df['Budget'].mean().astype(int)
     print('The average budget is', df_budget, '$' '\n')
 budget()
+
+print("""there are""",
+      df['Title'].count(),
+      """movies""")

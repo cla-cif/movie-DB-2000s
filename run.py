@@ -317,7 +317,7 @@ def main():
     search_choice()
 
 print("""
-Welcome to the 2000s Movie database
+Welcome to the 2000s Movie Database, the database contains""", df['Title'].count(), """movies
 What do you want to do today, get data or search?\n""")
 
 main()
