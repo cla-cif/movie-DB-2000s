@@ -123,7 +123,13 @@ SINGLE QUERIES
 def get_movie_info():
     request_movie = input("Enter a Title: ")
     request_movie = request_movie.lower().title()
-    if request_movie in df.values:
+    search = False
+    for value in df.values:
+        for item in value:
+            if request_movie in str(item):
+                search = True
+
+    if search:
         movie_data = df.loc[(df['Title'].str.contains(request_movie))]
         print('All you need to know about the movie you were looking for\n', movie_data, '\n')
         print('Do you want to do a new search or find data?')
@@ -137,7 +143,13 @@ def get_movie_info():
 def get_movie_genres():
     request_genre = input("Enter a genre: ")
     request_genre = request_genre.lower().title()
-    if request_genre in df.values:
+    search = False
+    for value in df.values:
+        for item in value:
+            if request_genre in str(item):
+                search = True
+
+    if search:
         mask = df['Genres'].str.contains(request_genre)
         movie_genre = df.loc[mask, ['Title', 'Year', 'Director', 'Actor1', 'Actor2', 'Actor3']]
         print('All the movies of the genre you were looking for\n', movie_genre, '\n')
@@ -161,7 +173,7 @@ def get_actor():
         for item in value:
             if request_actor in str(item):
                 search = True
-                
+
     if search:
         mask1 = df['Actor1'].str.contains(request_actor)
         mask2 = df['Actor2'].str.contains(request_actor)
@@ -176,15 +188,23 @@ def get_actor():
         print('Do you want to do a new search or find data?')
         welcome()
 
+
 def get_director():
     request_director = input("Enter a director: ")
     request_director = request_director.lower().title()
-    if request_director in df.values:
+    search = False
+    for value in df.values:
+        for item in value:
+            if request_director in str(item):
+                search = True
+    
+    if search:
         mask = df['Director'].str.contains(request_director)
         director_data = df.loc[mask, ['Title', 'Year', 'Genres', 'Actor1', 'Actor2', 'Actor3']]
         print('All the movies from the director you were looking for\n', director_data, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
+
     else:
         print('The director is not present in the database\n')
         print('Do you want to do a new search or find data?\n')

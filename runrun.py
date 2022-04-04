@@ -10,6 +10,8 @@ gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&shee
     gsheetid, sheet_name)
 df = pd.read_csv(gsheet_url)
 
+
+"""
 test = unicodedata2.normalize("NFD", "Skarsgård").encode('WINDOWS-1252', 'ignore')
 print('it works as a single methond', test)
 
@@ -18,4 +20,5 @@ print('it works as a single methond', test2)
 
 df['Actor3'] = (df['Actor3'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
 print(df['Actor3'])
+"""
 
