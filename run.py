@@ -151,13 +151,11 @@ def get_movie_genres():
 def get_actor():
     request_actor = input("Enter an actor: ")
     request_actor = request_actor.lower().title()
+    search = False
     for value in df.values:
         for item in value:
             if request_actor in str(item):
                 search = True
-            else:
-                search = False
-
 
     if search:
         mask1 = df['Actor1'].str.contains(request_actor)
