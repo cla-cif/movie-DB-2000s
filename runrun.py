@@ -21,4 +21,7 @@ print('it works as a single methond', test2)
 df['Actor3'] = (df['Actor3'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
 print(df['Actor3'])
 """
-
+def budget():
+    df_budget = df['Budget'].mean().astype(int)
+    print('The average budget is', df_budget, '$' '\n')
+budget()

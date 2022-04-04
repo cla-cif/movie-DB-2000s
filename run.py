@@ -1,8 +1,4 @@
-import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
-import re
-import unicodedata2
 
 pd.set_option("display.max_rows", 20)
 
@@ -13,55 +9,8 @@ gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&shee
 df = pd.read_csv(gsheet_url)
 
 """
-DATA AT A GLANCE
-"""
-df_budget = df['Budget'].mean().astype(int)
-#print('The average budget is', df_budget, '$' '\n')
-
-df_score = df['IMDB Score'].mean().round(1)
-#print('The average score got on IMDB is', df_score, '\n')
-
-df_language = df['Language'].value_counts().sort_values(ascending=False)
-#print('Number of movies per language\n', df_language, '\n')
-
-df_year = df.groupby('Year', sort=False)['Country'].count()
-#print('number of movies producted per year\n', df_year, '\n')
-
-"""
-RANKINGS
-"""
-
-df_score_country = df.groupby('Country', sort=False)[
-    'IMDB Score'].mean().round(1).sort_values(ascending=False)
-#print('Countries with the highest IMDB Score\n', df_score_country, '\n')
-
-sort_highest_score = df[['Title', 'IMDB Score']
-                        ].sort_values(by='IMDB Score', ascending=False)
-#print('The best movies of the decade\n', sort_by_highest_score.head(10), '\n')
-
-sort_lowest_score = df[['Title', 'IMDB Score']
-                       ].sort_values(by='IMDB Score', ascending=True)
-#print('The worst movies of the decade\n', sort_by_lowest_score.head(10), '\n')
-
-# I'VE CREATED A FUNCTION FOR THIS
-gb_specific_genre = df.groupby(['Title', 'IMDB Score'])['Genres'].apply(
-    lambda x: x[x.str.contains('War', case=False)])
-#print('All the War movies\n', gb_specific_genre, '\n')
-
-df['ROI'] = (df["Gross Earnings"] / df["Budget"] * 100).round(2)
-sort_mostroi = df[['Title', 'ROI']].sort_values(
-    by='ROI', ascending=False).dropna()
-#print('The most profitable movies of the decade\n', sort_mostroi, '\n')
-
-df['Profit'] = (df['Gross Earnings'] - df['Budget']).dropna().astype(int).apply(lambda x: f'{x:,}')
-sort_leastprofitable = df[['Title', 'Profit']].sort_values(by='Profit', ascending=True)
-#print('Top 10 box-office flop\n', sort_leastprofitable.head(10), '\n')
-
-
-"""
 WELCOME!
 """
-
 
 def welcome():
     while True:
@@ -71,9 +20,9 @@ def welcome():
         if validate_welcome(welcome_input):
             print("All right!")
             if welcome_input == 'search':
-                query_choice()
+                search_choice()
             elif welcome_input == 'data':
-                get_input()
+                data_choice()
             break
 
 
@@ -89,21 +38,116 @@ def validate_welcome(welcome_choice):
         return False
 
 """
-DATA QUERIES
+DATA
 """
 
 
-def get_input():
+"""
+DATA AT A GLANCE
+"""
+
+def budget():
+    df_budget = df['Budget'].mean().astype(int)
+    print('The average budget is', df_budget, '$' '\n')
+    print('Do you want to do a new search or find data?')
+    welcome()
+
+
+def score():
+    df_score = df['IMDB Score'].mean().round(1)
+    print('The average score got on IMDB is', df_score, '\n')
+    print('Do you want to do a new search or find data?')
+    welcome()
+
+
+def language():
+    df_language = df['Language'].value_counts().sort_values(ascending=False)
+    print('Number of movies per language\n', df_language, '\n')
+    print('Do you want to do a new search or find data?')
+    welcome()
+
+
+def year():
+    df_year = df.groupby('Year', sort=False)['Country'].count()
+    print('number of movies producted per year\n', df_year, '\n')
+    print('Do you want to do a new search or find data?')
+    welcome()
+
+"""
+RANKINGS
+"""
+
+def score_country():
+    df_score_country = df.groupby('Country', sort=False)[
+        'IMDB Score'].mean().round(1).sort_values(ascending=False)
+    print('Countries with the highest IMDB Score\n', df_score_country, '\n')
+    print('Do you want to do a new search or find data?')
+    welcome()
+
+
+def highest_score():
+    sort_highest_score = df[['Title', 'IMDB Score']].sort_values(by='IMDB Score', ascending=False)
+    print('The best movies of the decade\n', sort_highest_score.head(10), '\n')
+    print('Do you want to do a new search or find data?')
+    welcome()
+
+
+def lowest_score():
+    sort_lowest_score = df[['Title', 'IMDB Score']
+                       ].sort_values(by='IMDB Score', ascending=True)
+    print('The worst movies of the decade\n', sort_lowest_score.head(10), '\n')
+    print('Do you want to do a new search or find data?')
+    welcome()
+
+
+def roi():
+    df['ROI'] = (df["Gross Earnings"] / df["Budget"] * 100).round(2)
+    sort_mostroi = df[['Title', 'ROI']].sort_values(
+        by='ROI', ascending=False).dropna()
+    print('The most profitable movies of the decade\n', sort_mostroi, '\n')
+    print('Do you want to do a new search or find data?')
+    welcome()
+
+
+def profit():
+    df['Profit'] = (df['Gross Earnings'] - df['Budget']).dropna().astype(int).apply(lambda x: f'{x:,}')
+    sort_leastprofitable = df[['Title', 'Profit']].sort_values(by='Profit', ascending=True)
+    print('Top 10 box-office flop\n', sort_leastprofitable.head(10), '\n')
+    print('Do you want to do a new search or find data?')
+    welcome()
+
+
+def data_choice():
     while True:
         user_input = input("Enter a number: ")
 
-        if validate(user_input):
-            print("All right!")
+        if validate_data_choice(user_input):
+            if int(user_input) == 1:
+                budget()
+            if int(user_input) == 2:
+                score()
+            if int(user_input) == 3:
+                language()
+            if int(user_input) == 4:
+                year()
+            if int(user_input) == 5:
+                score_country()
+            if int(user_input) == 6:
+                highest_score()
+            if int(user_input) == 7:
+                lowest_score()
+            if int(user_input) == 8:
+                roi()
+            if int(user_input) == 9:
+                profit()
+            if int(user_input) == 10:
+                print('function not defined yet')
             break
+              
     return user_input
 
 
-def validate(data):
+def validate_data_choice(data):
     try:
         int(data)
     except ValueError:
@@ -116,7 +160,7 @@ def validate(data):
 
 
 """
-SINGLE QUERIES
+SEARCH  
 """
 
 
@@ -159,6 +203,7 @@ def get_movie_genres():
         print('The genre is not present in the database')
         print('Do you want to do a new search or find data?')
         welcome()
+
 
 def get_actor():
     """
@@ -211,12 +256,12 @@ def get_director():
         welcome()
 
 
-def query_choice():
+def search_choice():
     while True:
         user_input = input(
             "Do you want to search by actor, genre, director or title? ")
         user_input = user_input.lower()
-        if validate_query_choice(user_input):
+        if validate_search_choice(user_input):
             print("All right!")
             if user_input == 'director':
                 get_director()
@@ -230,7 +275,7 @@ def query_choice():
     return user_input
 
 
-def validate_query_choice(choice):
+def validate_search_choice(choice):
     choices = ['director', 'actor', 'genre', 'title']
     try:
         if str(choice) in choices:
@@ -244,8 +289,8 @@ def validate_query_choice(choice):
 
 def main():
     welcome()
-    get_input()
-    query_choice()
+    data_choice()
+    search_choice()
 
 print("Welcome to the 2000s Movie database\n")
 print("What do you want to do today, get data or search?\n")
