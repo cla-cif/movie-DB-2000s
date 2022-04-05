@@ -1,12 +1,14 @@
 import pandas as pd
+from colorama import Fore, Back, Style
+import pyfiglet
 
 pd.set_option("display.max_rows", 20)
 
-gsheetid = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
-sheet_name = "Data"
-gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(
-    gsheetid, sheet_name)
-df = pd.read_csv(gsheet_url)
+GSHEET_ID = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
+SHEET_NAME = "Data"
+GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(
+    GSHEET_ID, SHEET_NAME)
+df = pd.read_csv(GSHEET_URL)
 
 """
 WELCOME!
@@ -54,28 +56,28 @@ DATA AT A GLANCE
 
 def budget():
     df_budget = df['Budget'].mean().astype(int)
-    print('The average budget is', df_budget, '$' '\n')
+    print(Fore.CYAN + Style.BRIGHT +'The average cost to produce this decade"s films is:', df_budget, '$' '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
 
 def score():
     df_score = df['IMDB Score'].mean().round(1)
-    print('The average score got on IMDB is', df_score, '\n')
+    print(Fore.CYAN + Style.BRIGHT + 'The average score got by this decade"s films on IMDB is:', df_score, '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
 
 def language():
     df_language = df['Language'].value_counts().sort_values(ascending=False)
-    print('Number of movies per language\n', df_language, '\n')
+    print(Fore.CYAN + Style.BRIGHT + 'Number of films in each language:\n', df_language, '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
 
 def year():
     df_year = df.groupby('Year', sort=False)['Country'].count()
-    print('number of movies producted per year\n', df_year, '\n')
+    print(Fore.CYAN + Style.BRIGHT +'Number of films produced each year\n', df_year, '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
@@ -316,8 +318,15 @@ def main():
     data_choice()
     search_choice()
 
-print("""
-Welcome to the 2000s Movie Database, the database contains""", df['Title'].count(), """movies
-What do you want to do today, get data or search?\n""")
+title = pyfiglet.figlet_format("2000s Movie DB", font = "slant" )
+print(Fore.YELLOW + title)
+print(Fore.CYAN + Style.BRIGHT + """
+Welcome to the 2000s Movie Database, 
+the database contains""", df['Title'].count(), """films cathegorised by 
+title, genre, year, director, the three main actors, 
+number of reviews (from critics and users) and IMDB score.\n""" +
+Fore.YELLOW + Style.BRIGHT + """
+Get statistics, the top 10 lists or search by film.\n""" + Style.RESET_ALL + """
+So what do you want to do today, get data or search?\n""")
 
 main()
