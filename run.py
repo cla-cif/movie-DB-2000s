@@ -17,7 +17,7 @@ WELCOME!
 
 def welcome():
     while True:
-        welcome_input = input("Please type data or search: ")
+        welcome_input = input(Style.RESET_ALL + "Please type data or search: ")
         welcome_input = welcome_input.lower()
         
         if welcome_input.lower() == "exit":
@@ -41,7 +41,7 @@ def validate_welcome(welcome_choice):
         else:
             raise ValueError
     except ValueError:
-        print('please provide a suitable choice\n')
+        print(Fore.RED + Style.DIM + 'Please provide a suitable choice\n')
         return False
 
 """
@@ -174,7 +174,7 @@ def validate_data_choice(data):
     try:
         int(data)
     except ValueError:
-        print('please provide a number\n')
+        print(Fore.RED + Style.DIM + 'Please provide a number\n')
     else:
         if 0 < int(data) < 11:
             return True
@@ -309,7 +309,7 @@ def validate_search_choice(choice):
         else:
             raise ValueError
     except ValueError:
-        print('please provide a suitable choice\n')
+        print(Fore.RED + Style.DIM + 'Please provide a suitable choice\n')
         return False
 
 
@@ -318,15 +318,16 @@ def main():
     data_choice()
     search_choice()
 
-title = pyfiglet.figlet_format("2000s Movie DB", font = "slant" )
-print(Fore.YELLOW + title)
+title = pyfiglet.figlet_format("Movie DB 2000s", font = "slant" )
+print(Fore.YELLOW + Style.BRIGHT + title)
 print(Fore.CYAN + Style.BRIGHT + """
 Welcome to the 2000s Movie Database, 
 the database contains""", df['Title'].count(), """films cathegorised by 
 title, genre, year, director, the three main actors, 
 number of reviews (from critics and users) and IMDB score.\n""" +
 Fore.YELLOW + Style.BRIGHT + """
-Get statistics, the top 10 lists or search by film.\n""" + Style.RESET_ALL + """
+Get statistics, the top 10 lists or search by film.
+To quit, type exit after a question\n""" + Style.RESET_ALL + """
 So what do you want to do today, get data or search?\n""")
 
 main()
