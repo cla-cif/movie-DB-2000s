@@ -1,6 +1,8 @@
 import pandas as pd
 from colorama import Fore, Style
 import pyfiglet
+from time import sleep
+from os import system, name
 
 
 pd.set_option("display.max_rows", 20)
@@ -12,9 +14,21 @@ GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&shee
     GSHEET_ID, SHEET_NAME)
 df = pd.read_csv(GSHEET_URL)
 
-"""
-WELCOME!
-"""
+
+# CLEAR
+
+
+def clear():
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
+    exit()
+
+# WELCOME!
 
 
 def welcome():
@@ -23,8 +37,9 @@ def welcome():
         welcome_input = welcome_input.lower()
 
         if welcome_input.lower() == "exit":
-            print('Thank you! Goodbye!')
-            exit()
+            print(Fore.CYAN + Style.BRIGHT + 'Thank you! Goodbye!')
+            sleep(3)
+            clear()
 
         if validate_welcome(welcome_input):
             print('All right!\n')
@@ -47,14 +62,9 @@ def validate_welcome(welcome_choice):
         return False
 
 
-"""
-DATA
-"""
+# DATA SECTION #
 
-
-"""
-DATA AT A GLANCE
-"""
+# DATA AT A GLANCE
 
 
 def budget():
@@ -99,9 +109,7 @@ def year():
     welcome()
 
 
-"""
-RANKINGS
-"""
+# RANKINGS
 
 
 def score_country():
@@ -109,7 +117,7 @@ def score_country():
         'Country', sort=False)['IMDB Score'].mean().round(1).sort_values(
         ascending=False).reset_index()
     print(
-        '\nTop ten countries that produced films with the highest IMDB score.\n',
+        '\nTop ten countries that produced films with the highest IMDB score:',
         df_score_country.head(10).to_string(
             index=False),
         '\n')
@@ -162,14 +170,14 @@ def profit():
 
 
 def rating_score():
-    rating_score = df.groupby(
+    gb_rating_score = df.groupby(
         'Content Rating',
         sort=False,
         dropna=True)['IMDB Score'].mean().round(1).sort_values(
         ascending=False).reset_index()
     print(
         '\nThe content ratings and their average IMDB Score: \n',
-        rating_score.to_string(
+        gb_rating_score.to_string(
             index=False))
     print('\nDo you want to run a new search or find data?')
     welcome()
@@ -191,8 +199,9 @@ def data_choice():
         10  The content ratings and their average IMDB Score.\n""")
         user_input = input("Type the number:  ")
         if user_input.lower() == "exit":
-            print('Thank you! Goodbye!')
-            exit()
+            print(Fore.CYAN + Style.BRIGHT + 'Thank you! Goodbye!')
+            sleep(3)
+            clear()
 
         if validate_data_choice(user_input):
             if int(user_input) == 1:
@@ -232,9 +241,7 @@ def validate_data_choice(data):
             print(Fore.RED + Style.DIM + 'The number is out of range.\n')
 
 
-"""
-SEARCH
-"""
+# SEARCH SECTION #
 
 
 def get_film_info():
@@ -273,13 +280,13 @@ def get_film_genres():
         mask = df['Genres'].str.contains(request_genre)
         film_genre = df.loc[mask, ['Title', 'Genres', 'Director', 'Cast']]
         print(
-            'All the films of the genre you were looking for\n',
+            'All the films of the genre you were looking for:\n',
             film_genre,
             '\n')
         print('\nDo you want to run a new search or find data?')
         welcome()
     else:
-        print('The genre is not present in the database')
+        print('The genre is not present in the database.')
         print('\nDo you want to run a new search or find data?')
         welcome()
 
@@ -338,7 +345,7 @@ def get_director():
 
     else:
         print('The director is not present in the database\n')
-        print('\n \nDo you want to run a new search or find data?')
+        print('\nDo you want to run a new search or find data?')
         welcome()
 
 
@@ -349,8 +356,10 @@ def search_choice():
             "Do you want to search by actor, genre, director or title? ")
         user_input = user_input.lower()
         if user_input.lower() == "exit":
-            print('Thank you! Goodbye!')
-            exit()
+            print(Fore.CYAN + Style.BRIGHT + 'Thank you! Goodbye!')
+            sleep(3)
+            clear()
+
         if validate_search_choice(user_input):
             print("All right!")
             if user_input == 'director':
@@ -377,6 +386,9 @@ def validate_search_choice(choice):
         return False
 
 
+# MAIN
+
+
 def main():
     welcome()
     data_choice()
@@ -391,7 +403,7 @@ the database contains""", df['Title'].count(), """films cathegorised by
 title, genre, year, director, cast,
 number of reviews (from critics and users) and IMDB score.\n""" + Fore.YELLOW + Style.BRIGHT + """
 Get statistics, the top 10 lists or search by film.\n""" + Style.RESET_ALL + """
-To quit, type exit after a question | To run, hit enter\n""" + Style.BRIGHT + """
+To quit, type exit after a question | To run, type and hit enter\n""" + Style.BRIGHT + """
 What do you want to do today, get data or search?\n""")
 
 main()

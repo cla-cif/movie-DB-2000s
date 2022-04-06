@@ -1,7 +1,6 @@
-import numpy as np
+from time import sleep
+from os import system, name
 import pandas as pd
-import matplotlib.pyplot as plt
-import re
 from colorama import Fore, Back, Style
 import pyfiglet
 
@@ -24,6 +23,7 @@ df['Actor3'] = (df['Actor3'].str.normalize('NFKD').str.encode('ascii', errors='i
 print(df['Actor3'])
 """
 
+
 def get_actor():
     """
     df['Actor1'] = (df['Actor1'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
@@ -41,13 +41,17 @@ def get_actor():
     if search:
         mask1 = df['Cast'].str.contains(request_actor)
         actor_data = df.loc[mask1, ['Title', 'Year', 'Genres', 'Cast']]
-        print('All the movies of the actor you were looking for\n', actor_data, '\n')
-
+        print(
+            'All the movies of the actor you were looking for\n',
+            actor_data,
+            '\n')
 
     else:
         print('The actor is not present in the database')
 
+
 get_actor()
+
 
 def get_actor():
     """
@@ -67,8 +71,12 @@ def get_actor():
         mask1 = df['Actor1'].str.contains(request_actor)
         mask2 = df['Actor2'].str.contains(request_actor)
         mask3 = df['Actor3'].str.contains(request_actor)
-        actor_data = df.loc[mask1 | mask2 | mask3, ['Title', 'Year', 'Genres', 'Actor1', 'Actor2', 'Actor3']]
-        print('All the movies of the actor you were looking for\n', actor_data, '\n')
+        actor_data = df.loc[mask1 | mask2 | mask3, [
+            'Title', 'Year', 'Genres', 'Actor1', 'Actor2', 'Actor3']]
+        print(
+            'All the movies of the actor you were looking for\n',
+            actor_data,
+            '\n')
         print('Do you want to do a new search or find data?')
         welcome()
 
@@ -78,3 +86,16 @@ def get_actor():
         welcome()
 
 
+
+def clear():
+
+    # for windows
+    if name == 'nt':
+        _ = system('cls')
+
+    # for mac and linux(here, os.name is 'posix')
+    else:
+        _ = system('clear')
+
+print('Thank you! Goodbye!')
+sleep(4)
