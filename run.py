@@ -62,7 +62,7 @@ def validate_welcome(welcome_choice):
         return False
 
 
-# DATA SECTION #
+# DATA SECTION 
 
 # DATA AT A GLANCE
 
@@ -241,7 +241,7 @@ def validate_data_choice(data):
             print(Fore.RED + Style.DIM + 'The number is out of range.\n')
 
 
-# SEARCH SECTION #
+# SEARCH 
 
 
 def get_film_info():
