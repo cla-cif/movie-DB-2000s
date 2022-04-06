@@ -34,7 +34,7 @@ print("""there are""",
       df['Title'].count(),
       """movies""")
 
-
+newdf = df.query('origin == "Unrated")
 df_rating_score = df.groupby('Content Rating', sort=False)['IMDB Score'].mean().round(1).sort_values(ascending=False)
 df_rating_score.filter(df['Content Rating'] =='Unrated')
 print('groupby Content first\n', df_rating_score)
