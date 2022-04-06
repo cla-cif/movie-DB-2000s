@@ -56,28 +56,28 @@ DATA AT A GLANCE
 
 def budget():
     df_budget = df['Budget'].mean().astype(int)
-    print(Fore.CYAN + Style.BRIGHT +'The average cost to produce this decade"s films is:', df_budget, '$' '\n')
+    print('\n'"The average cost to produce this decade's films is:", df_budget, '$' '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
 
 def score():
     df_score = df['IMDB Score'].mean().round(1)
-    print(Fore.CYAN + Style.BRIGHT + 'The average score got by this decade"s films on IMDB is:', df_score, '\n')
+    print('\n'"The average score got by this decade's films on IMDB is:", df_score, '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
 
 def language():
     df_language = df['Language'].value_counts().sort_values(ascending=False)
-    print(Fore.CYAN + Style.BRIGHT + 'Number of films in each language:\n', df_language, '\n')
+    print('\n''Number of films in each language:\n', df_language, '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
 
 def year():
     df_year = df.groupby('Year', sort=False)['Country'].count()
-    print(Fore.CYAN + Style.BRIGHT +'Number of films produced each year\n', df_year, '\n')
+    print('\n''Number of films produced each year:\n', df_year, '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
@@ -89,21 +89,21 @@ RANKINGS
 def score_country():
     df_score_country = df.groupby('Country', sort=False)[
         'IMDB Score'].mean().round(1).sort_values(ascending=False)
-    print('Countries with the highest IMDB Score\n', df_score_country, '\n')
+    print('\n''Top ten countries that have produced films with the highest IMDB score.\n', df_score_country.head(10), '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
 
 def highest_score():
     sort_highest_score = df[['Title', 'IMDB Score']].sort_values(by='IMDB Score', ascending=False)
-    print('The best movies of the decade\n', sort_highest_score.head(10), '\n')
+    print('\n''The best ten movies of the decade according to IMDB:\n', sort_highest_score.head(10), '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
 
 def lowest_score():
     sort_lowest_score = df[['Title', 'IMDB Score']].sort_values(by='IMDB Score', ascending=True)
-    print('The worst movies of the decade\n', sort_lowest_score.head(10), '\n')
+    print('\n''The worst ten movies of the decade according to IMDB:\n', sort_lowest_score.head(10), '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
@@ -112,7 +112,7 @@ def roi():
     df['ROI'] = (df["Gross Earnings"] / df["Budget"] * 100).round(2)
     sort_mostroi = df[['Title', 'ROI']].sort_values(
         by='ROI', ascending=False).dropna()
-    print('The most profitable movies of the decade\n', sort_mostroi, '\n')
+    print('The most profitable movies of the decade:\n', sort_mostroi.head(10), '\n')
     print('Do you want to do a new search or find data?')
     welcome()
 
@@ -120,26 +120,30 @@ def roi():
 def profit():
     df['Profit'] = (df['Gross Earnings'] - df['Budget']).dropna().astype(int).apply(lambda x: f'{x:,}')
     sort_leastprofitable = df[['Title', 'Profit']].sort_values(by='Profit', ascending=True)
-    print('Top 10 box-office flop\n', sort_leastprofitable.head(10), '\n')
+    print('\n''Top 10 box-office flop:\n', sort_leastprofitable.head(10), '\n')
     print('Do you want to do a new search or find data?')
     welcome()
+
+def rating_score():
+    df['Total Reviews'] =(df['Reviews by Users'] + df ['Reviews by Critics'].dropna())
+    sort_reviest = df[['Total Reviews']]
 
 
 def data_choice():
     while True:
         print('Chose one of the following numbers')
         print("""
-        1:  budget
-        2:  score
-        3:  language
-        4:  year
-        5:  score country
-        6:  highest score
-        7:  lowest score
-        8:  roi
-        9:  profit
+        1:  The average budget spent on films.
+        2:  The average core according to IMDB.
+        3:  Number of films in each language.
+        4:  Number of films produced each year. 
+        5:  Top ten countries that have produced films with the highest IMDB score. 
+        6:  The best ten movies of the decade.
+        7:  The worst ten movies of the decade. 
+        8:  The most profitable films in terms of return of investment.
+        9:  Top 10 box-office flops: the most unprofitable films. 
         10  NOT DEFINED!!!!\n""")
-        user_input = input("Enter a number: ")
+        user_input = input("Enter a number:  ")
         if user_input.lower() == "exit":
             print('Thank you! Goodbye!')
             exit()
@@ -327,7 +331,8 @@ title, genre, year, director, the three main actors,
 number of reviews (from critics and users) and IMDB score.\n""" +
 Fore.YELLOW + Style.BRIGHT + """
 Get statistics, the top 10 lists or search by film.
-To quit, type exit after a question\n""" + Style.RESET_ALL + """
-So what do you want to do today, get data or search?\n""")
+""" + Style.RESET_ALL + """
+What do you want to do today, get data or search?\n""" + Style.BRIGHT +
+"""(To quit, type exit after a question)\n""")
 
 main()
