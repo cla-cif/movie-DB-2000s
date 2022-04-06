@@ -226,7 +226,7 @@ def get_movie_genres():
 
     if search:
         mask = df['Genres'].str.contains(request_genre)
-        movie_genre = df.loc[mask, ['Title', 'Year', 'Director', 'Actor1', 'Actor2', 'Actor3']]
+        movie_genre = df.loc[mask, ['Title', 'Genres', 'Director', 'Cast']]
         print('All the movies of the genre you were looking for\n', movie_genre, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
@@ -276,7 +276,7 @@ def get_director():
 
     if search:
         mask = df['Director'].str.contains(request_director)
-        director_data = df.loc[mask, ['Title', 'Year', 'Genres', 'Actor1', 'Actor2', 'Actor3']]
+        director_data = df.loc[mask, ['Title', 'Genres', 'Director', 'Cast']]
         print('All the movies from the director you were looking for\n', director_data, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
