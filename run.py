@@ -5,6 +5,7 @@ import pyfiglet
 
 pd.set_option("display.max_rows", 20)
 
+
 GSHEET_ID = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
 SHEET_NAME = "Data"
 GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(
@@ -139,12 +140,12 @@ def data_choice():
         1:  The average budget spent on films.
         2:  The average score according to IMDB.
         3:  Number of films in each language.
-        4:  Number of films produced each year. 
+        4:  Number of films produced each year.
         5:  Top ten countries that have produced films with the highest IMDB score.
         6:  The best ten movies of the decade.
-        7:  The worst ten movies of the decade. 
+        7:  The worst ten movies of the decade.
         8:  The most profitable films in terms of return of investment.
-        9:  Top 10 box-office flops: the most unprofitable films. 
+        9:  Top 10 box-office flops: the most unprofitable films.
         10  The content ratings and their average IMDB Score.\n""")
         user_input = input("Type the number:  ")
         if user_input.lower() == "exit":
@@ -181,12 +182,12 @@ def validate_data_choice(data):
     try:
         int(data)
     except ValueError:
-        print(Fore.RED + Style.DIM + 'Please provide a number\n')
+        print(Fore.RED + Style.DIM + 'Please provide a number.\n')
     else:
         if 0 < int(data) < 11:
             return True
         else:
-            print('not in range\n')
+            print(Fore.RED + Style.DIM + 'The number is out of range.\n')
 
 
 """
@@ -253,7 +254,7 @@ def get_actor():
         mask1 = df['Actor1'].str.contains(request_actor)
         mask2 = df['Actor2'].str.contains(request_actor)
         mask3 = df['Actor3'].str.contains(request_actor)
-        actor_data = df.loc[mask1 | mask2 | mask3, ['Title', 'Year', 'Genres', 'Director', 'Actor1', 'Actor2', 'Actor3']]
+        actor_data = df.loc[mask1 | mask2 | mask3, ['Title', 'Year', 'Genres', 'Actor1', 'Actor2', 'Actor3']]
         print('All the movies of the actor you were looking for\n', actor_data, '\n')
         print('Do you want to do a new search or find data?')
         welcome()
@@ -288,7 +289,7 @@ def get_director():
 
 def search_choice():
     while True:
-        user_input = input(
+        user_input = input(Style.RESET_ALL +
             "Do you want to search by actor, genre, director or title? ")
         user_input = user_input.lower()
         if user_input.lower() == "exit":
@@ -316,7 +317,7 @@ def validate_search_choice(choice):
         else:
             raise ValueError
     except ValueError:
-        print(Fore.RED + Style.DIM + 'Please provide a suitable choice\n')
+        print(Fore.RED + Style.DIM + 'Please provide a suitable choice.\n')
         return False
 
 
