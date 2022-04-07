@@ -2,9 +2,7 @@ from os import system, name
 from time import sleep
 import pyfiglet
 import pandas as pd
-from colorama import Fore, Style, init
-init(autoreset=True)
-
+from colorama import Fore, Style
 
 GSHEET_ID = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
 SHEET_NAME = "Data"
@@ -12,7 +10,7 @@ GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&shee
     GSHEET_ID, SHEET_NAME)
 df = pd.read_csv(GSHEET_URL)
 
-pd.set_option("display.max_rows", len(df))
+pd.set_option("display.max_rows", 25)
 pd.set_option("display.min_rows", None)
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_columns', None)
@@ -36,7 +34,7 @@ def clear():
 
 def welcome():
     while True:
-        welcome_input = input("Please type data or search: ")
+        welcome_input = input(Style.RESET_ALL + "Please type data or search: ")
         welcome_input = welcome_input.lower()
 
         if welcome_input.lower() == "exit":
@@ -248,7 +246,7 @@ def validate_data_choice(data):
 
 
 def get_film_info():
-    request_film = input(Fore.CYAN + "\nType a title: ")
+    request_film = input("\nType a title: ")
     request_film = request_film.lower().title()
     search = False
     for value in df.values:
@@ -259,14 +257,13 @@ def get_film_info():
     if search:
         film_data = df.loc[(df['Title'].str.contains(request_film))]
         print(
-            Fore.YELLOW +
-            '\nAll you need to know about the film you were looking for\n',
+            '\nAll you need to know about the film you were looking for:\n',
             film_data,
             '\n')
         print('\nDo you want to run a new search or find data?')
         welcome()
     else:
-        print('The film is not present in the database')
+        print('The film is not present in the database.')
         print('\nDo you want to run a new search or find data?')
         welcome()
 
@@ -282,8 +279,14 @@ def get_film_genres():
 
     if search:
         mask = df['Genres'].str.contains(request_genre)
-        film_genre = df.loc[mask, ['Title', 'Genres',
-                                   'Director', 'Actor1', 'Actor2', 'Actor3']]
+        film_genre = df.loc[mask,
+                            ['Title',
+                             'Genres',
+                             'Director',
+                             'Actor1',
+                             'Actor2',
+                             'Actor3',
+                             'IMDB Score']]
         print(
             'All the films of the genre you were looking for:\n',
             film_genre,
@@ -315,16 +318,16 @@ def get_actor():
         mask2 = df['Actor2'].str.contains(request_actor)
         mask3 = df['Actor3'].str.contains(request_actor)
         actor_data = df.loc[mask1 | mask2 | mask3, [
-            'Title', 'Year', 'Genres', 'Actor1', 'Actor2', 'Actor3']]
+            'Title', 'Year', 'Genres', 'Actor1', 'Actor2', 'Actor3', 'IMDB Score']]
         print(
-            'All the films of the actor you were looking for\n',
+            'All the films of the actor you were looking for:\n',
             actor_data,
             '\n')
         print('\nDo you want to run a new search or find data?')
         welcome()
 
     else:
-        print('The actor is not present in the database')
+        print('The actor is not present in the database.')
         print('\nDo you want to run a new search or find data?')
         welcome()
 
@@ -340,17 +343,23 @@ def get_director():
 
     if search:
         mask = df['Director'].str.contains(request_director)
-        director_data = df.loc[mask, ['Title', 'Genres',
-                                      'Director', 'Actor1', 'Actor2', 'Actor3']]
+        director_data = df.loc[mask,
+                               ['Title',
+                                'Genres',
+                                'Director',
+                                'Actor1',
+                                'Actor2',
+                                'Actor3',
+                                'IMDB Score']]
         print(
-            'All the films from the director you were looking for\n',
+            'All the films from the director you were looking for:\n',
             director_data,
             '\n')
         print('\nDo you want to run a new search or find data?')
         welcome()
 
     else:
-        print('The director is not present in the database\n')
+        print('The director is not present in the database.\n')
         print('\nDo you want to run a new search or find data?')
         welcome()
 

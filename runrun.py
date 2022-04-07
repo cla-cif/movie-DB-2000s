@@ -50,9 +50,6 @@ def get_actor():
         print('The actor is not present in the database')
 
 
-get_actor()
-
-
 def get_actor():
     """
     df['Actor1'] = (df['Actor1'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
@@ -86,16 +83,35 @@ def get_actor():
         welcome()
 
 
+def average():
+    df_avg_budget = df['Budget'].dropna().mean().astype(int)
+    print(
+        '\n'
+        "The average cost to produce this decade's films is:",
+        '{0:,}'.format(df_avg_budget),
+        '$')
+    df_avg_score = df['IMDB Score'].mean().round(1)
+    print(
+        "\nThe average score got by this decade's films on IMDB is:",
+        df_avg_score)
+    df_avg_duration = df['Duration'].mean().round(1)
+    print(
+        "\nThe average duration got by this decade's films on IMDB is:",
+        df_avg_duration,'minutes\n')
+    #print('\nDo you want to run a new search or find data?\n')
+    #welcome()
+average()
 
-def clear():
-
-    # for windows
-    if name == 'nt':
-        _ = system('cls')
-
-    # for mac and linux(here, os.name is 'posix')
-    else:
-        _ = system('clear')
-
-print('Thank you! Goodbye!')
-sleep(4)
+def director_score():
+    gb_director_score = df.groupby(
+        'Director',
+        sort=False,
+        dropna=True)['IMDB Score'].mean().round(1).sort_values(
+        ascending=False).reset_index()
+    print(
+        '\nDirectors which got the highest scores on IMDB Score: \n',
+        gb_director_score.to_string(
+            index=False))
+    #print('\nDo you want to run a new search or find data?')
+    #welcome()
+director_score()
