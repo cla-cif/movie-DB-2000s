@@ -11,7 +11,7 @@ GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&shee
     GSHEET_ID, SHEET_NAME)
 df = pd.read_csv(GSHEET_URL)
 
-pd.set_option("display.max_rows", 24)
+pd.set_option("display.max_rows", 100)
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_columns', None)
 
@@ -59,7 +59,7 @@ def validate_welcome(welcome_choice):
         else:
             raise ValueError
     except ValueError:
-        print(Fore.RED + Style.DIM + 'Please provide a suitable choice\n')
+        print(Fore.RED + 'Please provide a suitable choice\n')
         return False
 
 
@@ -234,12 +234,12 @@ def validate_data_choice(data):
     try:
         int(data)
     except ValueError:
-        print(Fore.RED + Style.DIM + 'Please provide a number.\n')
+        print(Fore.RED + 'Please provide a number.\n')
     else:
         if 0 < int(data) < 11:
             return True
         else:
-            print(Fore.RED + Style.DIM + 'The number is out of range.\n')
+            print(Fore.RED + 'The number is out of range.\n')
 
 
 # SEARCH
@@ -256,10 +256,10 @@ def get_film_info():
 
     if search:
         film_data = df.loc[(df['Title'].str.contains(request_film))]
-        print(
+        print(Fore.YELLOW + 
             '\nAll you need to know about the film you were looking for\n',
             film_data,
-            '\n')
+            '\n' + Style.RESET_ALL )
         print('\nDo you want to run a new search or find data?')
         welcome()
     else:
@@ -279,7 +279,8 @@ def get_film_genres():
 
     if search:
         mask = df['Genres'].str.contains(request_genre)
-        film_genre = df.loc[mask, ['Title', 'Genres', 'Director', 'Cast']]
+        film_genre = df.loc[mask, ['Title', 'Genres',
+                                   'Director', 'Actor1', 'Actor2', 'Actor3']]
         print(
             'All the films of the genre you were looking for:\n',
             film_genre,
@@ -336,7 +337,8 @@ def get_director():
 
     if search:
         mask = df['Director'].str.contains(request_director)
-        director_data = df.loc[mask, ['Title', 'Genres', 'Director', 'Cast']]
+        director_data = df.loc[mask, ['Title', 'Genres',
+                                      'Director', 'Actor1', 'Actor2', 'Actor3']]
         print(
             'All the films from the director you were looking for\n',
             director_data,
@@ -383,7 +385,7 @@ def validate_search_choice(choice):
         else:
             raise ValueError
     except ValueError:
-        print(Fore.RED + Style.DIM + 'Please provide a suitable choice.\n')
+        print(Fore.RED + 'Please provide a suitable choice.\n')
         return False
 
 
@@ -401,7 +403,7 @@ print(Fore.YELLOW + Style.BRIGHT + title)
 print(Fore.CYAN + Style.BRIGHT + """
 Welcome to the 2000s Movie Database,
 the database contains""", df['Title'].count(), """films cathegorised by
-title, genre, year, director, cast,
+title, genre, year, director, and leading actors,
 number of reviews (from critics and users) and IMDB score.\n""" + Fore.YELLOW + Style.BRIGHT + """
 Get statistics, the top 10 lists or search by film.\n""" + Style.RESET_ALL + """
 To quit, type exit after a question | To run, type and hit enter\n""" + Style.BRIGHT + """
