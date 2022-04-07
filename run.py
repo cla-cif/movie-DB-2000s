@@ -1,8 +1,9 @@
-import pandas as pd
-from colorama import Fore, Style
-import pyfiglet
-from time import sleep
 from os import system, name
+from time import sleep
+import pyfiglet
+import pandas as pd
+from colorama import Fore, Style, init
+init(autoreset=True)
 
 
 GSHEET_ID = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
@@ -11,7 +12,8 @@ GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&shee
     GSHEET_ID, SHEET_NAME)
 df = pd.read_csv(GSHEET_URL)
 
-pd.set_option("display.max_rows", 100)
+pd.set_option("display.max_rows", len(df))
+pd.set_option("display.min_rows", None)
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_columns', None)
 
@@ -34,7 +36,7 @@ def clear():
 
 def welcome():
     while True:
-        welcome_input = input(Style.RESET_ALL + "Please type data or search: ")
+        welcome_input = input("Please type data or search: ")
         welcome_input = welcome_input.lower()
 
         if welcome_input.lower() == "exit":
@@ -186,7 +188,7 @@ def rating_score():
 
 def data_choice():
     while True:
-        print(Style.RESET_ALL + 'Chose one of the following numbers:')
+        print('Chose one of the following numbers:')
         print("""
         1:  The average budget spent on films.
         2:  The average score according to IMDB.
@@ -246,7 +248,7 @@ def validate_data_choice(data):
 
 
 def get_film_info():
-    request_film = input("\nType a title: ")
+    request_film = input(Fore.CYAN + "\nType a title: ")
     request_film = request_film.lower().title()
     search = False
     for value in df.values:
@@ -256,10 +258,11 @@ def get_film_info():
 
     if search:
         film_data = df.loc[(df['Title'].str.contains(request_film))]
-        print(Fore.YELLOW + 
+        print(
+            Fore.YELLOW +
             '\nAll you need to know about the film you were looking for\n',
             film_data,
-            '\n' + Style.RESET_ALL )
+            '\n')
         print('\nDo you want to run a new search or find data?')
         welcome()
     else:
@@ -355,7 +358,6 @@ def get_director():
 def search_choice():
     while True:
         user_input = input(
-            Style.RESET_ALL +
             "Do you want to search by actor, genre, director or title? ")
         user_input = user_input.lower()
         if user_input.lower() == "exit":
