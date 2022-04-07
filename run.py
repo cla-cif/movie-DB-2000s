@@ -5,14 +5,15 @@ from time import sleep
 from os import system, name
 
 
-pd.set_option("display.max_rows", 20)
-
-
 GSHEET_ID = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
 SHEET_NAME = "Data"
 GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(
     GSHEET_ID, SHEET_NAME)
 df = pd.read_csv(GSHEET_URL)
+
+pd.set_option("display.max_rows", 24)
+pd.set_option('display.max_colwidth', None)
+pd.set_option('display.max_columns', None)
 
 
 # CLEAR
@@ -62,7 +63,7 @@ def validate_welcome(welcome_choice):
         return False
 
 
-# DATA SECTION 
+# DATA SECTION
 
 # DATA AT A GLANCE
 
@@ -241,7 +242,7 @@ def validate_data_choice(data):
             print(Fore.RED + Style.DIM + 'The number is out of range.\n')
 
 
-# SEARCH 
+# SEARCH
 
 
 def get_film_info():
