@@ -63,7 +63,7 @@ def validate_welcome(welcome_choice):
         return False
 
 
-# DATA SECTION
+# DATA OPTION
 
 # DATA AT A GLANCE
 
@@ -107,7 +107,7 @@ def year():
     welcome()
 
 
-# RANKINGS
+# DATA RANKINGS
 
 def director_score():
     gb_director_score = df.groupby('Director').agg(
@@ -126,7 +126,7 @@ def director_score():
         gb_director_score["Number of movies"]).round(2)
     print(
         '\n The average score of the most prolific directors\n',
-        gb_director_score.head(20))
+        gb_director_score.head(10))
     print('\nDo you want to run a new search or find data?')
     welcome()
 
@@ -260,7 +260,7 @@ def validate_data_choice(data):
             print(Fore.RED + 'The number is out of range.\n')
 
 
-# SEARCH
+# SEARCH OPTION
 
 
 def get_film_info():
@@ -336,7 +336,8 @@ def get_actor():
         mask2 = df['Actor2'].str.contains(request_actor)
         mask3 = df['Actor3'].str.contains(request_actor)
         actor_data = df.loc[mask1 | mask2 | mask3, [
-            'Title', 'Year', 'Genres', 'Actor1', 'Actor2', 'Actor3', 'IMDB Score']]
+            'Title', 'Genres', 'Director', 'Actor1', 'Actor2', 'Actor3',
+            'IMDB Score']]
         print(
             'All the films of the actor you were looking for:\n',
             actor_data,
