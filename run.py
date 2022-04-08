@@ -6,8 +6,7 @@ from colorama import Fore, Style
 
 GSHEET_ID = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
 SHEET_NAME = "Data"
-GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(
-    GSHEET_ID, SHEET_NAME)  # noqa
+GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(GSHEET_ID, SHEET_NAME)  # noqa
 df = pd.read_csv(GSHEET_URL)
 
 pd.set_option("display.max_rows", 10)
@@ -180,7 +179,7 @@ def profit():
         df['Budget']).dropna().astype(int).apply(
         lambda x: f'{x:,}')
     sort_least_profitable = df[['Title', 'Profit']
-                              ].sort_values(by='Profit', ascending=True)
+                               ].sort_values(by='Profit', ascending=True)
     print(
         '\nTop 10 box-office flop:\n',
         sort_least_profitable.head(10).to_string(
@@ -394,7 +393,8 @@ def get_director():
 
 def search_choice():
     while True:
-        user_input = input(Style.RESET_ALL + 
+        user_input = input(
+            Style.RESET_ALL +
             "Do you want to search by actor, genre, director or title? ")
         user_input = user_input.lower()
         if user_input.lower() == "exit":
@@ -443,12 +443,12 @@ print(Fore.YELLOW + Style.BRIGHT + title)
 print(Fore.BLUE + Style.BRIGHT + """
 Welcome to the 2000s Movie Database!
 The database contains""", df['Title'].count(), """films cathegorised by title, genre, year,
-director, leading actors, number of reviews (from critics and users) and rating.\n"""
+director, leading actors, number of reviews (from critics and users) and rating.\n""" # noqa
       + Fore.YELLOW + Style.BRIGHT + """
 Get statistics, the top 10 lists or search by film.\n""" + Fore.BLUE + Style.BRIGHT + """
-To run, type and hit enter | To quit, type exit after a question
-Match is possible with partial text but restricted to 10 rows
-SEARCH BY FOREIGN CHARACTERS AVAILABLE SOON\n""" + Fore.YELLOW + Style.BRIGHT + """
+ - To run, type and hit enter | To quit, type exit after a question.
+ - Match is possible with partial text but restricted to 10 rows.
+ - SEARCH BY FOREIGN CHARACTERS AVAILABLE SOON!\n""" + Fore.YELLOW + Style.BRIGHT + """
 What do you want to do today, get data or search?\n""")
 
 main()
