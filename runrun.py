@@ -98,7 +98,7 @@ def average():
         df_avg_duration,'minutes\n')
     #print('\nDo you want to run a new search or find data?\n')
     #welcome()
-average()
+#average()
 
 def director_score():
     gb_director_score = df.groupby(
@@ -112,4 +112,20 @@ def director_score():
             index=False))
     #print('\nDo you want to run a new search or find data?')
     #welcome()
-director_score()
+
+
+dups_director = df.pivot_table(columns=['Director'], aggfunc='size').sort_values(ascending=False)
+#print(dups_director)
+
+new_df = df[['Director', 'IMDB Score']].copy()
+
+new_df['Director Rank'] = new_df['Director'].rank(ascending=False, method ='average')
+new_df['dups_director'] = new_df.pivot_table(columns=['Director'], aggfunc='size').sort_values(ascending=False)
+#print(new_df)
+
+test = df['Director'].value_counts()
+print(test)
+
+gb_director_score = df.groupby('Director').agg({'Title':'count', 'IMDB Score': 'sum'}).rename(columns={'Title':'Number of movies', 'IMDB Score': 'Total IMDB Score'}).sort_values(by=['Number of movies', 'Total IMDB Score'], ascending=False).reset_index()
+gb_director_score['Average Score'] = (gb_director_score["Total IMDB Score"] / gb_director_score["Number of movies"]).round(2)
+print(gb_director_score.head(20))

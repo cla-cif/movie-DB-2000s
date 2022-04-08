@@ -10,7 +10,7 @@ GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&shee
     GSHEET_ID, SHEET_NAME)
 df = pd.read_csv(GSHEET_URL)
 
-pd.set_option("display.max_rows", 25)
+pd.set_option("display.max_rows", 10)
 pd.set_option("display.min_rows", None)
 pd.set_option('display.max_colwidth', None)
 pd.set_option('display.max_columns', None)
@@ -68,24 +68,21 @@ def validate_welcome(welcome_choice):
 # DATA AT A GLANCE
 
 
-def budget():
-    df_budget = df['Budget'].dropna().mean().astype(int)
+def average():
+    df_avg_budget = df['Budget'].dropna().mean().astype(int)
     print(
         '\n'
         "The average cost to produce this decade's films is:",
-        '{0:,}'.format(df_budget),
-        '$'
-        '\n')
-    print('\nDo you want to run a new search or find data?\n')
-    welcome()
-
-
-def score():
-    df_score = df['IMDB Score'].mean().round(1)
+        '{0:,}'.format(df_avg_budget),
+        '$')
+    df_avg_score = df['IMDB Score'].mean().round(1)
     print(
         "\nThe average score got by this decade's films on IMDB is:",
-        df_score,
-        '\n')
+        df_avg_score)
+    df_avg_duration = df['Duration'].mean().round(1)
+    print(
+        "\nThe average duration got by this decade's films on IMDB is:",
+        df_avg_duration, 'minutes\n')
     print('\nDo you want to run a new search or find data?\n')
     welcome()
 
@@ -111,6 +108,27 @@ def year():
 
 
 # RANKINGS
+
+def director_score():
+    gb_director_score = df.groupby('Director').agg(
+        {
+            'Title': 'count',
+            'IMDB Score': 'sum'}).rename(
+        columns={
+            'Title': 'Number of movies',
+            'IMDB Score': 'Total IMDB Score'}).sort_values(
+        by=[
+            'Number of movies',
+            'Total IMDB Score'],
+        ascending=False).reset_index()
+    gb_director_score['Average Score'] = (
+        gb_director_score["Total IMDB Score"] /
+        gb_director_score["Number of movies"]).round(2)
+    print(
+        '\n The average score of the most prolific directors\n',
+        gb_director_score.head(20))
+    print('\nDo you want to run a new search or find data?')
+    welcome()
 
 
 def score_country():
@@ -188,10 +206,10 @@ def data_choice():
     while True:
         print('Chose one of the following numbers:')
         print("""
-        1:  The average budget spent on films.
-        2:  The average score according to IMDB.
-        3:  Number of films in each language.
-        4:  Number of films produced each year.
+        1:  The average budget, score and duration of this films'decade.
+        2:  Number of films in each language.
+        3:  Number of films produced each year.
+        4:  The most prolific directors of the decade and their scores.
         5:  Top ten countries that produced films with the highest IMDB score.
         6:  The best ten films of the decade.
         7:  The worst ten films of the decade.
@@ -206,13 +224,13 @@ def data_choice():
 
         if validate_data_choice(user_input):
             if int(user_input) == 1:
-                budget()
+                average()
             if int(user_input) == 2:
-                score()
-            if int(user_input) == 3:
                 language()
-            if int(user_input) == 4:
+            if int(user_input) == 3:
                 year()
+            if int(user_input) == 4:
+                director_score()
             if int(user_input) == 5:
                 score_country()
             if int(user_input) == 6:
