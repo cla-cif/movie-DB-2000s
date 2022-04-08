@@ -1,8 +1,6 @@
-import numpy as np
+from time import sleep
+from os import system, name
 import pandas as pd
-import matplotlib.pyplot as plt
-import re
-import unicodedata2
 from colorama import Fore, Back, Style
 import pyfiglet
 
@@ -17,34 +15,101 @@ df = pd.read_csv(gsheet_url)
 """
 test = unicodedata2.normalize("NFD", "Skarsgård").encode('WINDOWS-1252', 'ignore')
 print('it works as a single methond', test)
-
 test2 = unicodedata2.normalize("NFD", "Zoë ").encode('ascii', 'ignore')
 print('it works as a single methond', test2)
-
 df['Actor3'] = (df['Actor3'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
 print(df['Actor3'])
 """
 
-def budget():
-    df_budget = df['Budget'].mean().astype(int)
-    print('The average budget is', df_budget, '$' '\n')
-budget()
 
-print("""there are""",
-      df['Title'].count(),
-      """movies""")
+def get_actor():
+    """
+    df['Actor1'] = (df['Actor1'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
+    df['Actor2'] = (df['Actor2'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
+    df['Actor3'] = (df['Actor3'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
+    """
+    request_actor = input("Enter an actor: ")
+    request_actor = request_actor.lower().title()
+    search = False
+    for value in df.values:
+        for item in value:
+            if request_actor in str(item):
+                search = True
 
-newdf = df.query('origin == "Unrated")
-df_rating_score = df.groupby('Content Rating', sort=False)['IMDB Score'].mean().round(1).sort_values(ascending=False)
-df_rating_score.filter(df['Content Rating'] =='Unrated')
-print('groupby Content first\n', df_rating_score)
+    if search:
+        mask1 = df['Cast'].str.contains(request_actor)
+        actor_data = df.loc[mask1, ['Title', 'Year', 'Genres', 'Cast']]
+        print(
+            'All the movies of the actor you were looking for\n',
+            actor_data,
+            '\n')
 
-"""
-df['Content Rating'] = df[df['Content Rating'] != 'Unrated']
-df_rating_score = df.groupby('Content Rating', sort=False)['IMDB Score'].mean().round(1).sort_values(ascending=False)
-#print(df_rating_score)
+    else:
+        print('The actor is not present in the database')
 
-grouped = df.groupby('Content Rating')['IMDB Score'].mean().round(1).sort_values(ascending=False)
-grouped.filter(lambda x: x['Content Rating']=='Unrated')
-#(grouped)
-"""
+
+def get_actor():
+    """
+    df['Actor1'] = (df['Actor1'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
+    df['Actor2'] = (df['Actor2'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
+    df['Actor3'] = (df['Actor3'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
+    """
+    request_actor = input("Enter an actor: ")
+    request_actor = request_actor.lower().title()
+    search = False
+    for value in df.values:
+        for item in value:
+            if request_actor in str(item):
+                search = True
+
+    if search:
+        mask1 = df['Actor1'].str.contains(request_actor)
+        mask2 = df['Actor2'].str.contains(request_actor)
+        mask3 = df['Actor3'].str.contains(request_actor)
+        actor_data = df.loc[mask1 | mask2 | mask3, [
+            'Title', 'Year', 'Genres', 'Actor1', 'Actor2', 'Actor3']]
+        print(
+            'All the movies of the actor you were looking for\n',
+            actor_data,
+            '\n')
+        print('Do you want to do a new search or find data?')
+        welcome()
+
+    else:
+        print('The actor is not present in the database')
+        print('Do you want to do a new search or find data?')
+        welcome()
+
+
+def average():
+    df_avg_budget = df['Budget'].dropna().mean().astype(int)
+    print(
+        '\n'
+        "The average cost to produce this decade's films is:",
+        '{0:,}'.format(df_avg_budget),
+        '$')
+    df_avg_score = df['IMDB Score'].mean().round(1)
+    print(
+        "\nThe average score got by this decade's films on IMDB is:",
+        df_avg_score)
+    df_avg_duration = df['Duration'].mean().round(1)
+    print(
+        "\nThe average duration got by this decade's films on IMDB is:",
+        df_avg_duration,'minutes\n')
+    #print('\nDo you want to run a new search or find data?\n')
+    #welcome()
+average()
+
+def director_score():
+    gb_director_score = df.groupby(
+        'Director',
+        sort=False,
+        dropna=True)['IMDB Score'].mean().round(1).sort_values(
+        ascending=False).reset_index()
+    print(
+        '\nDirectors which got the highest scores on IMDB Score: \n',
+        gb_director_score.to_string(
+            index=False))
+    #print('\nDo you want to run a new search or find data?')
+    #welcome()
+director_score()
