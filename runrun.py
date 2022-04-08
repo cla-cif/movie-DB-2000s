@@ -3,7 +3,7 @@ import pandas as pd
 
 gsheetid = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
 sheet_name = "Data"
-gsheet_url = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(
+gsheet_url = """https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}""".format(
     gsheetid, sheet_name)
 df = pd.read_csv(gsheet_url)
 

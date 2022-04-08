@@ -7,7 +7,7 @@ from colorama import Fore, Style
 GSHEET_ID = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
 SHEET_NAME = "Data"
 GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(
-    GSHEET_ID, SHEET_NAME)
+    GSHEET_ID, SHEET_NAME)  # noqa
 df = pd.read_csv(GSHEET_URL)
 
 pd.set_option("display.max_rows", 10)
@@ -38,7 +38,8 @@ def welcome():
         welcome_input = welcome_input.lower()
 
         if welcome_input.lower() == "exit":
-            print(Fore.CYAN + Style.BRIGHT + 'Thank you! Goodbye!')
+            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
+                  Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
 
@@ -69,40 +70,40 @@ def validate_welcome(welcome_choice):
 
 
 def average():
-    df_avg_budget = df['Budget'].dropna().mean().astype(int)
+    avg_budget = df['Budget'].dropna().mean().astype(int)
     print(
         '\n'
         "The average cost to produce this decade's films is:",
-        '{0:,}'.format(df_avg_budget),
+        '{0:,}'.format(avg_budget),
         '$')
-    df_avg_score = df['IMDB Score'].mean().round(1)
+    avg_score = df['IMDB Score'].mean().round(1)
     print(
         "\nThe average score got by this decade's films on IMDB is:",
-        df_avg_score)
-    df_avg_duration = df['Duration'].mean().round(1)
+        avg_score)
+    avg_duration = df['Duration'].mean().round(1)
     print(
         "\nThe average duration got by this decade's films on IMDB is:",
-        df_avg_duration, 'minutes\n')
+        avg_duration, 'minutes\n')
     print('\nDo you want to run a new search or find data?\n')
     welcome()
 
 
 def language():
-    df_language = df.groupby('Language')['Country'].size().sort_values(
+    gb_language = df.groupby('Language')['Country'].size().sort_values(
         ascending=False).reset_index(name='Count')
     print('\nNumber of films in each language:\n',
-          df_language.to_string(index=False), '\n')
+          gb_language.to_string(index=False), '\n')
     print('\nDo you want to run a new search or find data?\n')
     welcome()
 
 
 def year():
-    df_year = df.groupby(
+    gb_year = df.groupby(
         'Year',
         sort=False)['Country'].size().reset_index(
         name='Count')
     print('\nNumber of films produced each year:\n',
-          df_year.to_string(index=False), '\n')
+          gb_year.to_string(index=False), '\n')
     print('\nDo you want to run a new search or find data?\n')
     welcome()
 
@@ -132,12 +133,12 @@ def director_score():
 
 
 def score_country():
-    df_score_country = df.groupby(
+    gb_score_country = df.groupby(
         'Country', sort=False)['IMDB Score'].mean().round(1).sort_values(
         ascending=False).reset_index()
     print(
         '\nTop ten countries that produced films with the highest IMDB score:',
-        df_score_country.head(10).to_string(
+        gb_score_country.head(10).to_string(
             index=False),
         '\n')
     print('\nDo you want to run a new search or find data?')
@@ -164,10 +165,11 @@ def lowest_score():
 
 def roi():
     df['ROI'] = (df["Gross Earnings"] / df["Budget"] * 100).round(2)
-    sort_mostroi = df[['Title', 'ROI']].sort_values(
+    sort_highest_roi = df[['Title', 'ROI']].sort_values(
         by='ROI', ascending=False).dropna()
     print('\nThe most profitable films of the decade:\n',
-          sort_mostroi.head(10).to_string(index=False), '\n')
+          sort_highest_roi.head(10).to_string(index=False), '\n')
+    df.drop(['ROI'], axis=1, inplace=True)
     print('\nDo you want to run a new search or find data?')
     welcome()
 
@@ -177,13 +179,14 @@ def profit():
         df['Gross Earnings'] -
         df['Budget']).dropna().astype(int).apply(
         lambda x: f'{x:,}')
-    sort_leastprofitable = df[['Title', 'Profit']
+    sort_least_profitable = df[['Title', 'Profit']
                               ].sort_values(by='Profit', ascending=True)
     print(
         '\nTop 10 box-office flop:\n',
-        sort_leastprofitable.head(10).to_string(
+        sort_least_profitable.head(10).to_string(
             index=False),
         '\n')
+    df.drop(['Profit'], axis=1, inplace=True)
     print('\nDo you want to run a new search or find data?')
     welcome()
 
@@ -205,7 +208,7 @@ def rating_score():
 def data_choice():
     while True:
         print('Chose one of the following numbers:')
-        print("""
+        print(Fore.YELLOW + """
         1:  The average budget, score and duration of this films'decade.
         2:  Number of films in each language.
         3:  Number of films produced each year.
@@ -216,9 +219,10 @@ def data_choice():
         8:  The most profitable films in terms of return of investment.
         9:  Top 10 box-office flops: the most unprofitable films.
         10  The content ratings and their average IMDB Score.\n""")
-        user_input = input("Type the number:  ")
+        user_input = input(Style.RESET_ALL + "Type the number:  ")
         if user_input.lower() == "exit":
-            print(Fore.CYAN + Style.BRIGHT + 'Thank you! Goodbye!')
+            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
+                  Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
 
@@ -287,9 +291,12 @@ def get_film_info():
 
 
 def get_film_genres():
-    print("""\nSearch by one or more genres separated by space
-        In case of numerous matches (Comedy has 850+ matches!), 10 random titles will be shown """)
-    request_genre = input('\nType a genre: ')
+    print(
+        Fore.BLUE +
+        """\n    Search by one or more genres, separated by a space.
+    If there are many hits (Comedy has 850+ !),
+    only 10 random results will be displayed.""")
+    request_genre = input(Style.RESET_ALL + '\nType a genre: ')
     request_genre = request_genre.lower().title()
     search = False
     for value in df.values:
@@ -387,11 +394,12 @@ def get_director():
 
 def search_choice():
     while True:
-        user_input = input(
+        user_input = input(Style.RESET_ALL + 
             "Do you want to search by actor, genre, director or title? ")
         user_input = user_input.lower()
         if user_input.lower() == "exit":
-            print(Fore.CYAN + Style.BRIGHT + 'Thank you! Goodbye!')
+            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
+                  Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
 
@@ -432,14 +440,15 @@ def main():
 
 title = pyfiglet.figlet_format("Movie DB 2000s", font="slant")
 print(Fore.YELLOW + Style.BRIGHT + title)
-print(Fore.CYAN + Style.BRIGHT + """
-Welcome to the 2000s Movie Database,
-the database contains""", df['Title'].count(), """films cathegorised by title, genre, year, director, and leading actors,
-number of reviews (from critics and users) and IMDB score.\n""" + Fore.YELLOW + Style.BRIGHT + """
-Get statistics, the top 10 lists or search by film.\n""" + Fore.CYAN + Style.BRIGHT + """
+print(Fore.BLUE + Style.BRIGHT + """
+Welcome to the 2000s Movie Database!
+The database contains""", df['Title'].count(), """films cathegorised by title, genre, year,
+director, leading actors, number of reviews (from critics and users) and rating.\n"""
+      + Fore.YELLOW + Style.BRIGHT + """
+Get statistics, the top 10 lists or search by film.\n""" + Fore.BLUE + Style.BRIGHT + """
 To run, type and hit enter | To quit, type exit after a question
 Match is possible with partial text but restricted to 10 rows
-SEARCH BY FOREIGN CHARACTERS AVAILABLE SOON\n""" + Style.BRIGHT + """
+SEARCH BY FOREIGN CHARACTERS AVAILABLE SOON\n""" + Fore.YELLOW + Style.BRIGHT + """
 What do you want to do today, get data or search?\n""")
 
 main()
