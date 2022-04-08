@@ -287,6 +287,8 @@ def get_film_info():
 
 
 def get_film_genres():
+    print("""\nSearch by one or more genres separated by space
+        In case of numerous matches (Comedy has 850+ matches!), 10 random titles will be shown """)
     request_genre = input('\nType a genre: ')
     request_genre = request_genre.lower().title()
     search = False
@@ -307,7 +309,7 @@ def get_film_genres():
                              'IMDB Score']]
         print(
             'All the films of the genre you were looking for:\n',
-            film_genre,
+            film_genre.sample(n=10),
             '\n')
         print('\nDo you want to run a new search or find data?')
         welcome()
@@ -432,11 +434,12 @@ title = pyfiglet.figlet_format("Movie DB 2000s", font="slant")
 print(Fore.YELLOW + Style.BRIGHT + title)
 print(Fore.CYAN + Style.BRIGHT + """
 Welcome to the 2000s Movie Database,
-the database contains""", df['Title'].count(), """films cathegorised by
-title, genre, year, director, and leading actors,
+the database contains""", df['Title'].count(), """films cathegorised by title, genre, year, director, and leading actors,
 number of reviews (from critics and users) and IMDB score.\n""" + Fore.YELLOW + Style.BRIGHT + """
-Get statistics, the top 10 lists or search by film.\n""" + Style.RESET_ALL + """
-To quit, type exit after a question | To run, type and hit enter\n""" + Style.BRIGHT + """
+Get statistics, the top 10 lists or search by film.\n""" + Fore.CYAN + Style.BRIGHT + """
+To run, type and hit enter | To quit, type exit after a question
+Match is possible with partial text but restricted to 10 rows
+SEARCH BY FOREIGN CHARACTERS AVAILABLE SOON\n""" + Style.BRIGHT + """
 What do you want to do today, get data or search?\n""")
 
 main()

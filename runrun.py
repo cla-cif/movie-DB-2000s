@@ -54,7 +54,6 @@ def get_film_genres():
 
     if search:
         mask = df['Genres'].str.contains(request_genre)
-        df['Genres'].sample(n=10, random_state=1)
         film_genre = df.loc[mask,
                             ['Title',
                              'Genres',
@@ -65,10 +64,14 @@ def get_film_genres():
                              'IMDB Score']]
         print(
             'All the films of the genre you were looking for:\n',
-            film_genre,
+            film_genre.sample(n=3).set_index('Title'),
             '\n')
     else:
         print('The genre is not present in the database.')
+#get_film_genres()
 
-test = df['Genres'].sample(n=3, random_state=1)
-print(test)
+#test = df['Genres'].sample(n=10)
+#print(test)
+
+baa = (df['Genres'] == 'Comedy').sum()
+print('Comedy has', baa, 'occurrencies')
