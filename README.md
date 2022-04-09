@@ -38,23 +38,44 @@ Searching by title is the only query that returns all available information (gen
 The other options, which are likely to find multiple matches, display only the most relevant information (title, genre, director, cast and IMDB score) to improve readability given the aforementioned Heroku constraints.
 
 ## Features
-The app is intuitive, the istructions are clear and simple, only a minimal interaction is required from the user to achieve the result. 
-The text displayed on the black backgroun of Heroku's CLI is highly readable and bright. Four colours (blue, yellow, red, white) are chosen consistently to differenciate istructions, features, error messages and output. 
-The input is case insensitive, but the output is consistently presented with "title" case (First letter is capital). 
-The code is iterative to allow the users multiple searches wihtout restart the program. 
-The user can quit at any time by typing "exit". The CLI will be cleared after three seconds. The program can be run again by clicking the "Run Program"
+All functions have a general purpose and can be applied to a similar dataset or, for this particular project, allow the current dataset to be extended with minimal further implementation.
 
 ### Existing Features
+The app is intuitive, the instructions are clear and simple, requiring minimal interaction from the user to achieve the result. 
+The text displayed on the black background of Heroku's CLI is legible and bright. The four colours (blue, yellow, red, white) are chosen consistently to differentiate instructions, functions, error messages and outputs. 
+Input isn't case-sensitive, but output is consistently presented with the first letter capitalised. 
+The code is iterative so that users can perform multiple searches without restarting the programme. 
+The user can exit the programme at any time by typing "exit". The CLI will be cleared after three seconds. The program can be restarted by clicking the red "Run Program" button on the Heroku app page. 
 
 ### Future Features
+Searches will be possible with two or more options at the same time (e.g.: search by genre AND actor, search by actor AND director). 
+A collection of films from the 90s and 10s will be added to the dataset.
+Additional statistics and lists will be provided. 
+Further features may include deployment with Jupyter Lab to create meaningful istograms, distributions and charts.
+Bug fixes.
 
 ## Data Model 
 
 ## Testing
+I manually tested this project throughout the development process by doing the following:
+- I ran the code through the PEP8 linter.
+- Given invalid input and checked the logical and visual consistency of the error messages.
+- Entered substrings, extended ASCII characters, lower and upper case letters. 
+- Checked how many lines to display for better readability. 
+- Tested colours and their consistnecy for better readability.
 
-### Bugs (Solved / Remaining)
+### Issues
+The program has so far proven to be free of arithmetic, syntax, resource, multi-threading and interfacing bugs. The program operates correctly and doesn't terminate abnormally. 
+The following logical errors provided undesired output. While the output was consitent with the input, a much broader result was desired. 
+
+## Fixed
+ISSUE : Matching is not possible with a partial string. e.g. the title must be complete, actor/director must searched by full name in order to display the desired result. 
+FIX: Implementation of a nested loop to work efficiently with a multi-dimensional data structure like this dataset. If the substring provided by the user was matched by iterating through the spreadsheet and its columns (this dataset is a list that contains other lists), boolean variable returns true and the output displayed. 
+
+## Remaining
 
 ### Validator
+- PEP8: no errors were returned from the PEP8 validator. 
 
 ## Deployment
 
