@@ -326,18 +326,29 @@ def get_film_genres():
 
 
 def get_actor():
-    """
-    df['Actor1'] = (df['Actor1'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
-    df['Actor2'] = (df['Actor2'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
-    df['Actor3'] = (df['Actor3'].str.normalize('NFKD').str.encode('ascii', errors='ignore').str.decode('utf-8'))
-    """
-    request_actor = input('\nType an actor: ')
+
+    request_actor = input("Enter an actor: ")
     request_actor = request_actor.lower().title()
     search = False
     for value in df.values:
         for item in value:
             if request_actor in str(item):
                 search = True
+
+    if not search:
+        df['Actor1'] = (
+            df['Actor1'].str.normalize('NFKD').str.encode(
+                'ascii', errors='ignore').str.decode('utf-8'))
+        df['Actor2'] = (
+            df['Actor2'].str.normalize('NFKD').str.encode(
+                'ascii', errors='ignore').str.decode('utf-8'))
+        df['Actor3'] = (
+            df['Actor3'].str.normalize('NFKD').str.encode(
+                'ascii', errors='ignore').str.decode('utf-8'))
+        for value in df.values:
+            for item in value:
+                if request_actor in str(item):
+                    search = True
 
     if search:
         mask1 = df['Actor1'].str.contains(request_actor)
@@ -347,14 +358,13 @@ def get_actor():
             'Title', 'Genres', 'Director', 'Actor1', 'Actor2', 'Actor3',
             'IMDB Score']]
         print(
-            'All the films of the actor you were looking for:\n',
+            'All the movies of the actor you were looking for\n',
             actor_data,
             '\n')
         print('\nDo you want to run a new search or find data?')
         welcome()
-
     else:
-        print('The actor is not present in the database.')
+        print('The actor is not present in the database')
         print('\nDo you want to run a new search or find data?')
         welcome()
 
@@ -367,7 +377,14 @@ def get_director():
         for item in value:
             if request_director in str(item):
                 search = True
-
+    if not search:
+        df['Director'] = (
+            df['Director'].str.normalize('NFKD').str.encode(
+                'ascii', errors='ignore').str.decode('utf-8'))
+        for value in df.values:
+            for item in value:
+                if request_director in str(item):
+                    search = True
     if search:
         mask = df['Director'].str.contains(request_director)
         director_data = df.loc[mask,
@@ -443,7 +460,7 @@ print(Fore.YELLOW + Style.BRIGHT + title)
 print(Fore.BLUE + Style.BRIGHT + """
 Welcome to the 2000s Movie Database!
 The database contains""", df['Title'].count(), """films cathegorised by title, genre, year,
-director, leading actors, number of reviews (from critics and users) and rating.\n""" # noqa
+director, leading actors, number of reviews (from critics and users) and rating.\n"""  # noqa
       + Fore.YELLOW + Style.BRIGHT + """
 Get statistics, the top 10 lists or search by film.\n""" + Fore.BLUE + Style.BRIGHT + """
  - To run, type and hit enter | To quit, type exit after a question.
