@@ -9,13 +9,13 @@ The instructions are extremely simply written and require only a minimum of inte
 [Here is the live version](https://movie-db-2000s.herokuapp.com/)
 
 ## How to use
-The user is welcomed by a large title and a short welcome message explaining how to use the app. 
-The app has two tasks: display processed data and perform queries. 
-The app is based on an iterative process that the user can interrupt at any time when prompted for input. 
-On the first iteration, the user is asked the question, "What do you want to do today, get data or search?"
-Depending on whether they answer "data" or "search", they'll be prompted for further choices that will lead to the desired output. 
-Each answer (input) from the user is verified. If the check fails, the user is prompted to provide a suitable input.
-After each output, the user is returned to the beginning and can choose to perform a new search or retrieve data.
+- The user is welcomed by a large title and a short welcome message explaining how to use the app. 
+- The app has two tasks: display processed data and perform queries. 
+- The app is based on an iterative process that the user can interrupt at any time when prompted for input. 
+- On the first iteration, the user is asked the question, "What do you want to do today, get data or search?"
+- Depending on whether they answer "data" or "search", they'll be prompted for further choices that will lead to the desired output. 
+- Each answer (input) from the user is verified. If the check fails, the user is prompted to provide a suitable input.
+- After each output, the user is returned to the beginning and can choose to perform a new search or retrieve data.
 
 ### Data option
 Users are offered ten options with pre-calculated statistics and rankings to choose from.
@@ -32,37 +32,37 @@ Users are offered ten options with pre-calculated statistics and rankings to cho
 After the choice is validated and the output displayed, the user is asked whether he wants to retrieve the data again or perform a search.
 
 ### Search option
-Users can search the dataset by title, genre, actor and director. 
-Matching is also possible with partial text but limited to 10 results due to Heroku constraints, so a targeted entry will yield accurate results. 
-Searching by title is the only query that returns all available information (genre, year, language and country of production, content rating, duration, aspect ratio, director, cast, budget, box office, number of reviews and IMDB score). 
-The other options, which are likely to find multiple matches, display only the most relevant information (title, genre, director, cast and IMDB score) to improve readability given the aforementioned Heroku constraints.
+- Users can search the dataset by title, genre, actor and director. 
+- Matching is also possible with partial text but limited to 10 results due to Heroku constraints, so a targeted entry will yield accurate results. 
+- Searching by title is the only query that returns all available information (genre, year, language and country of production, content rating, duration, aspect ratio, director, cast, budget, box office, number of reviews and IMDB score). 
+- The other options, which are likely to find multiple matches, display only the most relevant information (title, genre, director, cast and IMDB score) to improve readability given the aforementioned Heroku constraints.
 
 ## Features
 All functions have a general purpose and can be applied to a similar dataset or, for this particular project, allow the current dataset to be extended with minimal further implementation.
 
 ### Existing Features
-The app is intuitive, the instructions are clear and simple, requiring minimal interaction from the user to achieve the result. 
-The text displayed on the black background of Heroku's CLI is legible and bright. The four colours (blue, yellow, red, white) are chosen consistently to differentiate instructions, functions, error messages and outputs. 
-Input isn't case-sensitive, but output is consistently presented with the first letter capitalised. 
-The code is iterative so that users can perform multiple searches without restarting the programme. 
-The user can exit the programme at any time by typing "exit". The CLI will be cleared after three seconds. The program can be restarted by clicking the red "Run Program" button on the Heroku app page. 
+- The app is intuitive, the instructions are clear and simple, requiring minimal interaction from the user to achieve the result. 
+- The text displayed on the black background of Heroku's CLI is legible and bright. The four colours (blue, yellow, red, white) are chosen consistently to differentiate instructions, functions, error messages and outputs. 
+- Input isn't case-sensitive, but output is consistently presented with the first letter capitalised. 
+- The code is iterative so that users can perform multiple searches without restarting the programme. 
+- The user can exit the programme at any time by typing "exit". The CLI will be cleared after three seconds. The program can be restarted by clicking the red "Run Program" button on the Heroku app page. 
 
 ### Future Features
-Searches will be possible with two or more options at the same time (e.g.: search by genre AND actor, search by actor AND director). 
-A collection of films from the 90s and 10s will be added to the dataset.
-Additional statistics and lists will be provided. 
-Further features may include deployment with Jupyter Lab to create meaningful istograms, distributions and charts.
-Bug fixes.
+- Searches will be possible with two or more options at the same time (e.g.: search by genre AND actor, search by actor AND director). 
+- A collection of films from the 90s and 10s will be added to the dataset.
+- Additional statistics and lists will be provided. 
+- Further features may include deployment with Jupyter Lab to create meaningful istograms, distributions and charts.
+- Bug fixes.
 
 ## Data Model 
 
 ## Testing
 I manually tested this project throughout the development process by doing the following:
-- I ran the code through the PEP8 linter.
-- Given invalid input and checked the logical and visual consistency of the error messages.
-- Entered substrings, extended ASCII characters, lower and upper case letters. 
-- Checked how many lines to display for better readability. 
-- Tested colours and their consistnecy for better readability.
+        - I ran the code through the PEP8 linter.
+        - Given invalid input and checked the logical and visual consistency of the error messages.
+        - Entered substrings, extended ASCII characters, lower and upper case letters. 
+        - Checked how many lines to display for better readability. 
+        - Tested colours and their consistnecy for better readability.
 
 ### Issues
 The program has so far proven to be free of arithmetic, syntax, resource, multi-threading and interfacing bugs. The program operates correctly and doesn't terminate abnormally. 
