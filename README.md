@@ -19,16 +19,16 @@ The instructions are extremely simply written and require only a minimum of inte
 
 ### Data option
 Users are offered ten options with pre-calculated statistics and rankings to choose from.
-        1:  The average budget, score and duration of this films'decade.
-        2:  Number of films in each language.
-        3:  Number of films produced each year.
-        4:  The most prolific directors of the decade and their scores.
-        5:  Top 10 countries that produced films with the highest IMDB score.
-        6:  The 10 best films of the decade.
-        7:  The 10 worst films of the decade.
-        8:  The most profitable films in terms of return of investment.
-        9:  Top 10 box-office flops: the most unprofitable films.
-        10  The content ratings and their average IMDB Score.
+ - 1:  The average budget, score and duration of this films'decade.
+ - 2:  Number of films in each language.
+ - 3:  Number of films produced each year.
+ - 4:  The most prolific directors of the decade and their scores.
+ - 5:  Top 10 countries that produced films with the highest IMDB score.
+ - 6:  The 10 best films of the decade.
+ - 7:  The 10 worst films of the decade.
+ - 8:  The most profitable films in terms of return of investment.
+ - 9:  Top 10 box-office flops: the most unprofitable films.
+ - 10  The content ratings and their average IMDB Score.
 After the choice is validated and the output displayed, the user is asked whether he wants to retrieve the data again or perform a search.
 
 ### Search option
@@ -58,11 +58,11 @@ All functions have a general purpose and can be applied to a similar dataset or,
 
 ## Testing
 I manually tested this project throughout the development process by doing the following:
-        - I ran the code through the PEP8 linter.
-        - Given invalid input and checked the logical and visual consistency of the error messages.
-        - Entered substrings, extended ASCII characters, lower and upper case letters. 
-        - Checked how many lines to display for better readability. 
-        - Tested colours and their consistnecy for better readability.
+ - I ran the code through the PEP8 linter.
+ - Given invalid input and checked the logical and visual consistency of the error messages.
+ - Entered substrings, extended ASCII characters, lower and upper case letters. 
+ - Checked how many lines to display for better readability. 
+ - Tested colours and their consistnecy for better readability.
 
 ### Issues
 The program has so far proven to be free of arithmetic, syntax, resource, multi-threading and interfacing bugs. The program operates correctly and doesn't terminate abnormally. 
