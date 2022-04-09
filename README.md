@@ -4,9 +4,17 @@ Welcome to the 2000s Movie Database, the dataset contains 2100 films released be
 
 The Heroku-based command line interface (CLI) allows the user to browse the dataset and retrieve statistics, rankings and specific information.
 The instructions are extremely simply written and require only a minimum of interaction to achieve the desired result.
-[SOURCE](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset)
 
 [Here is the live version](https://movie-db-2000s.herokuapp.com/)
+
+## Content
+- [How to use](#How-to-use)
+- [Features](#Features)
+- [Data Model](#Technologies-used)
+- [Testing](#Testing)
+- [Deployment](#Deployment)
+- [Credits](#Credits)
+- [Extra](#Extra)
 
 ## How to use
 - The user is welcomed by a large title and a short welcome message explaining how to use the app. 
@@ -33,7 +41,7 @@ After the choice is validated and the output displayed, the user is asked whethe
 
 ### Search option
 - Users can search the dataset by title, genre, actor and director. 
-- Matching is also possible with partial text but limited to 10 results due to Heroku constraints, so a targeted entry will yield accurate results. 
+- Matching is also possible with partial text but limited to 10 results due to Heroku's terminal constraints, so a targeted entry will yield accurate results. 
 - Searching by title is the only query that returns all available information (genre, year, language and country of production, content rating, duration, aspect ratio, director, cast, budget, box office, number of reviews and IMDB score). 
 - The other options, which are likely to find multiple matches, display only the most relevant information (title, genre, director, cast and IMDB score) to improve readability given the aforementioned Heroku constraints.
 
@@ -66,35 +74,47 @@ I manually tested this project throughout the development process by doing the f
  * Tested colours and their consistnecy for better readability.
 
 ### Issues
-The program has so far proven to be free of arithmetic, syntax, resource, multi-threading and interfacing bugs. The program operates correctly and doesn't terminate abnormally. 
-The following logical errors provided undesired output. While the output was consitent with the input, a much broader result was desired. 
+  The program has so far proven to be free of arithmetic, syntax, resource, multi-threading and interfacing bugs. 
+  The program operates correctly and doesn't terminate abnormally. 
+  The following logical errors provided undesired output. While the output was consitent with the input, a much broader result was desired. 
 
-## Fixed
-ISSUE : Matching is not possible with a partial string. e.g. the title must be complete, actor/director must searched by full name in order to display the desired result. 
-FIX: Implementation of a nested loop to work efficiently with a multi-dimensional data structure like this dataset. If the substring provided by the user was matched by iterating through the spreadsheet and its columns (this dataset is a list that contains other lists), boolean variable returns true and the output displayed. 
+#### Fixed
+Matching is not possible with a partial string. e.g. the title must be complete, actor/director must searched by full name in order to display the desired result. 
+:  Implementation of a nested loop to work efficiently with a multi-dimensional data structure like this dataset. If the substring provided by the user was matched by iterating through the spreadsheet and its columns (this dataset is a list that contains other lists), boolean variable returns true and the output displayed. 
 
-## Remaining
+Extended ASCII characters (character code 128-255) present in some names couldn't be matched providing printable ASCII characters (character code 128-255) . 
+:  The dataframe is parsed twice (looking for printable and extended ASCII chars) before informing the user that no matches were found. To match extended ASCII, the normalize method is applied to the dataframe. 
+
+#### Remaining
+In case a value is present in the dataframe but not in the interested column, the output will display a list with the columns' headers (keys) and an an empty index array. This happens because the input is compared against the df.values.
 
 ### Validator
 - PEP8: no errors were returned from the PEP8 validator. 
 
 ## Deployment
-
-When you create the app, you will need to add two buildpacks from the _Settings_ tab. The ordering is as follows:
-
-1. `heroku/python`
-2. `heroku/nodejs`
-
-You must then create a _Config Var_ called `PORT`. Set this to `8000`
-
-If you have credentials, such as in the Love Sandwiches project, you must create another _Config Var_ called `CREDS` and paste the JSON into the value field.
-
-Connect your GitHub repository and deploy as normal.
+The project is coded and hosted on GitHub and deployed with Heroku. 
 
 ## Credits
 
-## Creating the Heroku app
+-  All content written by developer Claudia Cifaldi - [cla-cif](https://github.com/cla-cif) on GitHub. 
+-  The template used for this project belongs to CodeInstitute - [GitHub](https://github.com/Code-Institute-Submissions) and [website](https://codeinstitute.net/global/).
+- The dataset is part of Kaggle's ["The Movies Dataset"](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset) under CC0: Public Domain Licence. 
 
+## Creating the Heroku app
+The steps needed to deploy this projects are
+1. Create a `requirement.txt` file in GitHub, for Heroku to read, listing the dependancies the program needs in order to run.
+2. `push` the recent changes to GitHub and go to your Heroku account page to create and deploy the app running the project. 
+3. Chose `CREATE NEW APP`, give it a unique name, and select a geographical region. 
+4. From the _Settings_ tab, configure the environment variables (_config var_ section).
+5. Copy/paste the CREDS.json file, if the project has credentials, in the `VALUE` field, type CREDS in the corresponding `KEY` box, click the `ADD` button.
+6. Create another config var, set PORT as `KEY` and assign it the `VALUE` 8000.
+7. Add two buildpacks from the _Settings_ tab. The ordering is as follows:
+   `heroku/python`
+   `heroku/nodejs`
+8. From the _Deployment_ tab, chose GitHub as deployment method, connect to GitHub and select the project's repository. 
+9. Click to `Enable Automatic Deploys ` or chose to `Deploy Branch` from the _Manual Deploy_ section. 
+10. Wait for the logs to run while the dependencies are installed and the app is being built.
+11. The mock terminal is then ready and accessible from a link similar to `https://your-projects-name.herokuapp.com/`
 
 ## Constraints
 
