@@ -212,12 +212,12 @@ def data_choice():
         2:  Number of films in each language.
         3:  Number of films produced each year.
         4:  The most prolific directors of the decade and their scores.
-        5:  Top ten countries that produced films with the highest IMDB score.
-        6:  The best ten films of the decade.
-        7:  The worst ten films of the decade.
+        5:  Top 10 countries that produced films with the highest IMDB score.
+        6:  The 10 best films of the decade.
+        7:  The 10 worst films of the decade.
         8:  The most profitable films in terms of return of investment.
         9:  Top 10 box-office flops: the most unprofitable films.
-        10  The content ratings and their average IMDB Score.\n""")
+        10  The content ratings and their average IMDB Scores.\n""")
         user_input = input(Style.RESET_ALL + "Type the number:  ")
         if user_input.lower() == "exit":
             print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
@@ -460,11 +460,11 @@ print(Fore.YELLOW + Style.BRIGHT + title)
 print(Fore.BLUE + Style.BRIGHT + """
 Welcome to the 2000s Movie Database!
 The database contains""", df['Title'].count(), """films cathegorised by title, genre, year,
-director, leading actors, number of reviews (from critics and users) and rating.\n"""  # noqa
-      + Fore.YELLOW + Style.BRIGHT + """
+director, leading actors, number of reviews (by critics and users) and rating.\n""" +  # noqa
+      Fore.YELLOW + Style.BRIGHT + """
 Get statistics, the top 10 lists or search by film.\n""" + Fore.BLUE + Style.BRIGHT + """
  - To run, type and hit enter | To quit, type exit after a question.
- - Match is possible with partial text but restricted to 10 rows.
+ - Match is possible with partial text but restricted to 10 results.
  - SEARCH BY FOREIGN CHARACTERS AVAILABLE SOON!\n""" + Fore.YELLOW + Style.BRIGHT + """
 What do you want to do today, get data or search?\n""")
 
