@@ -1,5 +1,5 @@
 import pandas as pd
-
+from colorama import Fore, Style
 
 gsheetid = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
 sheet_name = "Data"
@@ -8,80 +8,37 @@ gsheet_url = """https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sh
 df = pd.read_csv(gsheet_url)
 
 
-def get_actor():
-
-    request_actor = input("Enter an actor: ")
-    request_actor = request_actor.lower().title()
+def get_film_genres():
+    print(
+        Fore.BLUE + Style.BRIGHT + 
+        """\n    Search by one or more genres, separated by a space.
+    If there are many hits (Comedy has 850+ !),
+    only 10 random results will be displayed.""")
+    request_genre = input(Style.RESET_ALL + '\nType a genre: ')
+    request_genre = request_genre.lower().title()
     search = False
     for value in df.values:
         for item in value:
-            if request_actor in str(item):
+            if request_genre in str(item):
                 search = True
 
-    if not search:
-        df['Actor1'] = (
-            df['Actor1'].str.normalize('NFKD').str.encode(
-                'ascii', errors='ignore').str.decode('utf-8'))
-        df['Actor2'] = (
-            df['Actor2'].str.normalize('NFKD').str.encode(
-                'ascii', errors='ignore').str.decode('utf-8'))
-        df['Actor3'] = (
-            df['Actor3'].str.normalize('NFKD').str.encode(
-                'ascii', errors='ignore').str.decode('utf-8'))
-        for value in df.values:
-            for item in value:
-                if request_actor in str(item):
-                    search = True
-
     if search:
-        mask1 = df['Actor1'].str.contains(request_actor)
-        mask2 = df['Actor2'].str.contains(request_actor)
-        mask3 = df['Actor3'].str.contains(request_actor)
-        actor_data = df.loc[mask1 | mask2 | mask3, [
-            'Title', 'Genres', 'Director', 'Actor1', 'Actor2', 'Actor3',
-            'IMDB Score']]
+        mask = df['Genres'].str.contains(request_genre)
+        film_genre = df.loc[mask,
+                            ['Title',
+                             'Genres',
+                             'Director',
+                             'Actor1',
+                             'Actor2',
+                             'Actor3',
+                             'IMDB Score']]
+        if mask.sum() > 10 :
+            film_genre = film_genre.sample(n=10)
         print(
-            'All the movies of the actor you were looking for\n',
-            actor_data,
+            'All the films of the genre you were looking for:\n',
+            film_genre,
             '\n')
-    else:
-        print('The actor is not present in the database')
-        print('\nDo you want to run a new search or find data?')
-
-
-def get_director():
-    request_director = input('\nType a director: ')
-    request_director = request_director.lower().title()
-    search = False
-    for value in df.values:
-        for item in value:
-            if request_director in str(item):
-                search = True
-    if not search:
-        df['Director'] = (
-            df['Director'].str.normalize('NFKD').str.encode(
-                'ascii', errors='ignore').str.decode('utf-8'))
-        for value in df.values:
-            for item in value:
-                if request_director in str(item):
-                    search = True
-    if search:
-        mask = df['Director'].str.contains(request_director)
-        director_data = df.loc[mask,
-                               ['Title',
-                                'Genres',
-                                'Director',
-                                'Actor1',
-                                'Actor2',
-                                'Actor3',
-                                'IMDB Score']]
-        print(
-            'All the films from the director you were looking for:\n',
-            director_data,
-            '\n')
-        print('\nDo you want to run a new search or find data?')
 
     else:
-        print('The director is not present in the database.\n')
-        print('\nDo you want to run a new search or find data?')
-
+        print('The genre is not present in the database.')
+get_film_genres()

@@ -77,7 +77,7 @@ def average():
         '$')
     avg_score = df['IMDB Score'].mean().round(1)
     print(
-        "\nThe average score got by this decade's films on IMDB is:",
+        "The average score got by this decade's films on IMDB is:",
         avg_score)
     avg_duration = df['Duration'].mean().round(1)
     print(
@@ -126,7 +126,8 @@ def director_score():
         gb_director_score["Number of movies"]).round(2)
     print(
         '\n The average score of the most prolific directors\n',
-        gb_director_score.head(10))
+        gb_director_score.head(10).to_string(
+            index=False), '\n')
     print('\nDo you want to run a new search or find data?')
     welcome()
 
@@ -136,7 +137,7 @@ def score_country():
         'Country', sort=False)['IMDB Score'].mean().round(1).sort_values(
         ascending=False).reset_index()
     print(
-        '\nTop ten countries that produced films with the highest IMDB score:',
+        '\nTop ten countries that produced films with the highest IMDB score:\n',
         gb_score_country.head(10).to_string(
             index=False),
         '\n')
@@ -207,7 +208,7 @@ def rating_score():
 def data_choice():
     while True:
         print('Chose one of the following numbers:')
-        print(Fore.YELLOW + """
+        print(Fore.YELLOW + Style.BRIGHT + """
         1:  The average budget, score and duration of this films'decade.
         2:  Number of films in each language.
         3:  Number of films produced each year.
@@ -291,7 +292,7 @@ def get_film_info():
 
 def get_film_genres():
     print(
-        Fore.BLUE +
+        Fore.BLUE + Style.BRIGHT +
         """\n    Search by one or more genres, separated by a space.
     If there are many hits (Comedy has 850+ !),
     only 10 random results will be displayed.""")
@@ -313,9 +314,11 @@ def get_film_genres():
                              'Actor2',
                              'Actor3',
                              'IMDB Score']]
+        if mask.sum() > 10:
+            film_genre = film_genre.sample(n=10)
         print(
             'All the films of the genre you were looking for:\n',
-            film_genre.sample(n=10),
+            film_genre.sample(n=10, replace=True),
             '\n')
         print('\nDo you want to run a new search or find data?')
         welcome()
@@ -463,9 +466,10 @@ The database contains""", df['Title'].count(), """films cathegorised by title, g
 director, leading actors, number of reviews (by critics and users) and rating.\n""" +  # noqa
       Fore.YELLOW + Style.BRIGHT + """
 Get statistics, the top 10 lists or search by film.\n""" + Fore.BLUE + Style.BRIGHT + """
- - To run, type and hit enter | To quit, type exit after a question.
- - Match is possible with partial text but restricted to 10 results.
- - SEARCH BY FOREIGN CHARACTERS AVAILABLE SOON!\n""" + Fore.YELLOW + Style.BRIGHT + """
+ - To run, type and hit enter. | To quit, type exit after a question.
+ - A match is possible with partial text but restricted to 10 results.
+ - Characters from a foreign alphabet will be matched as well.\n""" +
+      Fore.YELLOW + Style.BRIGHT + """
 What do you want to do today, get data or search?\n""")
 
 main()
