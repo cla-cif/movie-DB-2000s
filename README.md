@@ -1,4 +1,4 @@
-![#Header](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/header.jpg)
+![# Header](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/header.jpg)
 ---
 Welcome to the 2000s Movie Database, the dataset contains 2100 films released between 2000 and 2009. Data points include title, genre, year, language and country of production, content rating, duration, aspect ratio, director, cast, budget, box office, number of reviews (by critics and users) and IMDB score. 
 
@@ -25,9 +25,10 @@ The instructions are extremely simply written and require only a minimum of inte
 - Each answer (input) from the user is verified. If the check fails, the user is prompted to provide a suitable input.
 ![Invalid](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/invalid.png)
 - After each output, the user is returned to the beginning and can choose to perform a new search or retrieve data.
+![After output](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/after%20output.png)
 - The app is based on an iterative process that the user can interrupt at any time when prompted for input. 
 ![Exit](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/exit.png)
---
+---
 A flowchart of the program's main process was created with [Lucid.app](https://lucid.app/documents)
 ![Flowchart](####)
 
