@@ -19,6 +19,10 @@ pd.set_option('display.max_columns', None)
 
 
 def clear():
+    """
+    clear the CLI and exit the program.
+    can be called typing exit after every input.
+    """
     # for windows
     if name == 'nt':
         _ = system('cls')
@@ -32,6 +36,11 @@ def clear():
 
 
 def welcome():
+    """
+    accepts input strings data/search/exit.
+    calls validation function on user input.
+    function is called after every output.
+    """
     while True:
         welcome_input = input(Style.RESET_ALL + "Please type data or search: ")
         welcome_input = welcome_input.lower()
@@ -52,6 +61,10 @@ def welcome():
 
 
 def validate_welcome(welcome_choice):
+    """
+    raise error msg if input is not string and not within the options. 
+    function is called by welcome function.
+    """
     welcome_choices = ['data', 'search']
     try:
         if str(welcome_choice) in welcome_choices:
@@ -65,20 +78,26 @@ def validate_welcome(welcome_choice):
 
 # DATA OPTION
 
-# DATA AT A GLANCE
+# DATA AT A GLANCE ()
 
 
 def average():
+    """
+    applies .mean() method to calculate average on int values.
+    rounds the result to one decimal.
+    """
     avg_budget = df['Budget'].dropna().mean().astype(int)
     print(
         '\n'
         "The average cost to produce this decade's films is:",
         '{0:,}'.format(avg_budget),
         '$')
+
     avg_score = df['IMDB Score'].mean().round(1)
     print(
         "The average score got by this decade's films on IMDB is:",
         avg_score)
+
     avg_duration = df['Duration'].mean().round(1)
     print(
         "\nThe average duration got by this decade's films on IMDB is:",
@@ -88,6 +107,10 @@ def average():
 
 
 def language():
+    """
+    group by language and counts occurrencies for each language.
+    number are in descending order. first column works as index.
+    """
     gb_language = df.groupby('Language')['Country'].size().sort_values(
         ascending=False).reset_index(name='Count')
     print('\nNumber of films in each language:\n',
@@ -97,6 +120,10 @@ def language():
 
 
 def year():
+    """
+    group by year and counts how many movies for each year.
+    years are in ascending order. first column works as index.
+    """
     gb_year = df.groupby(
         'Year',
         sort=False)['Country'].size().reset_index(
@@ -110,6 +137,9 @@ def year():
 # DATA RANKINGS
 
 def director_score():
+    """
+    
+    """
     gb_director_score = df.groupby('Director').agg(
         {
             'Title': 'count',
