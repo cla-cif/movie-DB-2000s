@@ -8,7 +8,7 @@ The instructions are extremely simply written and require only a minimum of inte
 [Here is the live version](https://movie-db-2000s.herokuapp.com/)
 
 ## Content
- - [How to use](#How-to-use)
+ - [How it works](#How-it-works)
  - [Features](#Features)
  - [Data Model](#Data-model)
  - [Testing](#Testing)
@@ -16,7 +16,7 @@ The instructions are extremely simply written and require only a minimum of inte
  - [Deployment](#Deployment)
  - [Credits](#Credits)
 
-## How to use
+## How it works
 ![Main](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/main.png)
 - The user is welcomed by a large title and a short welcome message explaining how to use the app. 
 - The app has two tasks: display processed data and perform queries. 
@@ -28,8 +28,10 @@ The instructions are extremely simply written and require only a minimum of inte
 ![After output](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/after%20output.png)
 - The app is based on an iterative process that the user can interrupt at any time when prompted for input. 
 ![Exit](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/exit.png)
----
-A flowchart of the program's main process was created with [Lucid.app](https://lucid.app/documents)
+
+### Flowchart
+
+A flowchart of the program's main process was created with [Lucid.app](https://lucid.app/documents).
 ![Flowchart](####)
 
 ### Data option
