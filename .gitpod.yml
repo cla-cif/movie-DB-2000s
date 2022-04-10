@@ -1,13 +1,9 @@
-image:
-  file: .gitpod.dockerfile
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
 tasks:
- - init: . ${GITPOD_REPO_ROOT}/.vscode/init_tasks.sh
-   command: /home/gitpod/.pg_ctl/bin/pg_start > /dev/null
- - command: . ${GITPOD_REPO_ROOT}/.vscode/uptime.sh &
-vscode:
-  extensions:
-    - ms-python.python
-    - formulahendry.auto-close-tag
-    - eventyret.bootstrap-4-cdn-snippet
-    - hookyqr.beautify
-    - matt-rudge.auto-open-preview-panel
+  - init: echo 'init script' # runs during prebuild
+    command: echo 'start script'
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 3000
+    onOpen: open-preview

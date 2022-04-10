@@ -1,3 +1,4 @@
+""" import libraries """
 from os import system, name
 from time import sleep
 import pyfiglet
@@ -6,7 +7,7 @@ from colorama import Fore, Style
 
 GSHEET_ID = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
 SHEET_NAME = "Data"
-GSHEET_URL = "https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}".format(GSHEET_ID, SHEET_NAME)  # noqa
+GSHEET_URL = f"https://docs.google.com/spreadsheets/d/{GSHEET_ID}/gviz/tq?tqx=out:csv&sheet={SHEET_NAME}"  # noqa
 df = pd.read_csv(GSHEET_URL)
 
 pd.set_option("display.max_rows", 10)
@@ -62,7 +63,7 @@ def welcome():
 
 def validate_welcome(welcome_choice):
     """
-    raise error msg if input is not string and not within the options. 
+    raise error msg if input is not string and not within the options.
     function is called by welcome function.
     """
     welcome_choices = ['data', 'search']
@@ -88,10 +89,8 @@ def average():
     """
     avg_budget = df['Budget'].dropna().mean().astype(int)
     print(
-        '\n'
-        "The average cost to produce this decade's films is:",
-        '{0:,}'.format(avg_budget),
-        '$')
+        "\nThe average cost to produce this decade's films is:",
+        f'{avg_budget:,} $')
 
     avg_score = df['IMDB Score'].mean().round(1)
     print(
@@ -102,7 +101,7 @@ def average():
     print(
         "\nThe average duration got by this decade's films on IMDB is:",
         avg_duration, 'minutes\n')
-    print('\nDo you want to run a new search or find data?\n')
+    print('\nDo you want to run a search or find data?\n')
     welcome()
 
 
@@ -115,7 +114,7 @@ def language():
         ascending=False).reset_index(name='Count')
     print('\nNumber of films in each language:\n',
           gb_language.to_string(index=False), '\n')
-    print('\nDo you want to run a new search or find data?\n')
+    print('\nDo you want to run a search or find data?\n')
     welcome()
 
 
@@ -130,7 +129,7 @@ def year():
         name='Count')
     print('\nNumber of films produced each year:\n',
           gb_year.to_string(index=False), '\n')
-    print('\nDo you want to run a new search or find data?\n')
+    print('\nDo you want to run a search or find data?\n')
     welcome()
 
 
@@ -138,7 +137,11 @@ def year():
 
 def director_score():
     """
-    
+    use .agg() operation to pass .count() and .sum()
+    counts the number of movies for each director.
+    sum the IMDB score of the movies from each director.
+    renames columns, sort the values in descending order.
+    calculates average score and create a new column.
     """
     gb_director_score = df.groupby('Director').agg(
         {
@@ -158,53 +161,71 @@ def director_score():
         '\n The average score of the most prolific directors\n',
         gb_director_score.head(10).to_string(
             index=False), '\n')
-    print('\nDo you want to run a new search or find data?')
+    print('\nDo you want to run a search or find data?')
     welcome()
 
 
 def score_country():
+    """
+    group by country, calculates average score for each.
+    """
     gb_score_country = df.groupby(
         'Country', sort=False)['IMDB Score'].mean().round(1).sort_values(
         ascending=False).reset_index()
     print(
-        '\nTop ten countries that produced films with the highest IMDB score:\n',
+        '\nTop ten countries that produced films with the highest IMDB score:',
         gb_score_country.head(10).to_string(
             index=False),
         '\n')
-    print('\nDo you want to run a new search or find data?')
+    print('\nDo you want to run a search or find data?')
     welcome()
 
 
 def highest_score():
+    """
+    .sort() in descending order the scores and relative titles
+    """
     sort_highest_score = df[['Title', 'IMDB Score']
                             ].sort_values(by='IMDB Score', ascending=False)
     print('\nThe best ten films of the decade according to IMDB:\n',
           sort_highest_score.head(10).to_string(index=False), '\n')
-    print('\nDo you want to run a new search or find data?')
+    print('\nDo you want to run a search or find data?')
     welcome()
 
 
 def lowest_score():
+    """
+    .sort() in ascending order the scores and relative titles
+    """
     sort_lowest_score = df[['Title', 'IMDB Score']
                            ].sort_values(by='IMDB Score', ascending=True)
     print('\nThe worst ten films of the decade according to IMDB:\n',
           sort_lowest_score.head(10).to_string(index=False), '\n')
-    print('\nDo you want to run a new search or find data?')
+    print('\nDo you want to run a search or find data?')
     welcome()
 
 
 def roi():
+    """
+    calculate return of investment, displays values and relative title
+    delete the ROI series after display
+    """
     df['ROI'] = (df["Gross Earnings"] / df["Budget"] * 100).round(2)
     sort_highest_roi = df[['Title', 'ROI']].sort_values(
         by='ROI', ascending=False).dropna()
     print('\nThe most profitable films of the decade:\n',
           sort_highest_roi.head(10).to_string(index=False), '\n')
     df.drop(['ROI'], axis=1, inplace=True)
-    print('\nDo you want to run a new search or find data?')
+    print('\nDo you want to run a search or find data?')
     welcome()
 
 
 def profit():
+    """
+    calculate profit in new column, displays thousands separated by comma
+    values displayed in ascending order with relative title
+    delete the profit series after display
+    """
     df['Profit'] = (
         df['Gross Earnings'] -
         df['Budget']).dropna().astype(int).apply(
@@ -217,11 +238,14 @@ def profit():
             index=False),
         '\n')
     df.drop(['Profit'], axis=1, inplace=True)
-    print('\nDo you want to run a new search or find data?')
+    print('\nDo you want to run a search or find data?')
     welcome()
 
 
 def rating_score():
+    """
+    group by content rating calculate the average score for each cathegory
+    """
     gb_rating_score = df.groupby(
         'Content Rating',
         sort=False,
@@ -231,14 +255,19 @@ def rating_score():
         '\nThe content ratings and their average IMDB Score: \n',
         gb_rating_score.to_string(
             index=False))
-    print('\nDo you want to run a new search or find data?')
+    print('\nDo you want to run a search or find data?')
     welcome()
 
 
 def data_choice():
+    """
+    accepts input strings exit or integer within range of options.
+    calls validation function on user input.
+    calls functions relative to the user's choice.
+    """
     while True:
         print('Chose one of the following numbers:')
-        print(Fore.YELLOW + Style.BRIGHT + """
+        print(Style.BRIGHT + """
         1:  The average budget, score and duration of this films'decade.
         2:  Number of films in each language.
         3:  Number of films produced each year.
@@ -283,6 +312,10 @@ def data_choice():
 
 
 def validate_data_choice(data):
+    """
+    raise error msg if input is not int and not within the options.
+    function is called by data_choice function.
+    """
     try:
         int(data)
     except ValueError:
@@ -298,6 +331,11 @@ def validate_data_choice(data):
 
 
 def get_film_info():
+    """
+    applies to input same dataframe's entries case
+    nested loop to search for matches in the df and Title column,
+    if none found display message and call welcome function.
+    """
     request_film = input("\nType a title: ")
     request_film = request_film.lower().title()
     search = False
@@ -312,15 +350,21 @@ def get_film_info():
             '\nAll you need to know about the film you were looking for:\n',
             film_data,
             '\n')
-        print('\nDo you want to run a new search or find data?')
+        print('\nDo you want to run a search or find data?')
         welcome()
     else:
         print('The film is not present in the database.')
-        print('\nDo you want to run a new search or find data?')
+        print('\nDo you want to run a search or find data?')
         welcome()
 
 
 def get_film_genres():
+    """
+    applies to input same dataframe's entries case
+    nested loop to search for matches in the df and Genres column,
+    display output or message, calls welcome function after.
+    if more than 10 matches found, displays a random .sample() of them.
+    """
     print(
         Fore.BLUE + Style.BRIGHT +
         """\n    Search by one or more genres, separated by a space.
@@ -350,16 +394,21 @@ def get_film_genres():
             'All the films of the genre you were looking for:\n',
             film_genre.sample(n=10, replace=True),
             '\n')
-        print('\nDo you want to run a new search or find data?')
+        print('\nDo you want to run a search or find data?')
         welcome()
     else:
         print('The genre is not present in the database.')
-        print('\nDo you want to run a new search or find data?')
+        print('\nDo you want to run a search or find data?')
         welcome()
 
 
 def get_actor():
-
+    """
+    applies to input same dataframe's entries case
+    nested loop to search for matches in the df and Actors' 3 columns,
+    if none found, encodes entries to match search for extend ASCII chars,
+    if none found, display message. else display output.
+    """
     request_actor = input("Enter an actor: ")
     request_actor = request_actor.lower().title()
     search = False
@@ -394,15 +443,21 @@ def get_actor():
             'All the movies of the actor you were looking for\n',
             actor_data,
             '\n')
-        print('\nDo you want to run a new search or find data?')
+        print('\nDo you want to run a search or find data?')
         welcome()
     else:
         print('The actor is not present in the database')
-        print('\nDo you want to run a new search or find data?')
+        print('\nDo you want to run a search or find data?')
         welcome()
 
 
 def get_director():
+    """
+    applies to input same dataframe's entries case
+    nested loop to search for matches in the df and Director column,
+    if none found, encodes entries to match search for extend ASCII chars,
+    if none found, display message. else display output.
+    """
     request_director = input('\nType a director: ')
     request_director = request_director.lower().title()
     search = False
@@ -432,16 +487,21 @@ def get_director():
             'All the films from the director you were looking for:\n',
             director_data,
             '\n')
-        print('\nDo you want to run a new search or find data?')
+        print('\nDo you want to run a search or find data?')
         welcome()
 
     else:
         print('The director is not present in the database.\n')
-        print('\nDo you want to run a new search or find data?')
+        print('\nDo you want to run a search or find data?')
         welcome()
 
 
 def search_choice():
+    """
+    accepts input strings exit or string within range of options.
+    calls validation function on user input.
+    calls functions relative to the user's choice.
+    """
     while True:
         user_input = input(
             Style.RESET_ALL +
@@ -468,6 +528,10 @@ def search_choice():
 
 
 def validate_search_choice(choice):
+    """
+    raise error msg if input is not int and not within the options.
+    function is called by search_choice function.
+    """
     choices = ['director', 'actor', 'genre', 'title']
     try:
         if str(choice) in choices:
@@ -483,6 +547,10 @@ def validate_search_choice(choice):
 
 
 def main():
+    """
+    calls the input functions,
+    displays header when program first runs.
+    """
     welcome()
     data_choice()
     search_choice()

@@ -3,14 +3,14 @@ from colorama import Fore, Style
 
 gsheetid = "1MjifIi5MPPGBP3635xWTrpef3RWngXcWgKjnCsaoE6Y"
 sheet_name = "Data"
-gsheet_url = """https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}""".format( # noqa
+gsheet_url = """https://docs.google.com/spreadsheets/d/{}/gviz/tq?tqx=out:csv&sheet={}""".format(  # noqa
     gsheetid, sheet_name)
 df = pd.read_csv(gsheet_url)
 
 
 def get_film_genres():
     print(
-        Fore.BLUE + Style.BRIGHT + 
+        Fore.BLUE + Style.BRIGHT +
         """\n    Search by one or more genres, separated by a space.
     If there are many hits (Comedy has 850+ !),
     only 10 random results will be displayed.""")
@@ -32,7 +32,7 @@ def get_film_genres():
                              'Actor2',
                              'Actor3',
                              'IMDB Score']]
-        if mask.sum() > 10 :
+        if mask.sum() > 10:
             film_genre = film_genre.sample(n=10)
         print(
             'All the films of the genre you were looking for:\n',
@@ -41,4 +41,9 @@ def get_film_genres():
 
     else:
         print('The genre is not present in the database.')
-get_film_genres()
+
+
+avg_budget = df['Budget'].dropna().mean().astype(int)
+print(
+    "\nThe average cost to produce this decade's films is:",
+    f'{avg_budget:,} $')
