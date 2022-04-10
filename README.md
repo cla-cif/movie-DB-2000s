@@ -1,5 +1,5 @@
 ![#Header](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/header.jpg)
------
+---
 Welcome to the 2000s Movie Database, the dataset contains 2100 films released between 2000 and 2009. Data points include title, genre, year, language and country of production, content rating, duration, aspect ratio, director, cast, budget, box office, number of reviews (by critics and users) and IMDB score. 
 
 The Heroku-based command line interface (CLI) allows the user to browse the dataset and retrieve statistics, rankings and specific information.
@@ -15,7 +15,6 @@ The instructions are extremely simply written and require only a minimum of inte
  - [Technologies](#Technologies-used)
  - [Deployment](#Deployment)
  - [Credits](#Credits)
- - [Extra](#Extra)
 
 ## How to use
 ![Main](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/main.png)
@@ -28,7 +27,7 @@ The instructions are extremely simply written and require only a minimum of inte
 - After each output, the user is returned to the beginning and can choose to perform a new search or retrieve data.
 - The app is based on an iterative process that the user can interrupt at any time when prompted for input. 
 ![Exit](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/exit.png)
----
+--
 A flowchart of the program's main process was created with [Lucid.app](https://lucid.app/documents)
 ![Flowchart](####)
 
@@ -177,7 +176,6 @@ Cloning a repository pulls down a full copy of all the repository data that GitH
 -  The template used for this project belongs to CodeInstitute - [GitHub](https://github.com/Code-Institute-Submissions) and [website](https://codeinstitute.net/global/).
 - The dataset is part of Kaggle's ["The Movies Dataset"](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset) under CC0: Public Domain Licence. 
 
------
+---
 [Here is the live version](https://movie-db-2000s.herokuapp.com/).
------
 [Link to top](#Header)
