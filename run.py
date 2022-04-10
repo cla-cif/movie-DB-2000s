@@ -339,7 +339,7 @@ def get_film_info():
     request_film = input("\nType a title: ")
     request_film = request_film.lower().title()
     search = False
-    for value in df.values:
+    for value in df['Title'].values:
         for item in value:
             if request_film in str(item):
                 search = True
@@ -373,7 +373,7 @@ def get_film_genres():
     request_genre = input(Style.RESET_ALL + '\nType a genre: ')
     request_genre = request_genre.lower().title()
     search = False
-    for value in df.values:
+    for value in df['Genres'].values:
         for item in value:
             if request_genre in str(item):
                 search = True
@@ -409,10 +409,10 @@ def get_actor():
     if none found, encodes entries to match search for extend ASCII chars,
     if none found, display message. else display output.
     """
-    request_actor = input("Enter an actor: ")
+    request_actor = input("\nType an actor: ")
     request_actor = request_actor.lower().title()
     search = False
-    for value in df.values:
+    for value in df[['Actor1', 'Actor2', 'Actor3']].values:
         for item in value:
             if request_actor in str(item):
                 search = True
@@ -427,7 +427,7 @@ def get_actor():
         df['Actor3'] = (
             df['Actor3'].str.normalize('NFKD').str.encode(
                 'ascii', errors='ignore').str.decode('utf-8'))
-        for value in df.values:
+        for value in df[['Actor1', 'Actor2', 'Actor3']].values:
             for item in value:
                 if request_actor in str(item):
                     search = True
@@ -461,7 +461,7 @@ def get_director():
     request_director = input('\nType a director: ')
     request_director = request_director.lower().title()
     search = False
-    for value in df.values:
+    for value in df['Director'].values:
         for item in value:
             if request_director in str(item):
                 search = True
@@ -469,7 +469,7 @@ def get_director():
         df['Director'] = (
             df['Director'].str.normalize('NFKD').str.encode(
                 'ascii', errors='ignore').str.decode('utf-8'))
-        for value in df.values:
+        for value in df['Director'].values:
             for item in value:
                 if request_director in str(item):
                     search = True
