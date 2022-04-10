@@ -1,4 +1,4 @@
-#top
+![#Header](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/header.jpg)
 -----
 Welcome to the 2000s Movie Database, the dataset contains 2100 films released between 2000 and 2009. Data points include title, genre, year, language and country of production, content rating, duration, aspect ratio, director, cast, budget, box office, number of reviews (by critics and users) and IMDB score. 
 
@@ -18,15 +18,22 @@ The instructions are extremely simply written and require only a minimum of inte
  - [Extra](#Extra)
 
 ## How to use
+![Main](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/main.png)
 - The user is welcomed by a large title and a short welcome message explaining how to use the app. 
 - The app has two tasks: display processed data and perform queries. 
-- The app is based on an iterative process that the user can interrupt at any time when prompted for input. 
 - On the first iteration, the user is asked the question, "What do you want to do today, get data or search?"
 - Depending on whether they answer "data" or "search", they'll be prompted for further choices that will lead to the desired output. 
 - Each answer (input) from the user is verified. If the check fails, the user is prompted to provide a suitable input.
+![Invalid](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/invalid.png)
 - After each output, the user is returned to the beginning and can choose to perform a new search or retrieve data.
+- The app is based on an iterative process that the user can interrupt at any time when prompted for input. 
+![Exit](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/exit.png)
+---
+A flowchart of the program's main process was created with [Lucid.app](https://lucid.app/documents)
+![Flowchart](####)
 
 ### Data option
+![Data Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/data%20option.png)
 Users are offered ten options with pre-calculated statistics and rankings to choose from.
 1.  The average budget, score and duration of this films'decade.
 2.  Number of films in each language.
@@ -41,6 +48,7 @@ Users are offered ten options with pre-calculated statistics and rankings to cho
 After the choice is validated and the output displayed, the user is asked whether he wants to retrieve the data again or perform a search.
 
 ### Search option
+![Search Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/search%20option.png)
 - Users can search the dataset by title, genre, actor and director. 
 - Matching is also possible with partial text but limited to 10 results due to Heroku's terminal constraints (80 characters by 24 rows), so a targeted entry will yield accurate results. 
 - Searching by title is the only query that returns all available information (genre, year, language and country of production, content rating, duration, aspect ratio, director, cast, budget, box office, number of reviews and IMDB score). 
@@ -80,20 +88,22 @@ I manually tested this project throughout the development process by doing the f
   The following logical errors provided undesired output. While the output was consitent with the input, a much broader result was desired. 
 
 #### Fixed
-Matching is not possible with a partial string. e.g. the title must be complete, actor/director must searched by full name in order to display the desired result. 
-:  Implementation of a nested loop to work efficiently with a multi-dimensional data structure like this dataset. If the substring provided by the user was matched by iterating through the spreadsheet and its columns (this dataset is a list that contains other lists), boolean variable returns true and the output displayed. 
+1. Matching is not possible with a partial string. e.g. the title must be complete, actor/director must searched by full name in order to display the desired result. 
+ - Implementation of a nested loop to work efficiently with a multi-dimensional data structure like this dataset. If the substring provided by the user was matched by iterating through the spreadsheet and its columns (this dataset is a list that contains other lists), boolean variable returns true and the output displayed. 
 
-Extended ASCII characters (character code 128-255) present in some names couldn't be matched providing printable ASCII characters (character code 128-255) . 
-:  The dataframe is parsed twice (looking for printable and extended ASCII chars) before informing the user that no matches were found. To match extended ASCII, the normalize method is applied to the dataframe. 
+2. Extended ASCII characters (character code 128-255) present in some names couldn't be matched providing printable ASCII characters (character code 128-255) . 
+ - The dataframe is parsed twice (looking for printable and extended ASCII chars) before informing the user that no matches were found. To match extended ASCII, the normalize method is applied to the dataframe. 
+[Example of the output](#####)
 
 #### Remaining
 In case a value is present in the dataframe but not in the interested column, the output will display a list with the columns' headers (keys) and an an empty index array. This happens because the input is compared against the df.values.
 
 ### Validator
-- PEP8: no errors were returned from the PEP8 validator. 
+- PEP8: no errors were returned from the [PEP8 validator](http://pep8online.com/). 
 
 ## Technologies used
 The project is coded with Python and relies on [pandas 1.4.2:](https://pypi.org/project/pandas/) to analyse data.
+
 ### Languages used
 
 -   [Python](https://docs.python.org/3/)
@@ -105,10 +115,10 @@ The project is coded with Python and relies on [pandas 1.4.2:](https://pypi.org/
 - [pyfiglet 0.8.post1](https://pypi.org/project/pyfiglet/)
 - [pycodestyle 2.8.0](https://pypi.org/project/pycodestyle/)
 --
-- The dataset is a [Google Sheet](https://www.google.com/sheets/about/) file
+- The dataset is a [Google Sheet](https://www.google.com/sheets/about/) file. A copy of the dataset is [available](https://github.com/cla-cif/movie-DB-2000s/blob/main/movie-DB-2000s.xlsx) in this repository. 
 
 ## Deployment
-The project is coded and hosted on GitHub and deployed with Heroku. 
+The project is coded and hosted on GitHub and deployed with [Heroku](https://www.heroku.com/). 
 
 ### Creating the Heroku app 
 The steps needed to deploy this projects are as follows:
@@ -168,5 +178,6 @@ Cloning a repository pulls down a full copy of all the repository data that GitH
 - The dataset is part of Kaggle's ["The Movies Dataset"](https://www.kaggle.com/datasets/rounakbanik/the-movies-dataset) under CC0: Public Domain Licence. 
 
 -----
-[Here is the live version](https://movie-db-2000s.herokuapp.com/)
-[Link to top](#top)
+[Here is the live version](https://movie-db-2000s.herokuapp.com/).
+-----
+[Link to top](#Header)
