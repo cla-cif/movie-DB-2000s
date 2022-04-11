@@ -452,31 +452,32 @@ def get_actor():
     request_actor = input("\nType an actor: ")
     request_actor = request_actor.lower().title()
     search = False
-    for value in df[['Actor1', 'Actor2', 'Actor3']].values:
+    df_copy = df.copy(deep=True)
+    for value in df_copy[['Actor1', 'Actor2', 'Actor3']].values:
         for item in value:
             if request_actor in str(item):
                 search = True
 
     if not search:
-        df['Actor1'] = (
-            df['Actor1'].str.normalize('NFKD').str.encode(
+        df_copy['Actor1'] = (
+            df_copy['Actor1'].str.normalize('NFKD').str.encode(
                 'ascii', errors='ignore').str.decode('utf-8'))
-        df['Actor2'] = (
-            df['Actor2'].str.normalize('NFKD').str.encode(
+        df_copy['Actor2'] = (
+            df_copy['Actor2'].str.normalize('NFKD').str.encode(
                 'ascii', errors='ignore').str.decode('utf-8'))
-        df['Actor3'] = (
-            df['Actor3'].str.normalize('NFKD').str.encode(
+        df_copy['Actor3'] = (
+            df_copy['Actor3'].str.normalize('NFKD').str.encode(
                 'ascii', errors='ignore').str.decode('utf-8'))
-        for value in df[['Actor1', 'Actor2', 'Actor3']].values:
+        for value in df_copy[['Actor1', 'Actor2', 'Actor3']].values:
             for item in value:
                 if request_actor in str(item):
                     search = True
 
     if search:
-        mask1 = df['Actor1'].str.contains(request_actor)
-        mask2 = df['Actor2'].str.contains(request_actor)
-        mask3 = df['Actor3'].str.contains(request_actor)
-        actor_data = df.loc[mask1 | mask2 | mask3, [
+        mask1 = df_copy['Actor1'].str.contains(request_actor)
+        mask2 = df_copy['Actor2'].str.contains(request_actor)
+        mask3 = df_copy['Actor3'].str.contains(request_actor)
+        actor_data = df_copy.loc[mask1 | mask2 | mask3, [
             'Title', 'Genres', 'Director', 'Actor1', 'Actor2', 'Actor3',
             'IMDB Score']]
         print(
@@ -507,26 +508,27 @@ def get_director():
     request_director = input('\nType a director: ')
     request_director = request_director.lower().title()
     search = False
-    for value in df['Director']:
+    df_copy = df.copy(deep=True)
+    for value in df_copy['Director']:
         if request_director in value:
             search = True
     if not search:
-        df['Director'] = (
-            df['Director'].str.normalize('NFKD').str.encode(
+        df_copy['Director'] = (
+            df_copy['Director'].str.normalize('NFKD').str.encode(
                 'ascii', errors='ignore').str.decode('utf-8'))
-        for value in df['Director']:
+        for value in df_copy['Director']:
             if request_director in value:
                 search = True
     if search:
-        mask = df['Director'].str.contains(request_director)
-        director_data = df.loc[mask,
-                               ['Title',
-                                'Genres',
-                                'Director',
-                                'Actor1',
-                                'Actor2',
-                                'Actor3',
-                                'IMDB Score']]
+        mask = df_copy['Director'].str.contains(request_director)
+        director_data = df_copy.loc[mask,
+                                    ['Title',
+                                     'Genres',
+                                     'Director',
+                                     'Actor1',
+                                     'Actor2',
+                                     'Actor3',
+                                     'IMDB Score']]
         print(
             'All the films from the director you were looking for:\n',
             director_data,
