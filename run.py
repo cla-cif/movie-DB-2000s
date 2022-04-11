@@ -387,10 +387,10 @@ def get_film_genres():
                              'Actor3',
                              'IMDB Score']]
         if mask.sum() > 10:
-            film_genre = film_genre.sample(n=10)
+            film_genre = film_genre.sample(n=10, replace=True)
         print(
             'All the films of the genre you were looking for:\n',
-            film_genre.sample(n=10, replace=True),
+            film_genre,
             '\n')
         print('\nDo you want to run a search or find data?')
         welcome()
@@ -461,8 +461,7 @@ def get_director():
     search = False
     for value in df['Director']:
         if request_director in value:
-            search = True
-            
+            search = True       
     if not search:
         df['Director'] = (
             df['Director'].str.normalize('NFKD').str.encode(
