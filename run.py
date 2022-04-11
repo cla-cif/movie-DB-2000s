@@ -12,8 +12,8 @@ df = pd.read_csv(GSHEET_URL)
 
 pd.set_option("display.max_rows", 10)
 pd.set_option("display.min_rows", None)
-pd.set_option('display.max_colwidth', None)
-pd.set_option('display.max_columns', None)
+pd.set_option("display.max_colwidth", None)
+pd.set_option("display.max_columns", None)
 
 
 # CLEAR
@@ -101,7 +101,10 @@ def average():
     print(
         "\nThe average duration got by this decade's films on IMDB is:",
         avg_duration, 'minutes\n')
-    print('\nDo you want to run a search or find data?\n')
+    print(
+        Fore.YELLOW +
+        Style.BRIGHT +
+        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -114,7 +117,10 @@ def language():
         ascending=False).reset_index(name='Count')
     print('\nNumber of films in each language:\n',
           gb_language.to_string(index=False), '\n')
-    print('\nDo you want to run a search or find data?\n')
+    print(
+        Fore.YELLOW +
+        Style.BRIGHT +
+        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -129,7 +135,10 @@ def year():
         name='Count')
     print('\nNumber of films produced each year:\n',
           gb_year.to_string(index=False), '\n')
-    print('\nDo you want to run a search or find data?\n')
+    print(
+        Fore.YELLOW +
+        Style.BRIGHT +
+        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -161,7 +170,10 @@ def director_score():
         '\n The average score of the most prolific directors\n',
         gb_director_score.head(10).to_string(
             index=False), '\n')
-    print('\nDo you want to run a search or find data?')
+    print(
+        Fore.YELLOW +
+        Style.BRIGHT +
+        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -177,7 +189,10 @@ def score_country():
         gb_score_country.head(10).to_string(
             index=False),
         '\n')
-    print('\nDo you want to run a search or find data?')
+    print(
+        Fore.YELLOW +
+        Style.BRIGHT +
+        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -189,7 +204,10 @@ def highest_score():
                             ].sort_values(by='IMDB Score', ascending=False)
     print('\nThe best ten films of the decade according to IMDB:\n',
           sort_highest_score.head(10).to_string(index=False), '\n')
-    print('\nDo you want to run a search or find data?')
+    print(
+        Fore.YELLOW +
+        Style.BRIGHT +
+        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -201,7 +219,10 @@ def lowest_score():
                            ].sort_values(by='IMDB Score', ascending=True)
     print('\nThe worst ten films of the decade according to IMDB:\n',
           sort_lowest_score.head(10).to_string(index=False), '\n')
-    print('\nDo you want to run a search or find data?')
+    print(
+        Fore.YELLOW +
+        Style.BRIGHT +
+        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -216,7 +237,10 @@ def roi():
     print('\nThe most profitable films of the decade:\n',
           sort_highest_roi.head(10).to_string(index=False), '\n')
     df.drop(['ROI'], axis=1, inplace=True)
-    print('\nDo you want to run a search or find data?')
+    print(
+        Fore.YELLOW +
+        Style.BRIGHT +
+        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -238,7 +262,10 @@ def profit():
             index=False),
         '\n')
     df.drop(['Profit'], axis=1, inplace=True)
-    print('\nDo you want to run a search or find data?')
+    print(
+        Fore.YELLOW +
+        Style.BRIGHT +
+        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -255,7 +282,10 @@ def rating_score():
         '\nThe content ratings and their average IMDB Score: \n',
         gb_rating_score.to_string(
             index=False))
-    print('\nDo you want to run a search or find data?')
+    print(
+        Fore.YELLOW +
+        Style.BRIGHT +
+        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -266,8 +296,8 @@ def data_choice():
     calls functions relative to the user's choice.
     """
     while True:
-        print('Chose one of the following numbers:')
-        print(Style.BRIGHT + """
+        print(Style.BRIGHT + Fore.BLUE + 'Chose one of the following numbers:')
+        print(Style.BRIGHT + Fore.WHITE + """
         1:  The average budget, score and duration of this films'decade.
         2:  Number of films in each language.
         3:  Number of films produced each year.
@@ -349,11 +379,17 @@ def get_film_info():
             '\nAll you need to know about the film you were looking for:\n',
             film_data,
             '\n')
-        print('\nDo you want to run a search or find data?')
+        print(
+            Fore.YELLOW +
+            Style.BRIGHT +
+            '\nDo you want to run a search or find data?')
         welcome()
     else:
         print('The film is not present in the database.')
-        print('\nDo you want to run a search or find data?')
+        print(
+            Fore.YELLOW +
+            Style.BRIGHT +
+            '\nDo you want to run a search or find data?')
         welcome()
 
 
@@ -392,11 +428,17 @@ def get_film_genres():
             'All the films of the genre you were looking for:\n',
             film_genre,
             '\n')
-        print('\nDo you want to run a search or find data?')
+        print(
+            Fore.YELLOW +
+            Style.BRIGHT +
+            '\nDo you want to run a search or find data?')
         welcome()
     else:
         print('The genre is not present in the database.')
-        print('\nDo you want to run a search or find data?')
+        print(
+            Fore.YELLOW +
+            Style.BRIGHT +
+            '\nDo you want to run a search or find data?')
         welcome()
 
 
@@ -410,7 +452,7 @@ def get_actor():
     request_actor = input("\nType an actor: ")
     request_actor = request_actor.lower().title()
     search = False
-    for value in df[['Actor1', 'Actor2', 'Actor3']]:
+    for value in df[['Actor1', 'Actor2', 'Actor3']].values:
         for item in value:
             if request_actor in str(item):
                 search = True
@@ -441,11 +483,17 @@ def get_actor():
             'All the movies of the actor you were looking for\n',
             actor_data,
             '\n')
-        print('\nDo you want to run a search or find data?')
+        print(
+            Fore.YELLOW +
+            Style.BRIGHT +
+            '\nDo you want to run a search or find data?')
         welcome()
     else:
         print('The actor is not present in the database')
-        print('\nDo you want to run a search or find data?')
+        print(
+            Fore.YELLOW +
+            Style.BRIGHT +
+            '\nDo you want to run a search or find data?')
         welcome()
 
 
@@ -461,15 +509,14 @@ def get_director():
     search = False
     for value in df['Director']:
         if request_director in value:
-            search = True       
+            search = True
     if not search:
         df['Director'] = (
             df['Director'].str.normalize('NFKD').str.encode(
                 'ascii', errors='ignore').str.decode('utf-8'))
-        for value in df['Director'].values:
-            for item in value:
-                if request_director in str(item):
-                    search = True
+        for value in df['Director']:
+            if request_director in value:
+                search = True
     if search:
         mask = df['Director'].str.contains(request_director)
         director_data = df.loc[mask,
@@ -484,12 +531,18 @@ def get_director():
             'All the films from the director you were looking for:\n',
             director_data,
             '\n')
-        print('\nDo you want to run a search or find data?')
+        print(
+            Fore.YELLOW +
+            Style.BRIGHT +
+            '\nDo you want to run a search or find data?')
         welcome()
 
     else:
         print('The director is not present in the database.\n')
-        print('\nDo you want to run a search or find data?')
+        print(
+            Fore.YELLOW +
+            Style.BRIGHT +
+            '\nDo you want to run a search or find data?')
         welcome()
 
 
