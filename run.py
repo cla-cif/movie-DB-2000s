@@ -339,10 +339,9 @@ def get_film_info():
     request_film = input("\nType a title: ")
     request_film = request_film.lower().title()
     search = False
-    for value in df['Title'].values:
-        for item in value:
-            if request_film in str(item):
-                search = True
+    for value in df['Title']:
+        if request_film in value:
+            search = True
 
     if search:
         film_data = df.loc[(df['Title'].str.contains(request_film))]
@@ -373,10 +372,9 @@ def get_film_genres():
     request_genre = input(Style.RESET_ALL + '\nType a genre: ')
     request_genre = request_genre.lower().title()
     search = False
-    for value in df['Genres'].values:
-        for item in value:
-            if request_genre in str(item):
-                search = True
+    for value in df['Genres']:
+        if request_genre in value:
+            search = True
 
     if search:
         mask = df['Genres'].str.contains(request_genre)
@@ -412,7 +410,7 @@ def get_actor():
     request_actor = input("\nType an actor: ")
     request_actor = request_actor.lower().title()
     search = False
-    for value in df[['Actor1', 'Actor2', 'Actor3']].values:
+    for value in df[['Actor1', 'Actor2', 'Actor3']]:
         for item in value:
             if request_actor in str(item):
                 search = True
@@ -461,10 +459,10 @@ def get_director():
     request_director = input('\nType a director: ')
     request_director = request_director.lower().title()
     search = False
-    for value in df['Director'].values:
-        for item in value:
-            if request_director in str(item):
-                search = True
+    for value in df['Director']:
+        if request_director in value:
+            search = True
+            
     if not search:
         df['Director'] = (
             df['Director'].str.normalize('NFKD').str.encode(
