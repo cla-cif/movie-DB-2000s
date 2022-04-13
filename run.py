@@ -43,7 +43,11 @@ def welcome():
     function is called after every output.
     """
     while True:
-        welcome_input = input(Style.RESET_ALL + "Please type data or search: ")
+        welcome_input = input(
+            Fore.BLUE +
+            Style.BRIGHT +
+            "Please type data or search: " +
+            Style.RESET_ALL)
         welcome_input = welcome_input.lower()
 
         if welcome_input.lower() == "exit":
@@ -73,7 +77,10 @@ def validate_welcome(welcome_choice):
         else:
             raise ValueError
     except ValueError:
-        print(Fore.RED + 'Please provide a suitable choice\n')
+        print(
+            Fore.RED +
+            'Please provide a suitable choice\n' +
+            Style.RESET_ALL)
         return False
 
 
@@ -308,7 +315,11 @@ def data_choice():
         8:  The most profitable films in terms of return of investment.
         9:  Top 10 box-office flops: the most unprofitable films.
         10  The content ratings and their average IMDB Scores.\n""")
-        user_input = input(Style.RESET_ALL + "Type the number:  ")
+        user_input = input(
+            Fore.BLUE +
+            Style.BRIGHT +
+            "Type the number:  " +
+            Style.RESET_ALL)
         if user_input.lower() == "exit":
             print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
@@ -349,12 +360,12 @@ def validate_data_choice(data):
     try:
         int(data)
     except ValueError:
-        print(Fore.RED + 'Please provide a number.\n')
+        print(Fore.RED + 'Please provide a number.\n' + Style.RESET_ALL)
     else:
         if 0 < int(data) < 11:
             return True
         else:
-            print(Fore.RED + 'The number is out of range.\n')
+            print(Fore.RED + 'The number is out of range.\n' + Style.RESET_ALL)
 
 
 # SEARCH OPTION
@@ -366,7 +377,11 @@ def get_film_info():
     nested loop to search for matches in the df and Title column,
     if none found display message and call welcome function.
     """
-    request_film = input("\nType a title: ")
+    request_film = input(
+        Fore.BLUE +
+        Style.BRIGHT +
+        "\nType a title: " +
+        Style.RESET_ALL)
     request_film = request_film.lower().title()
     search = False
     for value in df['Title']:
@@ -382,7 +397,7 @@ def get_film_info():
         print(
             Fore.YELLOW +
             Style.BRIGHT +
-            '\nDo you want to run a search or find data?')
+            '\nDo you want to run a search or find data?' + Style.RESET_ALL)
         welcome()
     else:
         print('The film is not present in the database.')
@@ -405,7 +420,11 @@ def get_film_genres():
         """\n    Search by one or more genres, separated by a space.
     If there are many hits (Comedy has 850+ !),
     only 10 random results will be displayed.""")
-    request_genre = input(Style.RESET_ALL + '\nType a genre: ')
+    request_genre = input(
+        Style.BRIGHT +
+        Fore.BLUE +
+        '\nType a genre: ' +
+        Style.RESET_ALL)
     request_genre = request_genre.lower().title()
     search = False
     for value in df['Genres']:
@@ -490,7 +509,7 @@ def get_actor():
             '\nDo you want to run a search or find data?')
         welcome()
     else:
-        print('The actor is not present in the database')
+        print('The actor is not present in the database.')
         print(
             Fore.YELLOW +
             Style.BRIGHT +
@@ -556,8 +575,10 @@ def search_choice():
     """
     while True:
         user_input = input(
-            Style.RESET_ALL +
-            "Do you want to search by actor, genre, director or title? ")
+            Style.BRIGHT +
+            Fore.YELLOW +
+            "Do you want to search by actor, genre, director or title? " +
+            Style.RESET_ALL)
         user_input = user_input.lower()
         if user_input.lower() == "exit":
             print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
