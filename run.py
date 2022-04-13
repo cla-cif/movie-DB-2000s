@@ -101,7 +101,7 @@ def average():
 
     avg_score = df['IMDB Score'].mean().round(1)
     print(
-        "The average score got by this decade's films on IMDB is:",
+        "\nThe average score got by this decade's films on IMDB is:",
         avg_score)
 
     avg_duration = df['Duration'].mean().round(1)
@@ -192,7 +192,7 @@ def score_country():
         'Country', sort=False)['IMDB Score'].mean().round(1).sort_values(
         ascending=False).reset_index()
     print(
-        '\nTop ten countries that produced films with the highest IMDB score:',
+        '\nTop 10 countries whose films have the highest IMDB score:\n',
         gb_score_country.head(10).to_string(
             index=False),
         '\n')
@@ -305,7 +305,7 @@ def data_choice():
     while True:
         print(Style.BRIGHT + Fore.BLUE + 'Chose one of the following numbers:')
         print(Style.BRIGHT + Fore.WHITE + """
-        1:  The average budget, score and duration of this films'decade.
+        1:  The average budget, score and duration of this decade's films.
         2:  Number of films in each language.
         3:  Number of films produced each year.
         4:  The most prolific directors of the decade and their scores.
