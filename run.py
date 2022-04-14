@@ -45,8 +45,8 @@ def get_help():
     while True:
         help_input = input(
             Fore.BLUE +
-            Style.BRIGHT +
-            "Type HELP to get instruction or press Enter to continue: " +
+            Style.BRIGHT + """
+    Type HELP to get instruction or press Enter to continue: """ +
             Style.RESET_ALL)
         help_input = help_input.lower()
 
@@ -152,10 +152,10 @@ def welcome():
     while True:
         welcome_input = input(
             Fore.WHITE + Style.BRIGHT + """
-Type SEARCH or DATA to explore the database,
-EXIT to quit, HELP to get instructions""" +
+    Type SEARCH or DATA to explore, EXIT to quit, HELP to get instructions""" +
             Fore.BLUE +
-            Style.BRIGHT + '\nWhat do you want to do? ' + Style.RESET_ALL)
+            Style.BRIGHT + """
+    What do you want to do? """ + Style.RESET_ALL)
         welcome_input = welcome_input.lower()
 
         if welcome_input.lower() == "exit":
@@ -716,10 +716,10 @@ title = pyfiglet.figlet_format("Movie DB 2000s", font="slant")
 print(Fore.YELLOW + Style.BRIGHT + title)
 print(Style.BRIGHT + Fore.WHITE + """
     Welcome to the 2000s Movie Database!
-    The database contains""", df['Title'].count(), """ released between 2000 and 2009.
+    The database contains""", df['Title'].count(), """ films released between 2000 and 2009.
     Information include title, genre, year, language and country of production,
-    content rating, duration, aspect ratio, director, cast, budget, box office,
-    number of reviews (by critics and users) and IMDB score.""" +
+    content rating, duration, aspect ratio, director, cast, budget
+    box office revenue, number of reviews and IMDB score.""" +
       Fore.YELLOW + Style.BRIGHT + """
     Get statistics, the top 10 lists or search by film.\n""")
 
