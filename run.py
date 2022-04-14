@@ -38,19 +38,19 @@ def clear():
 
 def get_help():
     """
+    it's called once on load
     calls help_text function
     calls validation function on user input
-    it's called once on load.
     """
     while True:
         help_input = input(
             Fore.BLUE +
             Style.BRIGHT + """
-    Type HELP to get instruction or press Enter to continue: """ +
+Type HELP to get instruction, EXIT to quit or press Enter to continue: """ +
             Style.RESET_ALL)
-        help_input = help_input.lower()
+        help_input = help_input.lower().rstrip()
 
-        if help_input.lower() == "exit":
+        if help_input.lower().rstrip() == "exit":
             print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
@@ -136,7 +136,7 @@ def validate_help_text(help_text_choice):
         except ValueError:
             print(
                 Fore.RED +
-                'Please provide a suitable choice\n' +
+                ' Please provide a suitable choice\n' +
                 Style.RESET_ALL)
         return False
 
@@ -151,23 +151,20 @@ def welcome():
     """
     while True:
         welcome_input = input(
-            Fore.WHITE + Style.BRIGHT + """
-    Type SEARCH or DATA to explore, EXIT to quit, HELP to get instructions""" +
-            Fore.BLUE +
-            Style.BRIGHT + """
-    What do you want to do? """ + Style.RESET_ALL)
-        welcome_input = welcome_input.lower()
+            Fore.BLUE + Style.BRIGHT + """
+Type HELP to get instructions, EXIT to quit, SEARCH or DATA to explore: """ +
+            Style.RESET_ALL)
+        welcome_input = welcome_input.lower().rstrip()
 
-        if welcome_input.lower() == "exit":
+        if welcome_input.lower().rstrip() == "exit":
             print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
-        elif welcome_input.lower() == 'help':
+        elif welcome_input.lower().rstrip() == 'help':
             help_text()
 
         if validate_welcome(welcome_input):
-            print('All right!\n')
             if welcome_input == 'search':
                 search_choice()
             elif welcome_input == 'data':
@@ -228,8 +225,10 @@ def language():
     """
     gb_language = df.groupby('Language')['Country'].size().sort_values(
         ascending=False).reset_index(name='Count')
-    print('\nNumber of films in each language:\n',
-          gb_language.to_string(index=False), '\n')
+    print(f"""{Fore.YELLOW + Style.BRIGHT}
+Number of films in each language:
+{Style.RESET_ALL}{gb_language.to_string(index=False)}\n""")
+    welcome()
     welcome()
 
 
@@ -242,8 +241,9 @@ def year():
         'Year',
         sort=False)['Country'].size().reset_index(
         name='Count')
-    print('\nNumber of films produced each year:\n',
-          gb_year.to_string(index=False), '\n')
+    print(f"""{Fore.YELLOW + Style.BRIGHT}
+Number of films produced each year:
+{Style.RESET_ALL}{gb_year.to_string(index=False)}\n""")
     welcome()
 
 
@@ -271,10 +271,9 @@ def director_score():
     gb_director_score['Average Score'] = (
         gb_director_score["Total IMDB Score"] /
         gb_director_score["Number of movies"]).round(2)
-    print(
-        '\n The average score of the most prolific directors\n',
-        gb_director_score.head(10).to_string(
-            index=False), '\n')
+    print(f"""{Fore.YELLOW + Style.BRIGHT}
+The average score of the most prolific directors:
+{Style.RESET_ALL}{gb_director_score.head(10).to_string(index=False)}\n""")
     welcome()
 
 
@@ -285,11 +284,9 @@ def score_country():
     gb_score_country = df.groupby(
         'Country', sort=False)['IMDB Score'].mean().round(1).sort_values(
         ascending=False).reset_index()
-    print(
-        '\nTop 10 countries whose films have the highest IMDB score:\n',
-        gb_score_country.head(10).to_string(
-            index=False),
-        '\n')
+    print(f"""{Fore.YELLOW + Style.BRIGHT}
+Top 10 countries whose films have the highest IMDB score:
+{Style.RESET_ALL}{gb_score_country.head(10).to_string(index=False)}\n""")
     welcome()
 
 
@@ -299,8 +296,9 @@ def highest_score():
     """
     sort_highest_score = df[['Title', 'IMDB Score']
                             ].sort_values(by='IMDB Score', ascending=False)
-    print('\nThe best ten films of the decade according to IMDB:\n',
-          sort_highest_score.head(10).to_string(index=False), '\n')
+    print(f"""{Fore.YELLOW + Style.BRIGHT}
+The best ten films of the decade according to IMDB:
+{Style.RESET_ALL}{sort_highest_score.head(10).to_string(index=False)}\n""")
     welcome()
 
 
@@ -310,8 +308,9 @@ def lowest_score():
     """
     sort_lowest_score = df[['Title', 'IMDB Score']
                            ].sort_values(by='IMDB Score', ascending=True)
-    print('\nThe worst ten films of the decade according to IMDB:\n',
-          sort_lowest_score.head(10).to_string(index=False), '\n')
+    print(f"""{Fore.YELLOW + Style.BRIGHT}
+The worst ten films of the decade according to IMDB:
+{Style.RESET_ALL}{sort_lowest_score.head(10).to_string(index=False)}\n""")
     welcome()
 
 
@@ -323,8 +322,9 @@ def roi():
     df['ROI'] = (df["Gross Earnings"] / df["Budget"] * 100).round(2)
     sort_highest_roi = df[['Title', 'ROI']].sort_values(
         by='ROI', ascending=False).dropna()
-    print('\nThe most profitable films of the decade:\n',
-          sort_highest_roi.head(10).to_string(index=False), '\n')
+    print(f"""{Fore.YELLOW + Style.BRIGHT}
+The most profitable films of the decade:
+{Style.RESET_ALL}{sort_highest_roi.head(10).to_string(index=False)}\n""")
     df.drop(['ROI'], axis=1, inplace=True)
     welcome()
 
@@ -341,11 +341,9 @@ def profit():
         lambda x: f'{x:,}')
     sort_least_profitable = df[['Title', 'Profit']
                                ].sort_values(by='Profit', ascending=True)
-    print(
-        '\nTop 10 box-office flop:\n',
-        sort_least_profitable.head(10).to_string(
-            index=False),
-        '\n')
+    print(f"""{Fore.YELLOW + Style.BRIGHT}
+Top 10 box-office flop:
+{Style.RESET_ALL}{sort_least_profitable.head(10).to_string(index=False)}\n""")
     df.drop(['Profit'], axis=1, inplace=True)
     welcome()
 
@@ -359,10 +357,9 @@ def rating_score():
         sort=False,
         dropna=True)['IMDB Score'].mean().round(1).sort_values(
         ascending=False).reset_index()
-    print(
-        '\nThe content ratings and their average IMDB Score: \n',
-        gb_rating_score.to_string(
-            index=False))
+    print(f"""{Fore.YELLOW + Style.BRIGHT}
+The content ratings and their average IMDB Score:
+{Style.RESET_ALL}{gb_rating_score.to_string(index=False)}\n""")
     welcome()
 
 
@@ -373,7 +370,8 @@ def data_choice():
     calls functions relative to the user's choice.
     """
     while True:
-        print(Style.BRIGHT + Fore.BLUE + 'Chose one of the following numbers:')
+        print(Style.BRIGHT +
+              Fore.BLUE + '\nChose one of the following numbers:')
         print(Style.BRIGHT + Fore.WHITE + """
         1:  The average budget, score and duration of this decade's films.
         2:  Number of films in each language.
@@ -390,12 +388,12 @@ def data_choice():
             Style.BRIGHT +
             "Type the number:  " +
             Style.RESET_ALL)
-        if user_input.lower() == "exit":
+        if user_input.lower().rstrip() == "exit":
             print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
-        elif user_input.lower() == 'help':
+        elif user_input.lower().rstrip() == 'help':
             help_text()
 
         if validate_data_choice(user_input):
@@ -454,7 +452,7 @@ def get_film_info():
         """\n    Search by full or partial title,
     type the words divided by a space.
     Characters from a foreign alpabet will be matched as well
-    (type amelie to match Amélie )
+    (type amelie to match Amélie)
     In case of multiple matches,
     the results will be restricted to the first 10 elements""")
     request_film = input(
@@ -462,7 +460,7 @@ def get_film_info():
         Style.BRIGHT +
         "\nType a title: " +
         Style.RESET_ALL)
-    request_film = request_film.lower().title()
+    request_film = request_film.lower().title().rstrip()
     search = False
     for value in df['Title']:
         if request_film in value:
@@ -470,10 +468,9 @@ def get_film_info():
 
     if search:
         film_data = df.loc[(df['Title'].str.contains(request_film))]
-        print(
-            '\nAll you need to know about the film you were looking for:\n',
-            film_data,
-            '\n')
+        print(f"""{Fore.YELLOW + Style.BRIGHT}
+All you need to know about the film you were looking for:
+{Style.RESET_ALL}{film_data}\n""")
         welcome()
     else:
         print(
@@ -502,7 +499,7 @@ def get_film_genres():
         Fore.BLUE +
         '\nType a genre: ' +
         Style.RESET_ALL)
-    request_genre = request_genre.lower().title()
+    request_genre = request_genre.lower().title().rstrip()
     search = False
     for value in df['Genres']:
         if request_genre in value:
@@ -520,17 +517,13 @@ def get_film_genres():
                              'IMDB Score']]
         if mask.sum() > 10:
             film_genre = film_genre.sample(n=10, replace=True)
-        print(
-            'All the films of the genre you were looking for:\n',
-            film_genre,
-            '\n')
+        print(f"""{Fore.YELLOW + Style.BRIGHT}
+All the films of the genre you were looking for:
+{Style.RESET_ALL}{film_genre}\n""")
         welcome()
     else:
-        print(
-            Fore.YELLOW +
-            Style.BRIGHT +
-            'The genre is not present in the database\n' +
-            Style.RESET_ALL)
+        print(f"""{Fore.YELLOW + Style.BRIGHT}
+This genre is not present in the database{Style.RESET_ALL}\n""")
         welcome()
 
 
@@ -550,7 +543,7 @@ def get_actor():
     In case of multiple matches, the results
     will be restricted to the first 10 elements""" + Style.RESET_ALL)
     request_actor = input("\nType an actor: ")
-    request_actor = request_actor.lower().title()
+    request_actor = request_actor.lower().title().rstrip()
     search = False
     df_copy = df.copy(deep=True)
     for value in df_copy[['Actor1', 'Actor2', 'Actor3']].values:
@@ -580,17 +573,13 @@ def get_actor():
         actor_data = df_copy.loc[mask1 | mask2 | mask3, [
             'Title', 'Genres', 'Director', 'Actor1', 'Actor2', 'Actor3',
             'IMDB Score']]
-        print(
-            'All the movies of the actor you were looking for\n',
-            actor_data,
-            '\n')
+        print(f"""{Fore.YELLOW + Style.BRIGHT}
+All the movies of the actor you were looking for:
+{Style.RESET_ALL}{actor_data}\n""")
         welcome()
     else:
-        print(
-            Fore.YELLOW +
-            Style.BRIGHT +
-            'The actor is not present in the database\n' +
-            Style.RESET_ALL)
+        print(f"""{Fore.YELLOW + Style.BRIGHT}
+This actor is not present in the database{Style.RESET_ALL}\n""")
         welcome()
 
 
@@ -610,7 +599,7 @@ def get_director():
     In case of multiple matches,
     the results will be restricted to the first 10 elements""")
     request_director = input('\nType a director: ')
-    request_director = request_director.lower().title()
+    request_director = request_director.lower().title().rstrip()
     search = False
     df_copy = df.copy(deep=True)
     for value in df_copy['Director']:
@@ -633,18 +622,14 @@ def get_director():
                                      'Actor2',
                                      'Actor3',
                                      'IMDB Score']]
-        print(
-            'All the films from the director you were looking for:\n',
-            director_data,
-            '\n')
+        print(f"""{Fore.YELLOW + Style.BRIGHT}
+All the films from the director you were looking for:
+{Style.RESET_ALL}{director_data}\n""")
         welcome()
 
     else:
-        print(
-            Fore.YELLOW +
-            Style.BRIGHT +
-            'The director is not present in the database\n' +
-            Style.RESET_ALL)
+        print(f"""{Fore.YELLOW + Style.BRIGHT}
+This director is not present in the database{Style.RESET_ALL}\n""")
         welcome()
 
 
@@ -657,16 +642,16 @@ def search_choice():
     while True:
         user_input = input(
             Style.BRIGHT +
-            Fore.YELLOW +
-            "Do you want to search by actor, genre, director or title? " +
+            Fore.BLUE +
+            "\nType your search criteria ACTOR, GENRE, DIRECTOR, TITLE: " +
             Style.RESET_ALL)
-        user_input = user_input.lower()
-        if user_input.lower() == "exit":
+        user_input = user_input.lower().rstrip()
+        if user_input.lower().rstrip() == "exit":
             print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
-        elif user_input.lower() == 'help':
+        elif user_input.lower().rstrip() == 'help':
             help_text()
 
         if validate_search_choice(user_input):
@@ -712,10 +697,10 @@ def main():
     search_choice()
 
 
-title = pyfiglet.figlet_format("Movie DB 2000s", font="slant")
+title = pyfiglet.figlet_format(" Movie DB 2000s", font="slant")
 print(Fore.YELLOW + Style.BRIGHT + title)
-print(Style.BRIGHT + Fore.WHITE + """
-    Welcome to the 2000s Movie Database!
+print(Style.BRIGHT + Fore.YELLOW + """
+    Welcome to the 2000s Movie Database! """ + Style.BRIGHT + Fore.WHITE + """
     The database contains""", df['Title'].count(), """ films released between 2000 and 2009.
     Information include title, genre, year, language and country of production,
     content rating, duration, aspect ratio, director, cast, budget
