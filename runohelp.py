@@ -615,44 +615,7 @@ def validate_search_choice(choice):
         print(Fore.RED + 'Please provide a suitable choice.\n')
         return False
 
-# HELP
 
-
-def get_help():
-    """
-    help function can be called at any stage during the program
-    """
-    while True:
-        help_input = input(
-            Fore.BLUE +
-            Style.BRIGHT +
-            "Type help to get instruction or press return to continue: " +
-            Style.RESET_ALL)
-        help_input = help_input.lower()
-
-        if help_input.lower() == "exit":
-            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
-                  Style.BRIGHT + ' Goodbye!')
-            sleep(3)
-            clear()
-
-        if help_input == 'help':
-            help_text()
-        elif help_input == "":
-            welcome()
-        else:
-            print('please provide a suitable choiche')
-        break
-
-
-def help_text():
-    print((Fore.BLUE + Style.BRIGHT + """
-        - To run, type and hit enter. | To quit, type exit after a question.
-        - A match is possible with partial text but restricted to 10 results.
-        - Characters from a foreign alphabet will be matched as well.\n""" +
-           Fore.YELLOW + Style.BRIGHT + """
-            What do you want to do today, get data or search?\n""")
-          )
 # MAIN
 
 
@@ -661,7 +624,7 @@ def main():
     calls the input functions,
     displays header when program first runs.
     """
-    get_help()
+    welcome()
     data_choice()
     search_choice()
 
@@ -673,7 +636,7 @@ Welcome to the 2000s Movie Database!
 The database contains""", df['Title'].count(), """films cathegorised by title, genre, year,
 director, leading actors, number of reviews (by critics and users) and rating.\n""" +  # noqa
       Fore.YELLOW + Style.BRIGHT + """
-Get statistics, the top 10 lists or search by film.\n""") + (Fore.BLUE + Style.BRIGHT + """
+Get statistics, the top 10 lists or search by film.\n""" + Fore.BLUE + Style.BRIGHT + """
  - To run, type and hit enter. | To quit, type exit after a question.
  - A match is possible with partial text but restricted to 10 results.
  - Characters from a foreign alphabet will be matched as well.\n""" +
