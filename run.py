@@ -44,14 +44,14 @@ def get_help():
     """
     while True:
         help_input = input(
-            Fore.CYAN +
+            Fore.BLUE +
             Style.BRIGHT + """
 Type HELP to get instruction, EXIT to quit or press Enter to continue: """ +
             Style.RESET_ALL)
         help_input = help_input.lower().rstrip()
 
         if help_input.lower().rstrip() == "exit":
-            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.CYAN +
+            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
@@ -104,13 +104,13 @@ def help_text():
         EXIT   clear the screen and quits the program
         HELP   provides help information """ + Style.RESET_ALL)
     while True:
-        help_text_input = input(Style.BRIGHT + Fore.CYAN + """
+        help_text_input = input(Style.BRIGHT + Fore.BLUE + """
 Press Enter to continue """ + Style.RESET_ALL)
         help_text_input = help_text_input.lower()
 
         if validate_help_text(help_text_input):
             if help_text_input == 'exit':
-                print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.CYAN +
+                print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                       Style.BRIGHT + ' Goodbye!')
                 sleep(3)
                 clear()
@@ -150,13 +150,13 @@ def welcome():
     """
     while True:
         welcome_input = input(
-            Fore.CYAN + Style.BRIGHT + """
+            Fore.BLUE + Style.BRIGHT + """
 Type SEARCH or DATA to explore the database: """ +
             Style.RESET_ALL)
         welcome_input = welcome_input.lower().rstrip()
 
         if welcome_input.lower().rstrip() == "exit":
-            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.CYAN +
+            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
@@ -368,7 +368,7 @@ def data_choice():
     """
     while True:
         print(Style.BRIGHT +
-              Fore.CYAN + '\nChose one of the following numbers:')
+              Fore.BLUE + '\nChose one of the following numbers:')
         print(Style.BRIGHT + Fore.WHITE + """
         1:  The average budget, score and duration of this decade's films.
         2:  Number of films in each language.
@@ -381,12 +381,12 @@ def data_choice():
         9:  Top 10 box-office flops: the most unprofitable films.
         10  The content ratings and their average IMDB Scores.\n""")
         user_input = input(
-            Fore.CYAN +
+            Fore.BLUE +
             Style.BRIGHT +
             "Type the number:  " +
             Style.RESET_ALL)
         if user_input.lower().rstrip() == "exit":
-            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.CYAN +
+            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
@@ -452,8 +452,8 @@ def get_film_info():
     (type amelie to match Amélie)
     In case of multiple matches,
     the results will be restricted to the first 10 elements""")
-    request_film = input(f"{Fore.CYAN + Style.BRIGHT}"
-                          f"\nType a title: {Style.RESET_ALL}")
+    request_film = input(f"{Fore.BLUE + Style.BRIGHT}"
+                         f"\nType a title: {Style.RESET_ALL}")
     request_film = request_film.lower().title().rstrip()
     search = False
     for value in df['Title']:
@@ -485,7 +485,7 @@ def get_film_genres():
     type the words divided by a space.
     In case of multiple matches ('Comedy' has 850+ !),
     only 10 random results will be displayed.""")
-    request_genre = input(f"{Fore.CYAN + Style.BRIGHT}"
+    request_genre = input(f"{Fore.BLUE + Style.BRIGHT}"
                           f"\nType a genre: {Style.RESET_ALL}")
     request_genre = request_genre.lower().title().rstrip()
     search = False
@@ -530,7 +530,7 @@ def get_actor():
     (type skarsgard to match Skarsgård )
     In case of multiple matches, the results
     will be restricted to the first 10 elements""" + Style.RESET_ALL)
-    request_actor = input(f"{Fore.CYAN + Style.BRIGHT}"
+    request_actor = input(f"{Fore.BLUE + Style.BRIGHT}"
                           f"\nType an actor: {Style.RESET_ALL}")
     request_actor = request_actor.lower().title().rstrip()
     search = False
@@ -587,8 +587,8 @@ def get_director():
     (type skarsgard to match Skarsgård )
     In case of multiple matches,
     the results will be restricted to the first 10 elements""")
-    request_director = input(f"{Fore.CYAN + Style.BRIGHT}"
-                          f"\nType an director: {Style.RESET_ALL}")
+    request_director = input(f"{Fore.BLUE + Style.BRIGHT}"
+                             f"\nType an director: {Style.RESET_ALL}")
     request_director = request_director.lower().title().rstrip()
     search = False
     df_copy = df.copy(deep=True)
@@ -632,12 +632,12 @@ def search_choice():
     while True:
         user_input = input(
             Style.BRIGHT +
-            Fore.CYAN +
+            Fore.BLUE +
             "\nType your search criteria - ACTOR, GENRE, DIRECTOR, TITLE: " +
             Style.RESET_ALL)
         user_input = user_input.lower().rstrip()
         if user_input.lower().rstrip() == "exit":
-            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.CYAN +
+            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
