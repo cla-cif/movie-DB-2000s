@@ -54,32 +54,82 @@ def get_help():
             sleep(3)
             clear()
 
-        if help_input == 'help':
-            help_text()
-        elif help_input == "":
-            welcome()
-        break
+        if validate_help(help_input):
+            if help_input == 'help':
+                help_text()
+            elif help_input == "":
+                welcome()
+            break
+
+
+def validate_help(help_choice):
+    """
+    raise error msg if input is not return key or help string.
+    function is called by get help function.
+    """
+    choices = ['help', '']
+    try:
+        if str(help_choice) in choices:
+            return True
+        else:
+            raise ValueError
+    except ValueError:
+        print(
+            Fore.RED +
+            'Please provide a suitable choice\n' +
+            Style.RESET_ALL)
+        return False
 
 
 def help_text():
     """
-    descriptive text
+    descriptive text and input
     """
     print(Style.BRIGHT + """
-        - This app has two main sections DATA and SEARCH
+        - This app has two main sections DATA and SEARCH:
         DATA shows 10 options to chose from to display pre calculated data
         SEARCH allows to search the database by actor, title, director, genre
 
         - When prompted, type your choice (case-insensitive) and press enter
-        - After a question two specific commands can always be typed:
+
+        - After each question two specific commands can always be typed:
         EXIT    clear the screen and exit the program
         HELP   provides help information
         """ + Style.RESET_ALL)
-    help_text_input = input('Press the return key to continue ')
-    if help_text_input == "":
-        welcome()
-    else:
-        print('please provide a suitable choiche')
+    while True:
+        help_text_input = input("""
+Press the return key to continue or type exit to terminate the app """)
+
+        if validate_help_text(help_text_input):
+            if help_text_input.lower == 'exit':
+                print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
+                      Style.BRIGHT + ' Goodbye!')
+                sleep(3)
+                clear()
+            if help_text_input == "":
+                welcome()
+            elif help_text_input.lower() == 'help':
+                print('help instructions are above')
+            break
+
+
+def validate_help_text(help_text_choice):
+    """
+    raise error msg if input is not return key or help string.
+    function is called by get help function.
+    """
+    choices = ['help', 'exit', '']
+    try:
+        if str(help_text_choice) in choices:
+            return True
+        else:
+            raise ValueError
+    except ValueError:
+        print(
+            Fore.RED +
+            'Please provide a suitable choice\n' +
+            Style.RESET_ALL)
+        return False
 
 
 # WELCOME!
@@ -95,7 +145,7 @@ def welcome():
         welcome_input = input(
             Fore.BLUE +
             Style.BRIGHT +
-            "Please type data or search: " +
+            "\nPlease type data or search: " +
             Style.RESET_ALL)
         welcome_input = welcome_input.lower()
 
@@ -530,12 +580,12 @@ def get_actor():
     """
     print(
         Fore.BLUE + Style.BRIGHT +
-        """\n    Search by full or partial name,
-    type the words divided by a space.
+        """\n    Search by full or partial name.
+    Type the words divided by a space.
     Characters from a foreign alpabet will be matched as well
     (type skarsgard to match Skarsgård )
-    In case of multiple matches,
-    the results will be restricted to the first 10 elements""")
+    In case of multiple matches, the results
+    will be restricted to the first 10 elements""" + Style.RESET_ALL)
     request_actor = input("\nType an actor: ")
     request_actor = request_actor.lower().title()
     search = False
@@ -703,6 +753,7 @@ def main():
     displays header when program first runs.
     """
     get_help()
+    help_text()
     data_choice()
     search_choice()
 
@@ -711,9 +762,9 @@ title = pyfiglet.figlet_format("Movie DB 2000s", font="slant")
 print(Fore.YELLOW + Style.BRIGHT + title)
 print(Fore.BLUE + Style.BRIGHT + """
 Welcome to the 2000s Movie Database!
-The database contains""", df['Title'].count(), """
-Films cathegorised by title, genre, year, director,
-leading actors, number of reviews (by critics and users) and rating.\n""" +
+The database contains""", df['Title'].count(), """ films cathegorised by
+title, genre, year, director, leading actors,
+number of reviews (by critics and users) and rating.\n""" +
       Fore.YELLOW + Style.BRIGHT + """
 Get statistics, the top 10 lists or search by film.\n""")
 
