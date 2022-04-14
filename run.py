@@ -21,8 +21,8 @@ pd.set_option("display.max_columns", None)
 
 def clear():
     """
-    clear the CLI and exit the program.
-    can be called typing exit after every input.
+    clears the CLI and exit the program.
+    can be called typing exit after every input prompt.
     """
     # for windows
     if name == 'nt':
@@ -38,13 +38,15 @@ def clear():
 
 def get_help():
     """
-    help function can be called at any stage during the program
+    calls help_text function
+    calls validation function on user input
+    it's called once on load.
     """
     while True:
         help_input = input(
             Fore.BLUE +
             Style.BRIGHT +
-            "Type help to get instruction or press return to continue: " +
+            "Type HELP to get instruction or press Enter to continue: " +
             Style.RESET_ALL)
         help_input = help_input.lower()
 
@@ -54,7 +56,7 @@ def get_help():
             sleep(3)
             clear()
 
-        if validate_help(help_input):
+        if validate_get_help(help_input):
             if help_input == 'help':
                 help_text()
             elif help_input == "":
@@ -62,10 +64,10 @@ def get_help():
             break
 
 
-def validate_help(help_choice):
+def validate_get_help(help_choice):
     """
     raise error msg if input is not return key or help string.
-    function is called by get help function.
+    function is called by get_help function.
     """
     choices = ['help', '']
     try:
@@ -83,57 +85,63 @@ def validate_help(help_choice):
 
 def help_text():
     """
-    descriptive text and input
+    provide descriptive text and info about the app
+    can be called typing help after every input prompt.
+    calls validation function on user input.
     """
     print(Style.BRIGHT + """
-        - This app has two main sections DATA and SEARCH:
-        DATA shows 10 options to chose from to display pre calculated data
+    The database is part of Kaggle's "The Movies Dataset"
+    under CC0: Public Domain Licence.
+
+    This app has two main sections DATA and SEARCH:
+        DATA shows 10 options to chose from which display pre calculated data
         SEARCH allows to search the database by actor, title, director, genre
 
-        - When prompted, type your choice (case-insensitive) and press enter
+    When prompted, type an answer from the options available and press Enter
+    In case of invalid anser the question is asked again
 
-        - After each question two specific commands can always be typed:
-        EXIT    clear the screen and exit the program
-        HELP   provides help information
-        """ + Style.RESET_ALL)
+    After each question two specific commands can always be typed:
+        EXIT   clear the screen and quits the program
+        HELP   provides help information """ + Style.RESET_ALL)
     while True:
-        help_text_input = input("""
-Press the return key to continue or type exit to terminate the app """)
+        help_text_input = input(Style.BRIGHT + Fore.BLUE + """
+Press Enter to continue or type EXIT to quit: """ + Style.RESET_ALL)
+        help_text_input = help_text_input.lower()
 
         if validate_help_text(help_text_input):
-            if help_text_input.lower == 'exit':
+            if help_text_input == 'exit':
                 print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                       Style.BRIGHT + ' Goodbye!')
                 sleep(3)
                 clear()
-            if help_text_input == "":
+            elif help_text_input == "":
                 welcome()
-            elif help_text_input.lower() == 'help':
-                print('help instructions are above')
             break
 
 
 def validate_help_text(help_text_choice):
     """
-    raise error msg if input is not return key or help string.
-    function is called by get help function.
+    raise error msg if input is not return key or help or exit string.
+    function is called by get help text function.
     """
-    choices = ['help', 'exit', '']
-    try:
-        if str(help_text_choice) in choices:
-            return True
-        else:
-            raise ValueError
-    except ValueError:
-        print(
-            Fore.RED +
-            'Please provide a suitable choice\n' +
-            Style.RESET_ALL)
+    choices = ['exit', '']
+    if str(help_text_choice) == 'help':
+        print('Instructions are provided above')
+    else:
+        try:
+            if str(help_text_choice) in choices:
+                return True
+            else:
+                raise ValueError
+        except ValueError:
+            print(
+                Fore.RED +
+                'Please provide a suitable choice\n' +
+                Style.RESET_ALL)
         return False
 
 
 # WELCOME!
-
 
 def welcome():
     """
@@ -143,10 +151,11 @@ def welcome():
     """
     while True:
         welcome_input = input(
+            Fore.WHITE + Style.BRIGHT + """
+Type SEARCH or DATA to explore the database,
+EXIT to quit, HELP to get instructions""" +
             Fore.BLUE +
-            Style.BRIGHT +
-            "\nPlease type data or search: " +
-            Style.RESET_ALL)
+            Style.BRIGHT + '\nWhat do you want to do? ' + Style.RESET_ALL)
         welcome_input = welcome_input.lower()
 
         if welcome_input.lower() == "exit":
@@ -171,9 +180,9 @@ def validate_welcome(welcome_choice):
     raise error msg if input is not string and not within the options.
     function is called by welcome function.
     """
-    welcome_choices = ['data', 'search']
+    choices = ['data', 'search']
     try:
-        if str(welcome_choice) in welcome_choices:
+        if str(welcome_choice) in choices:
             return True
         else:
             raise ValueError
@@ -209,10 +218,6 @@ def average():
     print(
         "\nThe average duration got by this decade's films on IMDB is:",
         avg_duration, 'minutes\n')
-    print(
-        Fore.YELLOW +
-        Style.BRIGHT +
-        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -225,10 +230,6 @@ def language():
         ascending=False).reset_index(name='Count')
     print('\nNumber of films in each language:\n',
           gb_language.to_string(index=False), '\n')
-    print(
-        Fore.YELLOW +
-        Style.BRIGHT +
-        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -243,10 +244,6 @@ def year():
         name='Count')
     print('\nNumber of films produced each year:\n',
           gb_year.to_string(index=False), '\n')
-    print(
-        Fore.YELLOW +
-        Style.BRIGHT +
-        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -278,10 +275,6 @@ def director_score():
         '\n The average score of the most prolific directors\n',
         gb_director_score.head(10).to_string(
             index=False), '\n')
-    print(
-        Fore.YELLOW +
-        Style.BRIGHT +
-        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -297,10 +290,6 @@ def score_country():
         gb_score_country.head(10).to_string(
             index=False),
         '\n')
-    print(
-        Fore.YELLOW +
-        Style.BRIGHT +
-        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -312,10 +301,6 @@ def highest_score():
                             ].sort_values(by='IMDB Score', ascending=False)
     print('\nThe best ten films of the decade according to IMDB:\n',
           sort_highest_score.head(10).to_string(index=False), '\n')
-    print(
-        Fore.YELLOW +
-        Style.BRIGHT +
-        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -327,10 +312,6 @@ def lowest_score():
                            ].sort_values(by='IMDB Score', ascending=True)
     print('\nThe worst ten films of the decade according to IMDB:\n',
           sort_lowest_score.head(10).to_string(index=False), '\n')
-    print(
-        Fore.YELLOW +
-        Style.BRIGHT +
-        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -345,10 +326,6 @@ def roi():
     print('\nThe most profitable films of the decade:\n',
           sort_highest_roi.head(10).to_string(index=False), '\n')
     df.drop(['ROI'], axis=1, inplace=True)
-    print(
-        Fore.YELLOW +
-        Style.BRIGHT +
-        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -370,10 +347,6 @@ def profit():
             index=False),
         '\n')
     df.drop(['Profit'], axis=1, inplace=True)
-    print(
-        Fore.YELLOW +
-        Style.BRIGHT +
-        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -390,10 +363,6 @@ def rating_score():
         '\nThe content ratings and their average IMDB Score: \n',
         gb_rating_score.to_string(
             index=False))
-    print(
-        Fore.YELLOW +
-        Style.BRIGHT +
-        '\nDo you want to run a search or find data?')
     welcome()
 
 
@@ -426,6 +395,8 @@ def data_choice():
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
+        elif user_input.lower() == 'help':
+            help_text()
 
         if validate_data_choice(user_input):
             if int(user_input) == 1:
@@ -503,17 +474,13 @@ def get_film_info():
             '\nAll you need to know about the film you were looking for:\n',
             film_data,
             '\n')
-        print(
-            Fore.YELLOW +
-            Style.BRIGHT +
-            '\nDo you want to run a search or find data?' + Style.RESET_ALL)
         welcome()
     else:
-        print('The film is not present in the database.')
         print(
             Fore.YELLOW +
             Style.BRIGHT +
-            '\nDo you want to run a search or find data?')
+            'The film is not present in the database\n' +
+            Style.RESET_ALL)
         welcome()
 
 
@@ -557,17 +524,13 @@ def get_film_genres():
             'All the films of the genre you were looking for:\n',
             film_genre,
             '\n')
-        print(
-            Fore.YELLOW +
-            Style.BRIGHT +
-            '\nDo you want to run a search or find data?')
         welcome()
     else:
-        print('The genre is not present in the database.')
         print(
             Fore.YELLOW +
             Style.BRIGHT +
-            '\nDo you want to run a search or find data?')
+            'The genre is not present in the database\n' +
+            Style.RESET_ALL)
         welcome()
 
 
@@ -621,17 +584,13 @@ def get_actor():
             'All the movies of the actor you were looking for\n',
             actor_data,
             '\n')
-        print(
-            Fore.YELLOW +
-            Style.BRIGHT +
-            '\nDo you want to run a search or find data?')
         welcome()
     else:
-        print('The actor is not present in the database.')
         print(
             Fore.YELLOW +
             Style.BRIGHT +
-            '\nDo you want to run a search or find data?')
+            'The actor is not present in the database\n' +
+            Style.RESET_ALL)
         welcome()
 
 
@@ -678,18 +637,14 @@ def get_director():
             'All the films from the director you were looking for:\n',
             director_data,
             '\n')
-        print(
-            Fore.YELLOW +
-            Style.BRIGHT +
-            '\nDo you want to run a search or find data?')
         welcome()
 
     else:
-        print('The director is not present in the database.\n')
         print(
             Fore.YELLOW +
             Style.BRIGHT +
-            '\nDo you want to run a search or find data?')
+            'The director is not present in the database\n' +
+            Style.RESET_ALL)
         welcome()
 
 
@@ -753,19 +708,19 @@ def main():
     displays header when program first runs.
     """
     get_help()
-    help_text()
     data_choice()
     search_choice()
 
 
 title = pyfiglet.figlet_format("Movie DB 2000s", font="slant")
 print(Fore.YELLOW + Style.BRIGHT + title)
-print(Fore.BLUE + Style.BRIGHT + """
-Welcome to the 2000s Movie Database!
-The database contains""", df['Title'].count(), """ films cathegorised by
-title, genre, year, director, leading actors,
-number of reviews (by critics and users) and rating.\n""" +
+print(Style.BRIGHT + Fore.WHITE + """
+    Welcome to the 2000s Movie Database!
+    The database contains""", df['Title'].count(), """ released between 2000 and 2009.
+    Information include title, genre, year, language and country of production,
+    content rating, duration, aspect ratio, director, cast, budget, box office,
+    number of reviews (by critics and users) and IMDB score.""" +
       Fore.YELLOW + Style.BRIGHT + """
-Get statistics, the top 10 lists or search by film.\n""")
+    Get statistics, the top 10 lists or search by film.\n""")
 
 main()
