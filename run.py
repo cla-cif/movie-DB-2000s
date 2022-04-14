@@ -33,6 +33,55 @@ def clear():
         _ = system('clear')
     exit()
 
+# HELP
+
+
+def get_help():
+    """
+    help function can be called at any stage during the program
+    """
+    while True:
+        help_input = input(
+            Fore.BLUE +
+            Style.BRIGHT +
+            "Type help to get instruction or press return to continue: " +
+            Style.RESET_ALL)
+        help_input = help_input.lower()
+
+        if help_input.lower() == "exit":
+            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
+                  Style.BRIGHT + ' Goodbye!')
+            sleep(3)
+            clear()
+
+        if help_input == 'help':
+            help_text()
+        elif help_input == "":
+            welcome()
+        break
+
+
+def help_text():
+    """
+    descriptive text
+    """
+    print(Style.BRIGHT + """
+        - This app has two main sections DATA and SEARCH
+        DATA shows 10 options to chose from to display pre calculated data
+        SEARCH allows to search the database by actor, title, director, genre
+
+        - When prompted, type your choice (case-insensitive) and press enter
+        - After a question two specific commands can always be typed:
+        EXIT    clear the screen and exit the program
+        HELP   provides help information
+        """ + Style.RESET_ALL)
+    help_text_input = input('Press the return key to continue ')
+    if help_text_input == "":
+        welcome()
+    else:
+        print('please provide a suitable choiche')
+
+
 # WELCOME!
 
 
@@ -55,6 +104,8 @@ def welcome():
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
+        elif welcome_input.lower() == 'help':
+            help_text()
 
         if validate_welcome(welcome_input):
             print('All right!\n')
@@ -377,6 +428,14 @@ def get_film_info():
     nested loop to search for matches in the df and Title column,
     if none found display message and call welcome function.
     """
+    print(
+        Fore.BLUE + Style.BRIGHT +
+        """\n    Search by full or partial title,
+    type the words divided by a space.
+    Characters from a foreign alpabet will be matched as well
+    (type amelie to match Amélie )
+    In case of multiple matches,
+    the results will be restricted to the first 10 elements""")
     request_film = input(
         Fore.BLUE +
         Style.BRIGHT +
@@ -417,8 +476,9 @@ def get_film_genres():
     """
     print(
         Fore.BLUE + Style.BRIGHT +
-        """\n    Search by one or more genres, separated by a space.
-    If there are many hits (Comedy has 850+ !),
+        """\n    Search by one or more genres,
+    type the words divided by a space.
+    In case of multiple matches ('Comedy' has 850+ !),
     only 10 random results will be displayed.""")
     request_genre = input(
         Style.BRIGHT +
@@ -468,6 +528,14 @@ def get_actor():
     if none found, encodes entries to match search for extend ASCII chars,
     if none found, display message. else display output.
     """
+    print(
+        Fore.BLUE + Style.BRIGHT +
+        """\n    Search by full or partial name,
+    type the words divided by a space.
+    Characters from a foreign alpabet will be matched as well
+    (type skarsgard to match Skarsgård )
+    In case of multiple matches,
+    the results will be restricted to the first 10 elements""")
     request_actor = input("\nType an actor: ")
     request_actor = request_actor.lower().title()
     search = False
@@ -524,6 +592,14 @@ def get_director():
     if none found, encodes entries to match search for extend ASCII chars,
     if none found, display message. else display output.
     """
+    print(
+        Fore.BLUE + Style.BRIGHT +
+        """\n    Search by full or partial name,
+    type the words divided by a space.
+    Characters from a foreign alpabet will be matched as well
+    (type skarsgard to match Skarsgård )
+    In case of multiple matches,
+    the results will be restricted to the first 10 elements""")
     request_director = input('\nType a director: ')
     request_director = request_director.lower().title()
     search = False
@@ -585,6 +661,8 @@ def search_choice():
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
+        elif user_input.lower() == 'help':
+            help_text()
 
         if validate_search_choice(user_input):
             print("All right!")
@@ -615,44 +693,7 @@ def validate_search_choice(choice):
         print(Fore.RED + 'Please provide a suitable choice.\n')
         return False
 
-# HELP
 
-
-def get_help():
-    """
-    help function can be called at any stage during the program
-    """
-    while True:
-        help_input = input(
-            Fore.BLUE +
-            Style.BRIGHT +
-            "Type help to get instruction or press return to continue: " +
-            Style.RESET_ALL)
-        help_input = help_input.lower()
-
-        if help_input.lower() == "exit":
-            print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
-                  Style.BRIGHT + ' Goodbye!')
-            sleep(3)
-            clear()
-
-        if help_input == 'help':
-            help_text()
-        elif help_input == "":
-            welcome()
-        else:
-            print('please provide a suitable choiche')
-        break
-
-
-def help_text():
-    print((Fore.BLUE + Style.BRIGHT + """
-        - To run, type and hit enter. | To quit, type exit after a question.
-        - A match is possible with partial text but restricted to 10 results.
-        - Characters from a foreign alphabet will be matched as well.\n""" +
-           Fore.YELLOW + Style.BRIGHT + """
-            What do you want to do today, get data or search?\n""")
-          )
 # MAIN
 
 
@@ -670,14 +711,10 @@ title = pyfiglet.figlet_format("Movie DB 2000s", font="slant")
 print(Fore.YELLOW + Style.BRIGHT + title)
 print(Fore.BLUE + Style.BRIGHT + """
 Welcome to the 2000s Movie Database!
-The database contains""", df['Title'].count(), """films cathegorised by title, genre, year,
-director, leading actors, number of reviews (by critics and users) and rating.\n""" +  # noqa
+The database contains""", df['Title'].count(), """
+Films cathegorised by title, genre, year, director,
+leading actors, number of reviews (by critics and users) and rating.\n""" +
       Fore.YELLOW + Style.BRIGHT + """
-Get statistics, the top 10 lists or search by film.\n""") + (Fore.BLUE + Style.BRIGHT + """
- - To run, type and hit enter. | To quit, type exit after a question.
- - A match is possible with partial text but restricted to 10 results.
- - Characters from a foreign alphabet will be matched as well.\n""" +
-      Fore.YELLOW + Style.BRIGHT + """
-What do you want to do today, get data or search?\n""")
+Get statistics, the top 10 lists or search by film.\n""")
 
 main()
