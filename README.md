@@ -8,13 +8,65 @@ The instructions are extremely simply written and require only a minimum of inte
 [Here is the live version](https://movie-db-2000s.herokuapp.com/)
 
 ## Content
+ - [How it's done](#How-it-is-done)
  - [How it works](#How-it-works)
  - [Features](#Features)
- - [Data Model](#Data-model)
  - [Testing](#Testing)
  - [Technologies](#Technologies-used)
  - [Deployment](#Deployment)
  - [Credits](#Credits)
+ - [Extra](#Extra)
+
+## How I developed this project: my story told through the Design Thinking Process
+This project is inspired to the five Stages of Design Thinking and its further development will stricly follow these [principles](https://canvas.unl.edu/courses/73802/pages/5-stages-of-design-thinking?module_item_id=1968000). 
+
+### Define
+> I'm a film __blogger__. I want to write about what ingredients make a film successful, and I want to do this by analysing film-related data from the last few decades, but __I don't know how to get meaningful information__ from my database. I want to be able to __explore and query__ my database whenever I write an article. 
+I turned this problem into an opportunity. 
+I tried to understand why this problem is important to the blogger by getting to the heart of the matter and developing a targeted solution from there, keeping this question in mind: "What solves the problem according to the blogger's needs and goals?" I shared the blogger's vision and hit their needs right where they needed to be addressed.
+To do this, I researched film blogs and conducted interviews that led to the creation of a potential user persona.
+
+### Empathise
+_This program has been coded thinking at the potential needs of film bloggers in their thirties/forties with moderate to low IT skills who want to gain insights into their personalised film database and tell their followers about it._
+__Let us call our blogger Nastya.__
+- She wants to set up her database on her own with information about films that is relevant to her.
+- The database should be hosted on a software Nastya is familiar with. 
+- She wants to gain insight into this data through an "old-fashioned" and easy-to-use interface. 
+- Nastya wants a developer to code a program to elaborate the data and turn it into the information she is looking for and can access through the interface. 
+- She has followers to whom she needs to deliver content, so it is important that the developer doesn't break this chain of expectations. Therefore, she is keen to find a developer with whom she can establish a close working relationship.
+
+### Ideate
+The brainstorming phase followed by research, challenges and discussions lead to the integration of the following tools to find a solution to the stated problem. 
+- [Python](https://docs.python.org/3/) and its libraries are ideal for working with small dataframes.
+- The Heroku-based app provides an easy-to-use solution with an old-fashioned interface. (What is [Heroku](https://en.wikipedia.org/wiki/Heroku))
+- [Google Sheets](https://en.wikipedia.org/wiki/Google_Sheets) can be shared, are intuitive and easy to edit.
+- [GitHub](https://en.wikipedia.org/wiki/GitHub) is the go to solution for software development.
+
+### Prototype
+And that is how I arrived at the [current prototype](https://movie-db-2000s.herokuapp.com/). It is a scaled-down version of the main idea with a demo of the potential features: SEARCH the database by keywords and get pre-calculated DATA. 
+- The functions have been developed with the user's goal in mind and designed so that the user does not get lost when using the programme. 
+- The prompts are obvious, short and direct, but a help section is always available. 
+Other important points are:
+  - the consistency of the prompts in colour and language, 
+  - the constant availability of information and functions, 
+  - the creation of a recursive architecture to avoid dead ends, 
+  - the handling of invalid inputs and the avoidance of unexpected behaviour. 
+
+>My personal challenge was to put myself in the shoes of the user: What is clear, obvious and self-evident to the developer may not be to the user.
+
+### Test
+I brought together people who matched the "persona" and had different IT abilities, presented the prototype to them and asked them to comment and raise questions while using the prototype. I listened to their comments, observed their reactions, took notes and showed my appreciation for their feedback. 
+I then used their feedback to go to-and-fro the Design Thinking stages.
+
+### The guiding principles
+This app, created with Heroku, offers simple functions but is well structured to facilitate further development, expansion of the dataset and troubleshooting. 
+
+I believe that in development, work is better than rework. "Adding" features according to the client's and team's inputs is more efficient and time-wise than "removing" programme features that the developer has spent time on but the client doesn't actually need.
+
+My goal is to meet the clients' needs by taking their suggestions and frequently keeping in touch with them through chat, emails and video calls. 
+This way I can make timely and frequent adjustments and fix problems as they arise. I believe in offering a tailor-made solution that adds value to the client. 
+
+My promise to the client is that I'll take care of all phases of development while striving for improvement. The client is on board with the developer through the plan > design > develop > test > release > review cicrle. I'm highly motivated to develop this project and want to assemble a team of goal-oriented, autonomous and empowered programmers.
 
 ## How it works
 ![Main](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/main.png)
@@ -36,6 +88,7 @@ A flowchart of the program's main process was created with [Lucid.app](https://l
 
 ### Data option
 ![Data Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/data%20option.png)
+The option is available by typing __data__ in response to this question _Type SEARCH or DATA to explore the database:_ which will be asked after each output.
 Users are offered ten options with pre-calculated statistics and rankings to choose from.
 1.  The average budget, score and duration of this films'decade.
 2.  Number of films in each language.
@@ -51,30 +104,36 @@ After the choice is validated and the output displayed, the user is asked whethe
 
 ### Search option
 ![Search Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/search%20option.png)
+The option is available by typing __search__ in response to this question _Type SEARCH or DATA to explore the database:_ which will be asked after each output.
 - Users can search the dataset by title, genre, actor and director. 
 - Matching is also possible with partial text but limited to 10 results due to Heroku's terminal constraints (80 characters by 24 rows), so a targeted entry will yield accurate results. 
 - Searching by title is the only query that returns all available information (genre, year, language and country of production, content rating, duration, aspect ratio, director, cast, budget, box office, number of reviews and IMDB score). 
-- The other options, which are likely to find multiple matches, display only the most relevant information (title, genre, director, cast and IMDB score) to improve readability given the aforementioned Heroku constraints.
+- The other options, which are likely to find multiple matches, display only the most relevant information (title, genre, director, cast and IMDB score) to improve readability given the aforementioned Heroku's terminal limitations mentioned above.
+
+### Exit option
+The exit option can be called by typing __exit__ after each prompt. The function prints the message _Thank you! Goodbye!_ clear the screen and causes the program to quit after 3 seconds. 
+
+### Help option
+The help option can be called by typing __help__ after each prompt. The function provides basic information about the dataframe and instructions about how to explore the program.
 
 ## Features
 All functions have a general purpose and can be applied to a similar dataset or, for this particular project, allow the current dataset to be extended with minimal further implementation.
 
 ### Existing Features
 - The app is intuitive, the instructions are clear and simple, requiring minimal interaction from the user to achieve the result. 
-- The text displayed on the black background of Heroku's CLI is legible and bright. The four colours (blue, yellow, red, white) are chosen consistently to differentiate instructions, functions, error messages and outputs. 
+- The text displayed on the black background of Heroku's CLI is legible and bright. The four colours (blue, yellow, red, white) are chosen consistently to differentiate instructions, messages, errors and outputs. 
 - Input isn't case-sensitive, but output is consistently presented with the first letter capitalised. 
 - The code is iterative so that users can perform multiple searches without restarting the program. 
-- The user can exit the program at any time by typing "exit". The CLI will be cleared after three seconds. The program can be restarted by clicking the red "Run Program" button on the Heroku app page. 
+- From the Heroku app link, the program can be restarted any time by clicking the red "Run Program" button on the Heroku app page. 
 
 ### Future Features
-- Searches will be possible with two or more options at the same time (e.g.: search by genre AND actor, search by actor AND director). 
-- A collection of films from the 90s and 10s will be added to the dataset.
-- Additional statistics and lists will be provided. 
-- Further features may include deployment with [Jupyter Lab](https://jupyter.org/) to create meaningful istograms, distributions and charts.
-- Bug fixes.
+Some potential features include:
+- Searches possible with two or more options at the same time (e.g.: search by genre AND actor, search by actor AND director). 
+- A collection of films from the 90s and 10s to be added to the dataset.
+- Additional statistics and lists. 
+- Deployment with [Jupyter Lab](https://jupyter.org/) to create meaningful istograms, distributions and charts.
 
-## Data Model ?????
-??????
+> Future features will be based on the users' requests and consequent necessities.
 
 ## Testing
 I manually tested this project throughout the development process by doing the following:
@@ -83,6 +142,8 @@ I manually tested this project throughout the development process by doing the f
  - Entered substrings, extended ASCII characters, lower and upper case letters. 
  - Checked how many lines to display for better readability. 
  - Tested colours and their consistnecy for better readability.
+ 
+ > By using it, the user will test the program and will be asked to provide feedback
 
 ### Issues
   The program has so far proven to be free of arithmetic, syntax, resource, multi-threading and interfacing bugs. 
@@ -90,15 +151,15 @@ I manually tested this project throughout the development process by doing the f
   The following logical errors provided undesired output. While the output was consitent with the input, a much broader result was desired. 
 
 #### Fixed
-1. Matching is not possible with a partial string. e.g. the title must be complete, actor/director must searched by full name in order to display the desired result. 
+_Matching is not possible with a partial string. e.g. the title must be complete, actor/director must searched by full name in order to display the desired result._ 
  - Implementation of a nested loop to work efficiently with a multi-dimensional data structure like this dataset. If the substring provided by the user was matched by iterating through the spreadsheet and its columns (this dataset is a list that contains other lists), boolean variable returns true and the output displayed. 
 
-2. Extended ASCII characters (character code 128-255) present in some names couldn't be matched providing printable ASCII characters (character code 128-255) . 
+_Extended ASCII characters (character code 128-255) present in some names couldn't be matched providing printable ASCII characters (character code 128-255)._ 
  - The dataframe is parsed twice (looking for printable and extended ASCII chars) before informing the user that no matches were found. To match extended ASCII, the normalize method is applied to the dataframe. 
 [Example of the output](#####)
 
 #### Remaining
-In case a value is present in the dataframe but not in the interested column, the output will display a list with the columns' headers (keys) and an an empty index array. This happens because the input is compared against the df.values.
+The terminal constraints don't allow to display large results and graphs.
 
 ### Validator
 - PEP8: no errors were returned from the [PEP8 validator](http://pep8online.com/). 
