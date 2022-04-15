@@ -18,17 +18,20 @@ The instructions are extremely simply written and require only a minimum of inte
  - [Extra](#Extra)
 
 ## How I developed this project: my story told through the Design Thinking Process
-This project is inspired to the five Stages of Design Thinking and its further development will stricly follow these [principles](https://canvas.unl.edu/courses/73802/pages/5-stages-of-design-thinking?module_item_id=1968000). 
+This project is inspired to the five Stages of Design Thinking and its further development will stricly follow the same [principles](https://canvas.unl.edu/courses/73802/pages/5-stages-of-design-thinking?module_item_id=1968000). 
 
 ### Define
-> I'm a film __blogger__. I want to write about what ingredients make a film successful, and I want to do this by analysing film-related data from the last few decades, but __I don't know how to get meaningful information__ from my database. I want to be able to __explore and query__ my database whenever I write an article. 
-I turned this problem into an opportunity. 
-I tried to understand why this problem is important to the blogger by getting to the heart of the matter and developing a targeted solution from there, keeping this question in mind: "What solves the problem according to the blogger's needs and goals?" I shared the blogger's vision and hit their needs right where they needed to be addressed.
+> I'm a film __blogger__. I want to write about what ingredients make a film successful, and I want to do this by analysing film-related data from the last few decades. I also want to be able to __explore and query__ my database whenever I write an article. But __I don't know how to get meaningful information__ from my database.
+
+__I turned this problem into an opportunity.__ <br>
+I tried to understand why this problem is important to the blogger by getting to the heart of the matter and developing a targeted solution from there, keeping this question in mind: _"What solves the problem according to the blogger's needs and goals?"_ I shared the blogger's vision and hit their needs right where they needed to be addressed. <br>
 To do this, I researched film blogs and conducted interviews that led to the creation of a potential user persona.
 
 ### Empathise
 _This program has been coded thinking at the potential needs of film bloggers in their thirties/forties with moderate to low IT skills who want to gain insights into their personalised film database and tell their followers about it._
+
 __Let us call our blogger Nastya.__
+
 - She wants to set up her database on her own with information about films that is relevant to her.
 - The database should be hosted on a software Nastya is familiar with. 
 - She wants to gain insight into this data through an "old-fashioned" and easy-to-use interface. 
@@ -43,9 +46,10 @@ The brainstorming phase followed by research, challenges and discussions lead to
 - [GitHub](https://en.wikipedia.org/wiki/GitHub) is the go to solution for software development.
 
 ### Prototype
-And that is how I arrived at the [current prototype](https://movie-db-2000s.herokuapp.com/). It is a scaled-down version of the main idea with a demo of the potential features: SEARCH the database by keywords and get pre-calculated DATA. 
+And that is how I arrived at the [current prototype](https://movie-db-2000s.herokuapp.com/). It is a scaled-down version of the main idea with a demo of the potential features: <br> SEARCH the database by keywords and get pre-calculated DATA. 
 - The functions have been developed with the user's goal in mind and designed so that the user does not get lost when using the programme. 
-- The prompts are obvious, short and direct, but a help section is always available. 
+- The prompts are obvious, short and direct, but a HELP option is always available. 
+
 Other important points are:
   - the consistency of the prompts in colour and language, 
   - the constant availability of information and functions, 
@@ -55,18 +59,22 @@ Other important points are:
 >My personal challenge was to put myself in the shoes of the user: What is clear, obvious and self-evident to the developer may not be to the user.
 
 ### Test
-I brought together people who matched the "persona" and had different IT abilities, presented the prototype to them and asked them to comment and raise questions while using the prototype. I listened to their comments, observed their reactions, took notes and showed my appreciation for their feedback. 
-I then used their feedback to go to-and-fro the Design Thinking stages.
+I brought together people who matched the _persona_ aka our film blogger Nastya, wich have different IT abilities. <br>
+I presented the prototype to them and asked them to comment and raise questions while using the app. <br>
+I listened to their comments, observed their reactions, took notes and showed my appreciation for their feedback. 
+>I then used their feedback to go to-and-fro the Design Thinking stages.
 
 ### The guiding principles
 This app, created with Heroku, offers simple functions but is well structured to facilitate further development, expansion of the dataset and troubleshooting. 
 
-I believe that in development, work is better than rework. "Adding" features according to the client's and team's inputs is more efficient and time-wise than "removing" programme features that the developer has spent time on but the client doesn't actually need.
+I believe that in development, work is better than rework. _Adding_ features according to the client's and team's inputs is __more efficient and time-wise__ than _Removing_ programme features that the developer has spent time on but the client doesn't actually need.
 
 My goal is to meet the clients' needs by taking their suggestions and frequently keeping in touch with them through chat, emails and video calls. 
-This way I can make timely and frequent adjustments and fix problems as they arise. I believe in offering a tailor-made solution that adds value to the client. 
+This way I can make timely and frequent adjustments and fix problems as they arise. I believe in offering a __tailor-made solution__ that __adds value__ to the client. 
 
-My promise to the client is that I'll take care of all phases of development while striving for improvement. The client is on board with the developer through the plan > design > develop > test > release > review cicrle. I'm highly motivated to develop this project and want to assemble a team of goal-oriented, autonomous and empowered programmers.
+My promise to the client is that I'll take care of all phases of development while striving for improvement. The client is on board with the developer through the _plan > design > develop > test > release > review_ cicrle. I'm highly motivated to develop this project and want to assemble a team of goal-oriented, autonomous and empowered programmers.
+
+Read more about the guiding principles of [Agile Development](https://www.agilealliance.org/agile101/)
 
 ## How it works
 ![Main](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/main.png)
