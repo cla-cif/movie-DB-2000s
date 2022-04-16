@@ -108,7 +108,8 @@ Users are offered ten options with pre-calculated statistics and rankings to cho
 7.  The 10 worst films of the decade.
 8.  The most profitable films in terms of return of investment.
 9.  Top 10 box-office flops: the most unprofitable films.
-1.  The content ratings and their average IMDB Score.
+10.  The content ratings and their average IMDB Score. <br>
+
 After the choice is validated and the output displayed, the user is asked whether he wants to retrieve the data again or perform a search.
 
 ### Search option
