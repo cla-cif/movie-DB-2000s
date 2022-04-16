@@ -1,5 +1,5 @@
 ![Header](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/title.png)
----
+#
 Welcome to the 2000s Movie Database, the dataset contains 2100 films released between 2000 and 2009. Data points include title, genre, year, language and country of production, content rating, duration, aspect ratio, director, cast, budget, box office, number of reviews (by critics and users) and IMDB score. 
 
 The Heroku-based command line interface (CLI) allows the user to browse the dataset and retrieve statistics, rankings and specific information.
@@ -17,7 +17,7 @@ The instructions are extremely simply written and require only a minimum of inte
  [Credits](#Credits)<br>
 
 ## How it's done
-###How I developed this project: my story told through the Design Thinking Process
+### How I developed this project: my story told through the Design Thinking Process
 
 This project is inspired to the five Stages of Design Thinking and its further development will stricly follow the same [principles](https://canvas.unl.edu/courses/73802/pages/5-stages-of-design-thinking?module_item_id=1968000). 
 
@@ -254,4 +254,4 @@ Cloning a repository pulls down a full copy of all the repository data that GitH
 ##
 [Here is the live version](https://movie-db-2000s.herokuapp.com/)
 ##
-[Link to top](#Content)
+[Link to top](#)
