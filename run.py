@@ -48,9 +48,9 @@ def get_help():
             Style.BRIGHT + """
 Type HELP to get instruction, EXIT to quit or press Enter to continue: """ +
             Style.RESET_ALL)
-        help_input = help_input.lower().rstrip()
+        help_input = help_input.lower().strip()
 
-        if help_input.lower().rstrip() == "exit":
+        if help_input.lower().strip() == "exit":
             print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
@@ -94,15 +94,16 @@ def help_text():
     under CC0: Public Domain Licence.
 
     This app has two main sections DATA and SEARCH:
-        DATA shows 10 options to chose from which display pre calculated data
-        SEARCH allows to search the database by actor, title, director, genre
+        DATA displays 10 options to choose from, showing pre-calculated data.
+        SEARCH to find content by actor, title, director, genre.
 
-    When prompted, type an answer from the options available and press Enter
-    In case of invalid anser the question is asked again
+    When prompted, type an answer from the available options and press Enter.
+    In case of an invalid answer, the question is asked again.
+    Lowercase and uppercase letters from your input are treated the same.
 
     Two specific commands can always be typed after each question:
-        EXIT   clear the screen and quits the program
-        HELP   provides help information """ + Style.RESET_ALL)
+        EXIT   clear the screen and quits the program.
+        HELP   provides help and information. """ + Style.RESET_ALL)
     while True:
         help_text_input = input(Style.BRIGHT + Fore.BLUE + """
 Press Enter to continue """ + Style.RESET_ALL)
@@ -153,14 +154,14 @@ def welcome():
             Fore.BLUE + Style.BRIGHT + """
 Type SEARCH or DATA to explore the database: """ +
             Style.RESET_ALL)
-        welcome_input = welcome_input.lower().rstrip()
+        welcome_input = welcome_input.lower().strip()
 
-        if welcome_input.lower().rstrip() == "exit":
+        if welcome_input.lower().strip() == "exit":
             print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
-        elif welcome_input.lower().rstrip() == 'help':
+        elif welcome_input.lower().strip() == 'help':
             help_text()
 
         if validate_welcome(welcome_input):
@@ -277,6 +278,7 @@ The average score of the most prolific directors:
 def score_country():
     """
     group by country, calculates average score for each.
+    scores are in descending order. first column works as index.
     """
     gb_score_country = df.groupby(
         'Country', sort=False)['IMDB Score'].mean().round(1).sort_values(
@@ -289,7 +291,8 @@ Top 10 countries whose films have the highest IMDB score:
 
 def highest_score():
     """
-    .sort() in descending order the scores and relative titles
+    .sort() in descending order the scores and relative titles.
+    scores are in descending order. first column works as index.
     """
     sort_highest_score = df[['Title', 'IMDB Score']
                             ].sort_values(by='IMDB Score', ascending=False)
@@ -301,7 +304,8 @@ The best ten films of the decade according to IMDB:
 
 def lowest_score():
     """
-    .sort() in ascending order the scores and relative titles
+    .sort() in ascending order the scores and relative titles.
+    scores are in ascending order. first column works as index.
     """
     sort_lowest_score = df[['Title', 'IMDB Score']
                            ].sort_values(by='IMDB Score', ascending=True)
@@ -314,6 +318,7 @@ The worst ten films of the decade according to IMDB:
 def roi():
     """
     calculate return of investment, displays values and relative title
+    values displayed in descending order with relative title
     delete the ROI series after display
     """
     df['ROI'] = (df["Gross Earnings"] / df["Budget"] * 100).round(2)
@@ -348,6 +353,7 @@ Top 10 box-office flop:
 def rating_score():
     """
     group by content rating calculate the average score for each cathegory
+    scores are in descending order. first column works as index.
     """
     gb_rating_score = df.groupby(
         'Content Rating',
@@ -362,7 +368,7 @@ The content ratings and their average IMDB Score:
 
 def data_choice():
     """
-    accepts input strings exit or integer within range of options.
+    accepts input strings exit/help or integer within range of options.
     calls validation function on user input.
     calls functions relative to the user's choice.
     """
@@ -385,12 +391,12 @@ def data_choice():
             Style.BRIGHT +
             "Type the number:  " +
             Style.RESET_ALL)
-        if user_input.lower().rstrip() == "exit":
+        if user_input.lower().strip() == "exit":
             print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
-        elif user_input.lower().rstrip() == 'help':
+        elif user_input.lower().strip() == 'help':
             help_text()
 
         if validate_data_choice(user_input):
@@ -440,9 +446,10 @@ def validate_data_choice(data):
 
 def get_film_info():
     """
-    applies to input same dataframe's entries case
-    nested loop to search for matches in the df and Title column,
-    if none found display message and call welcome function.
+    applies to input .title() to match dataframe's entries case
+    search for matches in the dfcopy of Title column,
+    if none found, encodes entries to match search for extend ASCII chars,
+    if none found, display message. else display output.
     """
     print(
         Fore.WHITE + Style.BRIGHT +
@@ -454,14 +461,22 @@ def get_film_info():
     the results will be restricted to the first 10 elements""")
     request_film = input(f"{Fore.BLUE + Style.BRIGHT}"
                          f"\nType a title: {Style.RESET_ALL}")
-    request_film = request_film.lower().title().rstrip()
+    request_film = request_film.lower().title().strip()
     search = False
-    for value in df['Title']:
+    df_copy = df.copy(deep=True)
+    for value in df_copy['Title']:
         if request_film in value:
             search = True
+    if not search:
+        df_copy['Title'] = (
+            df_copy['Title'].str.normalize('NFKD').str.encode(
+                'ascii', errors='ignore').str.decode('utf-8'))
+        for value in df_copy['Title']:
+            if request_film in value:
+                search = True
 
     if search:
-        film_data = df.loc[(df['Title'].str.contains(request_film))]
+        film_data = df.loc[(df_copy['Title'].str.contains(request_film))]
         print(f"""{Fore.YELLOW + Style.BRIGHT}
 All you need to know about the film you were looking for:
 {Style.RESET_ALL}{film_data}\n""")
@@ -474,8 +489,8 @@ This film is not present in the database{Style.RESET_ALL}\n""")
 
 def get_film_genres():
     """
-    applies to input same dataframe's entries case
-    nested loop to search for matches in the df and Genres column,
+    applies to input .title() to match dataframe's entries case
+    search for matches in the Genres column,
     display output or message, calls welcome function after.
     if more than 10 matches found, displays a random .sample() of them.
     """
@@ -487,7 +502,7 @@ def get_film_genres():
     only 10 random results will be displayed.""")
     request_genre = input(f"{Fore.BLUE + Style.BRIGHT}"
                           f"\nType a genre: {Style.RESET_ALL}")
-    request_genre = request_genre.lower().title().rstrip()
+    request_genre = request_genre.lower().title().strip()
     search = False
     for value in df['Genres']:
         if request_genre in value:
@@ -517,7 +532,7 @@ This genre is not present in the database{Style.RESET_ALL}\n""")
 
 def get_actor():
     """
-    applies to input same dataframe's entries case
+    applies to input .title() to match dataframe's entries case
     nested loop to search for matches in the df and Actors' 3 columns,
     if none found, encodes entries to match search for extend ASCII chars,
     if none found, display message. else display output.
@@ -527,12 +542,12 @@ def get_actor():
         """\n    Search by full or partial name.
     Type the words divided by a space.
     Characters from a foreign alpabet will be matched as well
-    (type skarsgard to match Skarsgård )
+    (type skarsgard to match Skarsgård)
     In case of multiple matches, the results
-    will be restricted to the first 10 elements""" + Style.RESET_ALL)
+    will be restricted to the first 10 elements,""" + Style.RESET_ALL)
     request_actor = input(f"{Fore.BLUE + Style.BRIGHT}"
                           f"\nType an actor: {Style.RESET_ALL}")
-    request_actor = request_actor.lower().title().rstrip()
+    request_actor = request_actor.lower().title().strip()
     search = False
     df_copy = df.copy(deep=True)
     for value in df_copy[['Actor1', 'Actor2', 'Actor3']].values:
@@ -574,8 +589,8 @@ This actor is not present in the database{Style.RESET_ALL}\n""")
 
 def get_director():
     """
-    applies to input same dataframe's entries case
-    nested loop to search for matches in the df and Director column,
+    applies to input .title() to match dataframe's entries case
+    search for matches in the dfcopy of Director column,
     if none found, encodes entries to match search for extend ASCII chars,
     if none found, display message. else display output.
     """
@@ -584,12 +599,12 @@ def get_director():
         """\n    Search by full or partial name,
     type the words divided by a space.
     Characters from a foreign alpabet will be matched as well
-    (type skarsgard to match Skarsgård )
+    (type curaron to match Cuarón)
     In case of multiple matches,
     the results will be restricted to the first 10 elements""")
     request_director = input(f"{Fore.BLUE + Style.BRIGHT}"
-                             f"\nType an director: {Style.RESET_ALL}")
-    request_director = request_director.lower().title().rstrip()
+                             f"\nType a director: {Style.RESET_ALL}")
+    request_director = request_director.lower().title().strip()
     search = False
     df_copy = df.copy(deep=True)
     for value in df_copy['Director']:
@@ -625,7 +640,7 @@ This director is not present in the database{Style.RESET_ALL}\n""")
 
 def search_choice():
     """
-    accepts input strings exit or string within range of options.
+    accepts input strings exit/help or string within range of options.
     calls validation function on user input.
     calls functions relative to the user's choice.
     """
@@ -635,13 +650,13 @@ def search_choice():
             Fore.BLUE +
             "\nType your search criteria - ACTOR, GENRE, DIRECTOR, TITLE: " +
             Style.RESET_ALL)
-        user_input = user_input.lower().rstrip()
-        if user_input.lower().rstrip() == "exit":
+        user_input = user_input.lower().strip()
+        if user_input.lower().strip() == "exit":
             print(Fore.YELLOW + Style.BRIGHT + 'Thank you!' + Fore.BLUE +
                   Style.BRIGHT + ' Goodbye!')
             sleep(3)
             clear()
-        elif user_input.lower().rstrip() == 'help':
+        elif user_input.lower().strip() == 'help':
             help_text()
 
         if validate_search_choice(user_input):
