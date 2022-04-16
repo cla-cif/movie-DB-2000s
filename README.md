@@ -1,4 +1,4 @@
-![Header](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/header.jpg)
+![Header](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/title.png)
 ---
 Welcome to the 2000s Movie Database, the dataset contains 2100 films released between 2000 and 2009. Data points include title, genre, year, language and country of production, content rating, duration, aspect ratio, director, cast, budget, box office, number of reviews (by critics and users) and IMDB score. 
 
@@ -8,14 +8,13 @@ The instructions are extremely simply written and require only a minimum of inte
 [Here is the live version](https://movie-db-2000s.herokuapp.com/)
 
 ## Content
- - [How it's done](#How-it-is-done)
- - [How it works](#How-it-works)
- - [Features](#Features)
- - [Testing](#Testing)
- - [Technologies](#Technologies-used)
- - [Deployment](#Deployment)
- - [Credits](#Credits)
- - [Extra](#Extra)
+ [How it's done](#How-I-developed-this-project:-my-story-told-through-the-Design-Thinking-Process) <br>
+ [How it works](#How-it-works)<br>
+ [Features](#Features)<br>
+ [Testing](#Testing)<br>
+ [Technologies](#Technologies-used)<br>
+ [Deployment](#Deployment)<br>
+ [Credits](#Credits)<br>
 
 ## How I developed this project: my story told through the Design Thinking Process
 This project is inspired to the five Stages of Design Thinking and its further development will stricly follow the same [principles](https://canvas.unl.edu/courses/73802/pages/5-stages-of-design-thinking?module_item_id=1968000). 
@@ -77,25 +76,25 @@ My promise to the client is that I'll take care of all phases of development whi
 Read more about the guiding principles of [Agile Development](https://www.agilealliance.org/agile101/)
 
 ## How it works
-![Main](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/main.png)
-- The user is welcomed by a large title and a short welcome message explaining how to use the app. 
-- The app has two tasks: display processed data and perform queries. 
-- On the first iteration, the user is asked the question, "What do you want to do today, get data or search?"
-- Depending on whether they answer "data" or "search", they'll be prompted for further choices that will lead to the desired output. 
+![Welcome](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/welcome.png)
+- The user is welcomed by a large title and a short welcome message presenting the dataframe (database) and its main features. 
+- The app has two main features: display processed data and perform queries.
+- Side features are HELP and EXIT which can be invoked at any point by typing the desired feature after any question. 
+- The first time the app is launched, the user is offered the choice to get HELP, EXIT the program or press the Enter key to continue (especially in case the user is already familiar with the app and wants skip the HELP section)
+- Throgh a series of questions, the user is lead to the desired output. 
 - Each answer (input) from the user is verified. If the check fails, the user is prompted to provide a suitable input.
-![Invalid](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/invalid.png)
-- After each output, the user is returned to the beginning and can choose to perform a new search or retrieve data.
-![After output](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/after%20output.png)
-- The app is based on an iterative process that the user can interrupt at any time when prompted for input. 
-![Exit](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/exit.png)
+![Error](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/error.png)
+- After each result (output), the user is returned to the main question and can chose again how to explore the database (SEARCH/DATA).
+![After output](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/after-output.png)
+- The app wont terminate unless the user types exit, closes the window or refreshes the page.
 
 ### Flowchart
 
 A flowchart of the program's main process was created with [Lucid.app](https://lucid.app/documents).
-![Flowchart](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/Movie-DB%20-2000s%20-%20Flowchart.png)
+![Flowchart](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/flowchart.png)
 
 ### Data option
-![Data Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/data%20option.png)
+![Data Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/data.png)
 The option is available by typing __data__ in response to this question _Type SEARCH or DATA to explore the database:_ which will be asked after each output.
 Users are offered ten options with pre-calculated statistics and rankings to choose from.
 1.  The average budget, score and duration of this films'decade.
@@ -111,7 +110,7 @@ Users are offered ten options with pre-calculated statistics and rankings to cho
 After the choice is validated and the output displayed, the user is asked whether he wants to retrieve the data again or perform a search.
 
 ### Search option
-![Search Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/search%20option.png)
+![Search Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/search.png)
 The option is available by typing __search__ in response to this question _Type SEARCH or DATA to explore the database:_ which will be asked after each output.
 - Users can search the dataset by title, genre, actor and director. 
 - Matching is also possible with partial text but limited to 10 results due to Heroku's terminal constraints (80 characters by 24 rows), so a targeted entry will yield accurate results. 
@@ -119,9 +118,11 @@ The option is available by typing __search__ in response to this question _Type 
 - The other options, which are likely to find multiple matches, display only the most relevant information (title, genre, director, cast and IMDB score) to improve readability given the aforementioned Heroku's terminal limitations mentioned above.
 
 ### Exit option
+![Exit Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/exit.png)
 The exit option can be called by typing __exit__ after each prompt. The function prints the message _Thank you! Goodbye!_ clear the screen and causes the program to quit after 3 seconds. 
 
 ### Help option
+![Help Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/help.png)
 The help option can be called by typing __help__ after each prompt. The function provides basic information about the dataframe and instructions about how to explore the program.
 
 ## Features
@@ -164,7 +165,7 @@ _Matching is not possible with a partial string. e.g. the title must be complete
 
 _Extended ASCII characters (character code 128-255) present in some names couldn't be matched providing printable ASCII characters (character code 128-255)._ 
  - The dataframe is parsed twice (looking for printable and extended ASCII chars) before informing the user that no matches were found. To match extended ASCII, the normalize method is applied to the dataframe. 
-[Example of the output](#####)
+[Example of the output](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/normalize-bugfix.png)
 
 #### Remaining
 The terminal constraints don't allow to display large results and graphs.
