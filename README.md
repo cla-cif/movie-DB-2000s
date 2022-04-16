@@ -8,7 +8,7 @@ The instructions are extremely simply written and require only a minimum of inte
 [Here is the live version](https://movie-db-2000s.herokuapp.com/)
 
 ## Content
- [How it's done](#How-I-developed-this-project:-my-story-told-through-the-Design-Thinking-Process) <br>
+ [How it's done](#How-I-developed-this-project-:-my-story-told-through-the-Design-Thinking-Process)<br>
  [How it works](#How-it-works)<br>
  [Features](#Features)<br>
  [Testing](#Testing)<br>
