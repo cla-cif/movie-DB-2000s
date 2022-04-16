@@ -8,7 +8,7 @@ The instructions are extremely simply written and require only a minimum of inte
 [Here is the live version](https://movie-db-2000s.herokuapp.com/)
 
 ## Content
- [How it's done](#How-I-developed-this-project-:-my-story-told-through-the-Design-Thinking-Process)<br>
+ [How it's done](#How-it's-done)<br>
  [How it works](#How-it-works)<br>
  [Features](#Features)<br>
  [Testing](#Testing)<br>
@@ -16,7 +16,9 @@ The instructions are extremely simply written and require only a minimum of inte
  [Deployment](#Deployment)<br>
  [Credits](#Credits)<br>
 
-## How I developed this project: my story told through the Design Thinking Process
+## How it's done
+###How I developed this project: my story told through the Design Thinking Process
+
 This project is inspired to the five Stages of Design Thinking and its further development will stricly follow the same [principles](https://canvas.unl.edu/courses/73802/pages/5-stages-of-design-thinking?module_item_id=1968000). 
 
 ### Define
