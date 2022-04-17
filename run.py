@@ -446,7 +446,7 @@ def validate_data_choice(data):
 
 def get_film_info():
     """
-    applies to input .title() to match dataframe's entries case
+    applies to input .lower to input and df for accurate comparison
     search for matches in the dfcopy of Title column,
     if none found, encodes entries to match search for extend ASCII chars,
     if none found, display message. else display output.
@@ -461,9 +461,10 @@ def get_film_info():
     the results will be restricted to the first 10 elements""")
     request_film = input(f"{Fore.BLUE + Style.BRIGHT}"
                          f"\nType a title: {Style.RESET_ALL}")
-    request_film = request_film.lower().title().strip()
+    request_film = request_film.lower().strip()
     search = False
     df_copy = df.copy(deep=True)
+    df_copy['Title'] = df_copy['Title'].str.lower()
     for value in df_copy['Title']:
         if request_film in value:
             search = True
