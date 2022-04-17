@@ -446,7 +446,7 @@ def validate_data_choice(data):
 
 def get_film_info():
     """
-    applies to input .lower to input and df for accurate comparison
+    applies .lower() to input and copy of df for accurate comparison
     search for matches in the dfcopy of Title column,
     if none found, encodes entries to match search for extend ASCII chars,
     if none found, display message. else display output.
@@ -462,9 +462,9 @@ def get_film_info():
     request_film = input(f"{Fore.BLUE + Style.BRIGHT}"
                          f"\nType a title: {Style.RESET_ALL}")
     request_film = request_film.lower().strip()
-    search = False
     df_copy = df.copy(deep=True)
     df_copy['Title'] = df_copy['Title'].str.lower()
+    search = False
     for value in df_copy['Title']:
         if request_film in value:
             search = True
@@ -490,7 +490,7 @@ This film is not present in the database{Style.RESET_ALL}\n""")
 
 def get_film_genres():
     """
-    applies to input .title() to match dataframe's entries case
+    applies .lower() to input and copy of df for accurate comparison
     search for matches in the Genres column,
     display output or message, calls welcome function after.
     if more than 10 matches found, displays a random .sample() of them.
@@ -503,7 +503,9 @@ def get_film_genres():
     only 10 random results will be displayed.""")
     request_genre = input(f"{Fore.BLUE + Style.BRIGHT}"
                           f"\nType a genre: {Style.RESET_ALL}")
-    request_genre = request_genre.lower().title().strip()
+    request_genre = request_genre.strip()
+    df_copy = df.copy(deep=True)
+    df_copy['Genres'] = df_copy['Genres'].str.lower()
     search = False
     for value in df['Genres']:
         if request_genre in value:
@@ -533,8 +535,8 @@ This genre is not present in the database{Style.RESET_ALL}\n""")
 
 def get_actor():
     """
-    applies to input .title() to match dataframe's entries case
-    nested loop to search for matches in the df and Actors' 3 columns,
+    applies .lower() to input and copy of df for accurate comparison
+    nested loop to search for matches in the df and actors' 3 columns,
     if none found, encodes entries to match search for extend ASCII chars,
     if none found, display message. else display output.
     """
@@ -548,9 +550,12 @@ def get_actor():
     will be restricted to the first 10 elements,""" + Style.RESET_ALL)
     request_actor = input(f"{Fore.BLUE + Style.BRIGHT}"
                           f"\nType an actor: {Style.RESET_ALL}")
-    request_actor = request_actor.lower().title().strip()
-    search = False
+    request_actor = request_actor.strip().lower()
     df_copy = df.copy(deep=True)
+    df_copy = df_copy.applymap(
+        lambda s: s.lower() if isinstance(
+            s, str) else s)
+    search = False
     for value in df_copy[['Actor1', 'Actor2', 'Actor3']].values:
         for item in value:
             if request_actor in str(item):
@@ -575,7 +580,7 @@ def get_actor():
         mask1 = df_copy['Actor1'].str.contains(request_actor)
         mask2 = df_copy['Actor2'].str.contains(request_actor)
         mask3 = df_copy['Actor3'].str.contains(request_actor)
-        actor_data = df_copy.loc[mask1 | mask2 | mask3, [
+        actor_data = df.loc[mask1 | mask2 | mask3, [
             'Title', 'Genres', 'Director', 'Actor1', 'Actor2', 'Actor3',
             'IMDB Score']]
         print(f"""{Fore.YELLOW + Style.BRIGHT}
@@ -590,7 +595,7 @@ This actor is not present in the database{Style.RESET_ALL}\n""")
 
 def get_director():
     """
-    applies to input .title() to match dataframe's entries case
+    applies .lower() to input and copy of df for accurate comparison
     search for matches in the dfcopy of Director column,
     if none found, encodes entries to match search for extend ASCII chars,
     if none found, display message. else display output.
@@ -605,9 +610,10 @@ def get_director():
     the results will be restricted to the first 10 elements""")
     request_director = input(f"{Fore.BLUE + Style.BRIGHT}"
                              f"\nType a director: {Style.RESET_ALL}")
-    request_director = request_director.lower().title().strip()
-    search = False
+    request_director = request_director.lower().strip()
     df_copy = df.copy(deep=True)
+    df_copy['Director'] = df_copy['Director'].str.lower()
+    search = False
     for value in df_copy['Director']:
         if request_director in value:
             search = True
@@ -620,14 +626,14 @@ def get_director():
                 search = True
     if search:
         mask = df_copy['Director'].str.contains(request_director)
-        director_data = df_copy.loc[mask,
-                                    ['Title',
-                                     'Genres',
-                                     'Director',
-                                     'Actor1',
-                                     'Actor2',
-                                     'Actor3',
-                                     'IMDB Score']]
+        director_data = df.loc[mask,
+                               ['Title',
+                                'Genres',
+                                'Director',
+                                'Actor1',
+                                'Actor2',
+                                'Actor3',
+                                'IMDB Score']]
         print(f"""{Fore.YELLOW + Style.BRIGHT}
 All the films from the director you were looking for:
 {Style.RESET_ALL}{director_data}\n""")
