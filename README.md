@@ -159,11 +159,11 @@ Some potential features include:
 I manually tested this project throughout the development process by doing the following:
  - I ran the code through the PEP8 linter.
  - Given invalid input and checked the logical and visual consistency of the error messages.
- - Entered substrings, extended ASCII characters, lower and upper case letters. 
+ - Entered substrings, extended ASCII characters, strings containing `'` (apostrophe), lower and upper case letters. 
  - Checked how many lines to display for better readability. 
  - Tested colours and their consistnecy for better readability.
  
- > By using it, the user will test the program and will be asked to provide feedback
+ > The user will test the program, just by using it and will be asked to provide feedback.
 
 ### Issues
   The program has so far proven to be free of arithmetic, syntax, resource, multi-threading and interfacing bugs. 
@@ -177,9 +177,13 @@ Implementation of a nested loop to work efficiently with a multi-dimensional dat
 
 2. _Extended ASCII characters (character code 128-255) present in some names couldn't be matched providing printable ASCII characters (character code 128-255)._ 
    -  __Solution__: <br>
-The dataframe is parsed twice (looking for printable and extended ASCII chars) before informing the user that no matches were found. To match extended ASCII, the normalize method is applied to the dataframe. 
+In each search function (title, director, actor, genres) I created a copy of the dataframe and applied the [normalize](https://pandas.pydata.org/docs/reference/api/pandas.Series.str.normalize.html) [encode](https://pandas.pydata.org/docs/reference/api/pandas.Series.str.encode.html) [decode](https://pandas.pydata.org/docs/reference/api/pandas.Series.str.decode.html) methods to the Series (Columns) I wanted to parse. I applied the unicodedata [normalize](https://docs.python.org/3/library/unicodedata.html) to the user's input. 
+   -  __Explaination__: <br>
+In this way, strings with diacritics (extended ASCII) can be matched by typing the closest latin letter (printable ASCII). Normalization method decomposes a letter with diacritic into its equivalent in latin characters and its diacritic symbol. 
+Additionally, similar names with different diacritcs such (Zoe/Zoë/Zoé) and (Chloe/Chloë/Chlöe/Chloé) will be matched in all of their forms. 
+e.g., Input: "Zoe" Outup: "Zoe Saldaña", "Zoë Kravitz". 
 [Example of the output](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/normalize-bugfix.png)
-
+ 
 3. _Entries with `'` (apostrophe) are not matched by the queries._
    -  __Definition of the problem:__ <br>
 Apostrophes are found in movie's titles as contractions or possessives and in names, as part of the name or quoting a nickname.
@@ -193,21 +197,18 @@ In an attempt to match the user's input (wheter lowcase or uppercase) with the d
        input = "ripley's"
        input = input.title() #Ripley'S
     ```
- 
    -  __Attempt to solve the problem:__ <br>
 I Harnessed the `.title()` method behaviour by passing the user's input as argument of a function that used a regex, as suggested [here](https://www.pythontutorial.net/python-string-methods/python-titlecase/#:~:text=The%20title()%20method%20converts,the%20remaining%20characters%20in%20lowercase.).
       -   __It failed because:__ 
      It worked for the abovementioned example but not for names containing quoted nicknames like (Joanna 'JoJo' Levesque) and names like (Mo'Nique) or (DJ Pooh).  
    -  __Solution__: <br>
- I made a copy of the dataframe applying `df.copy()` method and applied the `.lower()` method to the user's input and to the copy of the dataframe in order for the query to make an exact comparison. 
-   -  __By fixing this issue I've learnt more about__ : <br>
-The `.lower()` and `.title()` methods, the Regular Expressions, why to copy the dataframe `df.copy()` for any modifications I don't want to take place on the original dataset, the lambda functions, the nature and behaviour of Python's Panda objects and practiced debugging by printing intermediate results.  
-
+ I applied the `.lower()` method to the user's input and to the copy of the dataframe in order for the query to make an exact comparison. 
+ 
+##### By fixing the above issue I've learnt more about:
+Unicode [normalization](https://withblue.ink/2019/03/11/why-you-need-to-normalize-unicode-strings.html). The `.lower()` and `.title()` methods, the Regular Expressions, the lambda functions, the nature and behaviour of Python's Panda objects and practiced debugging by printing intermediate results.  
 
 #### Remaining
-1. Similar names with different diacritics such as (Zoe/Zoë/Zoé) and (Chloe/Chloë/Chlöe/Chloé), are present in the dataset but won't be displayed at the same time as the query makes distinction between such occurrencies. In other words, the input is matched during the first iteration, before is subjected to the `.normalize()` method during the second iteration which happens if the first one failed to find any match. 
-
-2. The terminal constraints don't allow to display large results and graphs. When the project will be subjected to further developments, a different deployment system may be taken into consideration.
+The terminal constraints don't allow to display large results and graphs. When the project will be subjected to further developments, a different deployment system may be taken into consideration.
 
 ### Validator
 - PEP8: no errors were returned from the [PEP8 validator](http://pep8online.com/). 
