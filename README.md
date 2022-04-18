@@ -126,7 +126,7 @@ The option is available by typing __search__ in response to this question _Type 
 ![Exit Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/exit.png)
 The exit option can be called by typing __exit__ after each prompt. The function prints the message _Thank you! Goodbye!_ clear the screen and causes the program to quit after 3 seconds. 
 The app can be restarted by clicking Heroku's red button "RUN PROGRAM" above the terminal. 
-![Red button]()
+![Red button](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/red-button.png)
 
 ### Help option
 ![Help Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/help.png)
@@ -182,7 +182,7 @@ The dataframe is parsed twice (looking for printable and extended ASCII chars) b
 Apostrophes are found in movie's titles as contractions or possessives and in names, as part of the name or quoting a nickname.
    -  __Context of the problem:__ <br>
 In an attempt to match the user's input (wheter lowcase or uppercase) with the dataset entries' case, the `.title()` method was applied the user's input. 
-[Sample of dataset entries]() 
+[Sample of dataset entries](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/entries-sample.png) 
    -  __Reason of the problem:__ <br>
  Apostrophes act as word boundaries, this became evident applying the .title() method to the user's input. <br>
  Example -  which doesn't match (Ripley's) as present in the dataset: 
