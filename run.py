@@ -545,8 +545,8 @@ def get_actor():
         """\n    Search by full or partial name.
     Type the words divided by a space.
     Characters from a foreign alpabet will be matched as well
-    (type skarsgard to match Skarsgård) 
-    but please be aware that names like Zoë/Zoe, Chloë/Chloe are different. 
+    (type skarsgard to match Skarsgård)
+    but please be aware that names like Zoë/Zoe, Chloë/Chloe are different.
     In case of multiple matches, the results
     will be restricted to the first 10 elements,""" + Style.RESET_ALL)
     request_actor = input(f"{Fore.BLUE + Style.BRIGHT}"
