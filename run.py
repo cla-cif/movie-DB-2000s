@@ -453,12 +453,11 @@ def get_film_info():
     """
     print(
         Fore.WHITE + Style.BRIGHT +
-        """\n    Search by full or partial title,
-    type the words divided by a space.
-    Characters from a foreign alpabet will be matched as well
+        """\n    Search by full or partial title, type the words divided by a space.
+    Characters from a foreign alpabet will be matched as well,
     (type amelie to match Amélie)
     In case of multiple matches,
-    the results will be restricted to the first 10 elements""")
+    the results will be restricted to the first 10 elements.""")
     request_film = input(f"{Fore.BLUE + Style.BRIGHT}"
                          f"\nType a title: {Style.RESET_ALL}")
     request_film = request_film.lower().strip()
@@ -497,22 +496,21 @@ def get_film_genres():
     """
     print(
         Fore.WHITE + Style.BRIGHT +
-        """\n    Search by one or more genres,
-    type the words divided by a space.
+        """\n    Search by one or more genres, type the words divided by a space.
     In case of multiple matches ('Comedy' has 850+ !),
     only 10 random results will be displayed.""")
     request_genre = input(f"{Fore.BLUE + Style.BRIGHT}"
                           f"\nType a genre: {Style.RESET_ALL}")
-    request_genre = request_genre.strip()
+    request_genre = request_genre.strip().lower()
     df_copy = df.copy(deep=True)
     df_copy['Genres'] = df_copy['Genres'].str.lower()
     search = False
-    for value in df['Genres']:
+    for value in df_copy['Genres']:
         if request_genre in value:
             search = True
 
     if search:
-        mask = df['Genres'].str.contains(request_genre)
+        mask = df_copy['Genres'].str.contains(request_genre)
         film_genre = df.loc[mask,
                             ['Title',
                              'Genres',
@@ -542,13 +540,12 @@ def get_actor():
     """
     print(
         Fore.WHITE + Style.BRIGHT +
-        """\n    Search by full or partial name.
-    Type the words divided by a space.
-    Characters from a foreign alpabet will be matched as well
+        """\n    Search by full or partial name, type the words divided by a space.
+    Characters from a foreign alpabet will be matched as well,
     (type skarsgard to match Skarsgård)
     but please be aware that names like Zoë/Zoe, Chloë/Chloe are different.
     In case of multiple matches, the results
-    will be restricted to the first 10 elements,""" + Style.RESET_ALL)
+    will be restricted to the first 10 elements.""" + Style.RESET_ALL)
     request_actor = input(f"{Fore.BLUE + Style.BRIGHT}"
                           f"\nType an actor: {Style.RESET_ALL}")
     request_actor = request_actor.strip().lower()
@@ -603,13 +600,12 @@ def get_director():
     """
     print(
         Fore.WHITE + Style.BRIGHT +
-        """\n    Search by full or partial name.
-    Type the words divided by a space.
-    Characters from a foreign alpabet will be matched as well
+        """\n    Search by full or partial name, type the words divided by a space.
+    Characters from a foreign alpabet will be matched as well,
     (type inarritu to match Iñárritu)
     but please be aware that names like Zoë/Zoe, Chloë/Chloe are different.
     In case of multiple matches,
-    the results will be restricted to the first 10 elements""")
+    the results will be restricted to the first 10 elements.""")
     request_director = input(f"{Fore.BLUE + Style.BRIGHT}"
                              f"\nType a director: {Style.RESET_ALL}")
     request_director = request_director.lower().strip()
