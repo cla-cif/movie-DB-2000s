@@ -81,7 +81,7 @@ Read more about the guiding principles of [Agile Development](https://www.agilea
 ![Welcome](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/welcome.png)
 - The user is welcomed by a large title and a short message presenting the dataset and its main functionalities. 
 - The app has two main features: display processed data and perform queries.
-- Side features are HELP and EXIT which can be invoked at any point by typing the desired functionality after any question. 
+- Side features are HELP and EXIT which can be invoked at any point by typing the desired functionality after any question (outside the search functionalities). 
 - The first time the app is launched, the user is offered the choice to get HELP, EXIT the program or press the Enter key to continue (especially in case the user is already familiar with the app and wants skip the HELP section)
 - Throgh a series of questions, the user is lead to the desired output. 
 - Each answer (input) from the user is verified. If the check fails, a message explaining the error is shown and the question is asked again.
@@ -124,13 +124,15 @@ The option is available by typing __search__ in response to this question _Type 
 
 ### Exit option
 ![Exit Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/exit.png)
-The exit option can be called by typing __exit__ after each prompt. The function prints the message _Thank you! Goodbye!_ clear the screen and causes the program to quit after 3 seconds. 
+The exit option can be called by typing __exit__ after each prompt (outside the search functions). The function prints the message _Thank you! Goodbye!_ clear the screen and causes the program to quit after 3 seconds. <br>
+The exit function is not available in the search functions because it could be part of a name or title, therefore causing the app to quit and the result not to be shown. 
 The app can be restarted by clicking Heroku's red button "RUN PROGRAM" above the terminal. 
 ![Red button](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/red-button.png)
 
 ### Help option
 ![Help Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/help.png)
-The help option can be called by typing __help__ after each prompt. The function provides basic information about the dataframe and instructions about how to explore the program.
+The help option can be called by typing __help__ after each prompt (outside the search functions). The function provides basic information about the dataframe and instructions about how to explore the program.
+The help function is not available in the search functions because it could be part of a name or title, therefore causing the app to quit and the result not to be shown. ('Help' is a movie from 2021 and 'The Help' is a movie from 2011). 
 After the help text is displayed, the user is asked to press the Enter key to continue.  
 
 ## Features
@@ -203,7 +205,9 @@ The `.lower()` and `.title()` methods, the Regular Expressions, why to copy the 
 
 
 #### Remaining
-The terminal constraints don't allow to display large results and graphs.
+1. Similar names with different diacritics such as (Zoe/Zoë/Zoé) and (Chloe/Chloë/Chlöe/Chloé), are present in the dataset but won't be displayed at the same time as the query makes distinction between such occurrencies. In other words, the input is matched during the first iteration, before is subjected to the `.normalize()` method during the second iteration which happens if the first one failed to find any match. 
+
+2. The terminal constraints don't allow to display large results and graphs. When the project will be subjected to further developments, a different deployment system may be taken into consideration.
 
 ### Validator
 - PEP8: no errors were returned from the [PEP8 validator](http://pep8online.com/). 
