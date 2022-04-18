@@ -29,7 +29,7 @@ I tried to understand why this problem is important to the blogger by getting to
 To do this, I researched film blogs and conducted interviews that led to the creation of a potential user persona.
 
 ### Empathise
-_This program has been coded thinking at the potential needs of film bloggers in their thirties/forties with moderate to low IT skills who want to gain insights into their personalised film database and tell their followers about it._
+_This program has been coded thinking at the potential needs of film bloggers in their thirties/forties with intermediate to low IT skills who want to gain insights into their personalised film database and tell their followers about it._
 
 __Let us call our blogger Nastya.__
 
@@ -52,10 +52,10 @@ And that is how I arrived at the [current prototype](https://movie-db-2000s.hero
 - The prompts are obvious, short and direct, but a HELP option is always available. 
 
 Other important points are:
-  - the consistency of the prompts in colour and language, 
-  - the constant availability of information and functions, 
-  - the creation of a recursive architecture to avoid dead ends, 
-  - the handling of invalid inputs and the avoidance of unexpected behaviour. 
+  - Consistency of the displayed messages in colour and language.
+  - Constant availability of information and functions.
+  - Creation of a recursive architecture to avoid dead ends.
+  - Handling of invalid inputs and the avoidance of unexpected behaviour. 
 
 >My personal challenge was to put myself in the shoes of the user: What is clear, obvious and self-evident to the developer may not be to the user.
 
@@ -79,16 +79,17 @@ Read more about the guiding principles of [Agile Development](https://www.agilea
 
 ## How it works
 ![Welcome](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/welcome.png)
-- The user is welcomed by a large title and a short welcome message presenting the dataframe (database) and its main features. 
+- The user is welcomed by a large title and a short message presenting the dataset and its main functionalities. 
 - The app has two main features: display processed data and perform queries.
-- Side features are HELP and EXIT which can be invoked at any point by typing the desired feature after any question. 
+- Side features are HELP and EXIT which can be invoked at any point by typing the desired functionality after any question. 
 - The first time the app is launched, the user is offered the choice to get HELP, EXIT the program or press the Enter key to continue (especially in case the user is already familiar with the app and wants skip the HELP section)
 - Throgh a series of questions, the user is lead to the desired output. 
-- Each answer (input) from the user is verified. If the check fails, the user is prompted to provide a suitable input.
+- Each answer (input) from the user is verified. If the check fails, a message explaining the error is shown and the question is asked again.
 ![Error](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/error.png)
 - After each result (output), the user is returned to the main question and can chose again how to explore the database (SEARCH/DATA).
 ![After output](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/after-output.png)
 - The app wont terminate unless the user types exit, closes the window or refreshes the page.
+- The app is designed to avoid dead ends which will force the user to restart the app in order to continue. The user can always type a command. 
 
 ### Flowchart
 
@@ -110,23 +111,27 @@ Users are offered ten options with pre-calculated statistics and rankings to cho
 9.  Top 10 box-office flops: the most unprofitable films.
 10.  The content ratings and their average IMDB Score. <br>
 
-After the choice is validated and the output displayed, the user is asked whether he wants to retrieve the data again or perform a search.
+After the choice is validated and the output displayed, the user is returned to the main question and can chose again how to explore the database (SEARCH/DATA).
 
 ### Search option
 ![Search Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/search.png)
 The option is available by typing __search__ in response to this question _Type SEARCH or DATA to explore the database:_ which will be asked after each output.
-- Users can search the dataset by title, genre, actor and director. 
+- Users can browse the dataset searching by title, genre, actor and director and get info related to that entry. 
 - Matching is also possible with partial text but limited to 10 results due to Heroku's terminal constraints (80 characters by 24 rows), so a targeted entry will yield accurate results. 
 - Searching by title is the only query that returns all available information (genre, year, language and country of production, content rating, duration, aspect ratio, director, cast, budget, box office, number of reviews and IMDB score). 
-- The other options, which are likely to find multiple matches, display only the most relevant information (title, genre, director, cast and IMDB score) to improve readability given the aforementioned Heroku's terminal limitations mentioned above.
+- The other options, which are more likely to find multiple matches, display only the most relevant information (title, genre, director, cast and IMDB score) to improve readability given the aforementioned Heroku's terminal limitations mentioned above.
+- After the choice is validated and the output displayed, the user is returned to the main question and can chose again how to explore the database (SEARCH/DATA).
 
 ### Exit option
 ![Exit Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/exit.png)
 The exit option can be called by typing __exit__ after each prompt. The function prints the message _Thank you! Goodbye!_ clear the screen and causes the program to quit after 3 seconds. 
+The app can be restarted by clicking Heroku's red button "RUN PROGRAM" above the terminal. 
+![Red button]()
 
 ### Help option
 ![Help Option](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/help.png)
 The help option can be called by typing __help__ after each prompt. The function provides basic information about the dataframe and instructions about how to explore the program.
+After the help text is displayed, the user is asked to press the Enter key to continue.  
 
 ## Features
 All functions have a general purpose and can be applied to a similar dataset or, for this particular project, allow the current dataset to be extended with minimal further implementation.
@@ -135,7 +140,7 @@ All functions have a general purpose and can be applied to a similar dataset or,
 - The app is intuitive, the instructions are clear and simple, requiring minimal interaction from the user to achieve the result. 
 - The text displayed on the black background of Heroku's CLI is legible and bright. The four colours (blue, yellow, red, white) are chosen consistently to differentiate instructions, messages, errors and outputs. 
 - Input isn't case-sensitive, but output is consistently presented with the first letter capitalised. 
-- The code is iterative so that users can perform multiple searches without restarting the program. 
+- The code is iterative so that users can perform multiple searches/actions without restarting the program. 
 - From the Heroku app link, the program can be restarted any time by clicking the red "Run Program" button on the Heroku app page. 
 
 ### Future Features
@@ -163,12 +168,38 @@ I manually tested this project throughout the development process by doing the f
   The following logical errors provided undesired output. While the output was consitent with the input, a much broader result was desired. 
 
 #### Fixed
-_Matching is not possible with a partial string. e.g. the title must be complete, actor/director must searched by full name in order to display the desired result._ 
- - Implementation of a nested loop to work efficiently with a multi-dimensional data structure like this dataset. If the substring provided by the user was matched by iterating through the spreadsheet and its columns (this dataset is a list that contains other lists), boolean variable returns true and the output displayed. 
+1. _Matching is not possible with a partial string. e.g. the title must be complete, actor/director must searched by full name in order to display the desired result._ 
+   -  __Solution__: <br>
+Implementation of a nested loop to work efficiently with a multi-dimensional data structure like this dataset. If the substring provided by the user was matched by iterating through the spreadsheet and its columns (this dataset is a list that contains other lists), boolean variable returns true and the output displayed. 
 
-_Extended ASCII characters (character code 128-255) present in some names couldn't be matched providing printable ASCII characters (character code 128-255)._ 
- - The dataframe is parsed twice (looking for printable and extended ASCII chars) before informing the user that no matches were found. To match extended ASCII, the normalize method is applied to the dataframe. 
+2. _Extended ASCII characters (character code 128-255) present in some names couldn't be matched providing printable ASCII characters (character code 128-255)._ 
+   -  __Solution__: <br>
+The dataframe is parsed twice (looking for printable and extended ASCII chars) before informing the user that no matches were found. To match extended ASCII, the normalize method is applied to the dataframe. 
 [Example of the output](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/normalize-bugfix.png)
+
+3. _Entries with `'` (apostrophe) are not matched by the queries._
+   -  __Definition of the problem:__ <br>
+Apostrophes are found in movie's titles as contractions or possessives and in names, as part of the name or quoting a nickname.
+   -  __Context of the problem:__ <br>
+In an attempt to match the user's input (wheter lowcase or uppercase) with the dataset entries' case, the `.title()` method was applied the user's input. 
+[Sample of dataset entries]() 
+   -  __Reason of the problem:__ <br>
+ Apostrophes act as word boundaries, this became evident applying the .title() method to the user's input. <br>
+ Example -  which doesn't match (Ripley's) as present in the dataset: 
+    ```
+       input = "ripley's"
+       input = input.title() #Ripley'S
+    ```
+ 
+   -  __Attempt to solve the problem:__ <br>
+I Harnessed the `.title()` method behaviour by passing the user's input as argument of a function that used a regex, as suggested [here](https://www.pythontutorial.net/python-string-methods/python-titlecase/#:~:text=The%20title()%20method%20converts,the%20remaining%20characters%20in%20lowercase.).
+      -   __It failed because:__ 
+     It worked for the abovementioned example but not for names containing quoted nicknames like (Joanna 'JoJo' Levesque) and names like (Mo'Nique) or (DJ Pooh).  
+   -  __Solution__: <br>
+ I made a copy of the dataframe applying `df.copy()` method and applied the `.lower()` method to the user's input and to the copy of the dataframe in order for the query to make an exact comparison. 
+   -  __By fixing this issue I've learnt more about__ : <br>
+The `.lower()` and `.title()` methods, the Regular Expressions, why to copy the dataframe `df.copy()` for any modifications I don't want to take place on the original dataset, the lambda functions, the nature and behaviour of Python's Panda objects and practiced debugging by printing intermediate results.  
+
 
 #### Remaining
 The terminal constraints don't allow to display large results and graphs.
