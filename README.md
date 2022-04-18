@@ -142,6 +142,7 @@ All functions have a general purpose and can be applied to a similar dataset or,
 - Input isn't case-sensitive, but output is consistently presented with the first letter capitalised. 
 - The code is iterative so that users can perform multiple searches/actions without restarting the program. 
 - From the Heroku app link, the program can be restarted any time by clicking the red "Run Program" button on the Heroku app page. 
+- The app is _not_ available for mobile and accessible from desktop only. 
 
 ### Future Features
 Some potential features include:
@@ -242,6 +243,38 @@ The steps needed to deploy this projects are as follows:
 9. Click to "Enable Automatic Deploys " or chose to "Deploy Branch" from the _Manual Deploy_ section. 
 10. Wait for the logs to run while the dependencies are installed and the app is being built.
 11. The mock terminal is then ready and accessible from a link similar to `https://your-projects-name.herokuapp.com/`
+
+#### Update APR 16, 2022
+Extract from Heroku [Incident 2413](https://status.heroku.com/incidents/2413): <br>
+Based on Salesforce’s initial investigation, it appears that unauthorized access to Heroku's GitHub account was the result of a compromised OAuth token. Salesforce immediately disabled the compromised user’s OAuth tokens and disabled the compromised user’s GitHub account. Additionally, GitHub reported that the threat actor was enumerating GitHub customer accounts using OAuth tokens issued to Heroku’s OAuth integration dashboard hosted on GitHub. 
+Since this issue arose and until furter notice or in case automatic deployments are not available for whatever reason, the steps to deploy the Heroku app are as follows: <br>
+Visual example of the following instructions can be found [here](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/heroku-deploy-from-gitpod.png). <br>
+Deploying your app to heroku:
+1. Login to heroku and enter your details. From GitPod bash, enter:
+`command: heroku login -i`
+2. Get your app name from heroku.
+`command: heroku apps`
+3. Set the heroku remote. (Replace <app_name> with your actual app name)
+`command: heroku git:remote -a <app_name>`
+4. Add, commit and push to github
+`command: git add . && git commit -m "Deploy to Heroku via CLI"`
+5. Push to both github and heroku
+```
+command: git push origin main
+command: git push heroku main
+```
+
+In case the app needs API Keys, these additional steps have to be considered:
+MFA/2FA enabled?
+
+1. Click on Account Settings (under the avatar menu)
+2. Scroll down to the API Key section and click Reveal. Copy the key.
+3. Enter the command: heroku_config , and enter your api key you copied when prompted
+4. Complete the steps above, if you see an input box at the top middle of the editor...
+ a. enter your heroku username
+ b. enter the api key you just copied
+ 
+ Note: Thanks to [Code Institute](https://codeinstitute.net/global/) for providing the abovementioned Heroku app deployment steps. 
 
 ### Forking the Repository
 
