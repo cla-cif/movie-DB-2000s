@@ -248,7 +248,7 @@ The steps needed to deploy this projects are as follows:
 Extract from Heroku [Incident 2413](https://status.heroku.com/incidents/2413): <br>
 Based on Salesforce’s initial investigation, it appears that unauthorized access to Heroku's GitHub account was the result of a compromised OAuth token. Salesforce immediately disabled the compromised user’s OAuth tokens and disabled the compromised user’s GitHub account. Additionally, GitHub reported that the threat actor was enumerating GitHub customer accounts using OAuth tokens issued to Heroku’s OAuth integration dashboard hosted on GitHub. 
 Since this issue arose and until furter notice or in case automatic deployments are not available for whatever reason, the steps to deploy the Heroku app are as follows: <br>
-Visual example of the following instructions can be found [here](). <br>
+Visual example of the following instructions can be found [here](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/heroku-deploy-from-gitpod.png). <br>
 Deploying your app to heroku:
 1. Login to heroku and enter your details. From GitPod bash, enter:
 `command: heroku login -i`
