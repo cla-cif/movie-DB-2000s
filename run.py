@@ -1,6 +1,7 @@
 """ import libraries """
 from os import system, name
 from time import sleep
+import unicodedata
 import pyfiglet
 import pandas as pd
 from colorama import Fore, Style
@@ -446,34 +447,37 @@ def validate_data_choice(data):
 
 def get_film_info():
     """
-    applies .lower() to input and copy of df for accurate comparison
-    search for matches in the dfcopy of Title column,
-    if none found, encodes entries to match search for extend ASCII chars,
-    if none found, display message. else display output.
+    create copy of dataframe not to modify the original datapoints.
+    set variable search to false (if match is found, var is set to True).
+    apply .lower() .normalize().encode().decode() to input and 'Title' col.
+    after the iteration, output is displayed and welcome function is called.
     """
     print(
         Fore.WHITE + Style.BRIGHT +
         """\n    Search by full or partial title, type the words divided by a space.
-    Characters from a foreign alpabet will be matched as well,
-    (type amelie to match Amélie)
-    In case of multiple matches,
-    the results will be restricted to the first 10 elements.""")
+    Characters with diacritics are matched as well,
+    e.g., type amelie to match Amélie.
+    In case of multiple matches, only the first 10 results are displayed.""" +
+        Style.RESET_ALL)
     request_film = input(f"{Fore.BLUE + Style.BRIGHT}"
                          f"\nType a title: {Style.RESET_ALL}")
-    request_film = request_film.lower().strip()
+
     df_copy = df.copy(deep=True)
-    df_copy['Title'] = df_copy['Title'].str.lower()
     search = False
+
+    request_film = (
+        unicodedata.normalize('NFKD', request_film).
+        encode('ascii', errors='ignore').decode('utf-8')
+    ).strip().lower()
+
+    df_copy['Title'] = df_copy['Title'].str.lower()
+    df_copy['Title'] = (
+        df_copy['Title'].str.normalize('NFKD').str.encode(
+            'ascii', errors='ignore').str.decode('utf-8'))
+
     for value in df_copy['Title']:
         if request_film in value:
             search = True
-    if not search:
-        df_copy['Title'] = (
-            df_copy['Title'].str.normalize('NFKD').str.encode(
-                'ascii', errors='ignore').str.decode('utf-8'))
-        for value in df_copy['Title']:
-            if request_film in value:
-                search = True
 
     if search:
         film_data = df.loc[(df_copy['Title'].str.contains(request_film))]
@@ -489,9 +493,10 @@ This film is not present in the database{Style.RESET_ALL}\n""")
 
 def get_film_genres():
     """
-    applies .lower() to input and copy of df for accurate comparison
-    search for matches in the Genres column,
-    display output or message, calls welcome function after.
+    create copy of dataframe not to modify the original datapoints.
+    set variable search to false (if match is found, var is set to True).
+    apply .lower() .normalize().encode().decode() to input and 'Genres' col.
+    after the iteration, output is displayed and welcome function is called.
     if more than 10 matches found, displays a random .sample() of them.
     """
     print(
@@ -501,10 +506,20 @@ def get_film_genres():
     only 10 random results will be displayed.""")
     request_genre = input(f"{Fore.BLUE + Style.BRIGHT}"
                           f"\nType a genre: {Style.RESET_ALL}")
-    request_genre = request_genre.strip().lower()
+
     df_copy = df.copy(deep=True)
-    df_copy['Genres'] = df_copy['Genres'].str.lower()
     search = False
+
+    request_genre = (
+        unicodedata.normalize('NFKD', request_genre).
+        encode('ascii', errors='ignore').decode('utf-8')
+    ).strip().lower()
+
+    df_copy['Genres'] = df_copy['Genres'].str.lower()
+    df_copy['Genres'] = (
+        df_copy['Genres'].str.normalize('NFKD').str.encode(
+            'ascii', errors='ignore').str.decode('utf-8'))
+
     for value in df_copy['Genres']:
         if request_genre in value:
             search = True
@@ -533,47 +548,46 @@ This genre is not present in the database{Style.RESET_ALL}\n""")
 
 def get_actor():
     """
-    applies .lower() to input and copy of df for accurate comparison
-    nested loop to search for matches in the df and actors' 3 columns,
-    if none found, encodes entries to match search for extend ASCII chars,
-    if none found, display message. else display output.
+    create copy of dataframe not to modify the original datapoints.
+    set variable search to false (if match is found, var is set to True).
+    apply .lower() .normalize().encode().decode() to input and the actors' col.
+    after the iteration, output is displayed and welcome function is called.
     """
     print(
         Fore.WHITE + Style.BRIGHT +
         """\n    Search by full or partial name, type the words divided by a space.
-    Characters from a foreign alpabet will be matched as well,
-    (type skarsgard to match Skarsgård)
-    but please be aware that names like Zoë/Zoe, Chloë/Chloe are different.
-    In case of multiple matches, the results
-    will be restricted to the first 10 elements.""" + Style.RESET_ALL)
+    Characters with diacritics are matched as well,
+    e.g., type skarsgard to match Skarsgård
+    In case of multiple matches, only the first 10 results are displayed.""" +
+        Style.RESET_ALL)
     request_actor = input(f"{Fore.BLUE + Style.BRIGHT}"
                           f"\nType an actor: {Style.RESET_ALL}")
-    request_actor = request_actor.strip().lower()
+
     df_copy = df.copy(deep=True)
+    search = False
+
+    request_actor = (
+        unicodedata.normalize('NFKD', request_actor).
+        encode('ascii', errors='ignore').decode('utf-8')
+    ).strip().lower()
+
     df_copy = df_copy.applymap(
         lambda s: s.lower() if isinstance(
             s, str) else s)
-    search = False
+    df_copy['Actor1'] = (
+        df_copy['Actor1'].str.normalize('NFKD').str.encode(
+            'ascii', errors='ignore').str.decode('utf-8'))
+    df_copy['Actor2'] = (
+        df_copy['Actor2'].str.normalize('NFKD').str.encode(
+            'ascii', errors='ignore').str.decode('utf-8'))
+    df_copy['Actor3'] = (
+        df_copy['Actor3'].str.normalize('NFKD').str.encode(
+            'ascii', errors='ignore').str.decode('utf-8'))
+
     for value in df_copy[['Actor1', 'Actor2', 'Actor3']].values:
         for item in value:
             if request_actor in str(item):
                 search = True
-
-    if not search:
-        df_copy['Actor1'] = (
-            df_copy['Actor1'].str.normalize('NFKD').str.encode(
-                'ascii', errors='ignore').str.decode('utf-8'))
-        df_copy['Actor2'] = (
-            df_copy['Actor2'].str.normalize('NFKD').str.encode(
-                'ascii', errors='ignore').str.decode('utf-8'))
-        df_copy['Actor3'] = (
-            df_copy['Actor3'].str.normalize('NFKD').str.encode(
-                'ascii', errors='ignore').str.decode('utf-8'))
-        for value in df_copy[['Actor1', 'Actor2', 'Actor3']].values:
-            for item in value:
-                if request_actor in str(item):
-                    search = True
-
     if search:
         mask1 = df_copy['Actor1'].str.contains(request_actor)
         mask2 = df_copy['Actor2'].str.contains(request_actor)
@@ -593,35 +607,38 @@ This actor is not present in the database{Style.RESET_ALL}\n""")
 
 def get_director():
     """
-    applies .lower() to input and copy of df for accurate comparison
-    search for matches in the dfcopy of Director column,
-    if none found, encodes entries to match search for extend ASCII chars,
-    if none found, display message. else display output.
+    create copy of dataframe not to modify the original datapoints.
+    set variable search to false (if match is found, var is set to True).
+    apply .lower() .normalize().encode().decode() to input and 'Director' col.
+    after the iteration, output is displayed and welcome function is called.
     """
     print(
         Fore.WHITE + Style.BRIGHT +
         """\n    Search by full or partial name, type the words divided by a space.
-    Characters from a foreign alpabet will be matched as well,
-    (type inarritu to match Iñárritu)
-    but please be aware that names like Zoë/Zoe, Chloë/Chloe are different.
-    In case of multiple matches,
-    the results will be restricted to the first 10 elements.""")
+    Characters with diacritics are matched as well,
+    e.g., type inarritu to match Iñárritu
+    In case of multiple matches, only the first 10 results are displayed.""" +
+        Style.RESET_ALL)
     request_director = input(f"{Fore.BLUE + Style.BRIGHT}"
                              f"\nType a director: {Style.RESET_ALL}")
-    request_director = request_director.lower().strip()
+
     df_copy = df.copy(deep=True)
-    df_copy['Director'] = df_copy['Director'].str.lower()
     search = False
+
+    request_director = (
+        unicodedata.normalize('NFKD', request_director).
+        encode('ascii', errors='ignore').decode('utf-8')
+    ).strip().lower()
+
+    df_copy['Director'] = df_copy['Director'].str.lower()
+    df_copy['Director'] = (
+        df_copy['Director'].str.normalize('NFKD').str.encode(
+            'ascii', errors='ignore').str.decode('utf-8'))
+
     for value in df_copy['Director']:
         if request_director in value:
             search = True
-    if not search:
-        df_copy['Director'] = (
-            df_copy['Director'].str.normalize('NFKD').str.encode(
-                'ascii', errors='ignore').str.decode('utf-8'))
-        for value in df_copy['Director']:
-            if request_director in value:
-                search = True
+
     if search:
         mask = df_copy['Director'].str.contains(request_director)
         director_data = df.loc[mask,
