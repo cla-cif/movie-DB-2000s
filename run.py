@@ -545,7 +545,8 @@ def get_actor():
         """\n    Search by full or partial name.
     Type the words divided by a space.
     Characters from a foreign alpabet will be matched as well
-    (type skarsgard to match Skarsgård)
+    (type skarsgard to match Skarsgård) 
+    but please be aware that names like Zoë/Zoe, Chloë/Chloe are different. 
     In case of multiple matches, the results
     will be restricted to the first 10 elements,""" + Style.RESET_ALL)
     request_actor = input(f"{Fore.BLUE + Style.BRIGHT}"
@@ -602,10 +603,11 @@ def get_director():
     """
     print(
         Fore.WHITE + Style.BRIGHT +
-        """\n    Search by full or partial name,
-    type the words divided by a space.
+        """\n    Search by full or partial name.
+    Type the words divided by a space.
     Characters from a foreign alpabet will be matched as well
-    (type curaron to match Cuarón)
+    (type inarritu to match Iñárritu)
+    but please be aware that names like Zoë/Zoe, Chloë/Chloe are different.
     In case of multiple matches,
     the results will be restricted to the first 10 elements""")
     request_director = input(f"{Fore.BLUE + Style.BRIGHT}"
@@ -717,6 +719,6 @@ print(Style.BRIGHT + Fore.YELLOW + """
     content rating, duration, aspect ratio, director, cast, budget
     box office revenue, number of reviews and IMDB score.""" +
       Fore.YELLOW + Style.BRIGHT + """
-    Get statistics, the top 10 lists or search by film.\n""")
+    Get statistics, the top 10 lists or search by criteria.\n""")
 
 main()
