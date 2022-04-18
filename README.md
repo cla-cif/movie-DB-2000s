@@ -222,11 +222,10 @@ The project is coded with Python and relies on [pandas 1.4.2:](https://pypi.org/
 
 ### Frameworks, Libraries & Programs Used
 
+- [unicodedata](https://pypi.org/project/Unidecode/)
+- [pyfiglet 0.8.post1](https://pypi.org/project/pyfiglet/)
 - [pandas 1.4.2:](https://pypi.org/project/pandas/) which was installed along with [seaborn 0.11.2](https://pypi.org/project/seaborn/)
 - [colorama 0.4.4](https://pypi.org/project/colorama/)
-- [pyfiglet 0.8.post1](https://pypi.org/project/pyfiglet/)
-- [pycodestyle 2.8.0](https://pypi.org/project/pycodestyle/)
---
 - The dataset is a [Google Sheet](https://www.google.com/sheets/about/) file. A copy of the dataset is [available](https://github.com/cla-cif/movie-DB-2000s/blob/main/movie-DB-2000s.xlsx) in this repository. 
 
 ## Deployment
