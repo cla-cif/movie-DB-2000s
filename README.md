@@ -157,22 +157,15 @@ Some potential features include:
 > Future features will be based on the users' requests and consequent necessities.
 
 ## User Stories
+The following user stories with their respective acceptance criteria and tasks are available on the [Issues](https://github.com/cla-cif/movie-DB-2000s/issues) tab of this repository. The user stories were considered completed and subsequently closed. 
+
+### Search actors and directors by name
 Looking at our "persona" from the design thinking process, the following user story was the crucial point around which I created an efficient query. The acceptance criteria points have been addressed and documented in the following [Fixed Issue](#Fixed) section. 
-The User Story is in the [Issues](https://github.com/cla-cif/movie-DB-2000s/issues/3) tab of this repository. 
+The User Story is available [here](https://github.com/cla-cif/movie-DB-2000s/issues/3). 
 
-### Story:
-As a film blogger I want my search to be effective so that I can search actors and directors by full name or partial name and, match foreign alphabet characters I don't have on my keyboard by typing the closest character I can think of.
-
-### Acceptance Criteria:
-- I want to be able to write in lower or upper case.
-- I want to be able to find names by typing just one letter.
-- I want to match similar names that differ only by diacritical marks.
-
-Which from the developer's side translated into these __Tasks__:
-- [ ] apply lowercase method to user's input and dataframe.
-- [ ] implement nested loops to match partial strings.
-- [ ] apply normalization method to return the Unicode normal form for the user's input and dataframe.
-
+### Clear and direct instructions
+The instructions have been tailored looking at our "persona" with intermediate to low IT skills. All the tasks were accomplished and documented in the [How it works](#How-it-works) and [Features](#Features) sections of this file. 
+The User Story is available [here](https://github.com/cla-cif/movie-DB-2000s/issues/4). 
 
 ## Testing
 I manually tested this project throughout the development process by doing the following:
