@@ -480,7 +480,8 @@ def get_film_info():
             search = True
 
     if search:
-        film_data = df.loc[(df_copy['Title'].str.contains(request_film))]
+        film_data = df.loc[(df_copy['Title'].str.contains(
+            request_film, regex=False))]
         print(f"""{Fore.YELLOW + Style.BRIGHT}
 All you need to know about the film you were looking for:
 {Style.RESET_ALL}{film_data}\n""")
@@ -525,7 +526,7 @@ def get_film_genres():
             search = True
 
     if search:
-        mask = df_copy['Genres'].str.contains(request_genre)
+        mask = df_copy['Genres'].str.contains(request_genre, regex=False)
         film_genre = df.loc[mask,
                             ['Title',
                              'Genres',
@@ -589,9 +590,9 @@ def get_actor():
             if request_actor in str(item):
                 search = True
     if search:
-        mask1 = df_copy['Actor1'].str.contains(request_actor)
-        mask2 = df_copy['Actor2'].str.contains(request_actor)
-        mask3 = df_copy['Actor3'].str.contains(request_actor)
+        mask1 = df_copy['Actor1'].str.contains(request_actor, regex=False)
+        mask2 = df_copy['Actor2'].str.contains(request_actor, regex=False)
+        mask3 = df_copy['Actor3'].str.contains(request_actor, regex=False)
         actor_data = df.loc[mask1 | mask2 | mask3, [
             'Title', 'Genres', 'Director', 'Actor1', 'Actor2', 'Actor3',
             'IMDB Score']]
@@ -640,7 +641,7 @@ def get_director():
             search = True
 
     if search:
-        mask = df_copy['Director'].str.contains(request_director)
+        mask = df_copy['Director'].str.contains(request_director, regex=False)
         director_data = df.loc[mask,
                                ['Title',
                                 'Genres',
