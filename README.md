@@ -216,6 +216,10 @@ I Harnessed the `.title()` method behaviour by passing the user's input as argum
    -  __Solution__: <br>
  I applied the `.lower()` method to the user's input and to the copy of the dataframe in order for the query to make an exact comparison. 
  The `.lower()` method also proved to be useful to match movie titles such as (Mission: Impossible II) or (Jurassic Park III) which otherwise would have escaped the query with the `.title()` method. 
+
+4. _Input `?` in the search function resulted error and app crash._
+   -  __Solution__: <br>
+The follwing message was shown `Error : nothing to repeat at position 0` and no further action were possible through the app's CLI. The issue was fixed setting `regex=False` to the `.contains()` method. In this way, the input is considered as a literal string. Documentation is available [here](https://pandas.pydata.org/docs/reference/api/pandas.Series.str.contains.html).
  
 ##### By fixing the above issue I've learnt more about: 
 Unicode [normalization](https://withblue.ink/2019/03/11/why-you-need-to-normalize-unicode-strings.html). The `.lower()` and `.title()` methods, the Regular Expressions, the lambda functions, the nature and behaviour of Python's Panda objects and practiced debugging by printing intermediate results.  
