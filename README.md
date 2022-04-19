@@ -8,7 +8,7 @@ The instructions are extremely simply written and require only a minimum of inte
 [Here is the live version](https://movie-db-2000s.herokuapp.com/)
 
 ## Content
- [How it's done](#How-it'-s-done)<br>
+ [How it's done](#How-its-done)<br>
  [How it works](#How-it-works)<br>
  [Features](#Features)<br>
  [User Stories](#User-Stories) <br>
@@ -30,7 +30,7 @@ I tried to understand why this problem is important to the blogger by getting to
 To do this, I researched film blogs and conducted interviews that led to the creation of a potential user persona.
 
 ### Empathise
-_This program has been coded thinking at the potential needs of film bloggers in their thirties/forties with intermediate to low IT skills who want to gain insights into their personalised film database and tell their followers about it._
+_This program is coded thinking at the potential needs of film bloggers in their thirties/forties with intermediate to low IT skills who want to gain insights into their personalised film database and tell their followers about it._
 
 __Let us call our blogger Nastya.__
 
@@ -89,7 +89,7 @@ Read more about the guiding principles of [Agile Development](https://www.agilea
 ![Error](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/error.png)
 - After each result (output), the user is returned to the main question and can chose again how to explore the database (SEARCH/DATA).
 ![After output](https://github.com/cla-cif/movie-DB-2000s/blob/main/screenshot/after-output.png)
-- The app wont terminate unless the user types exit, closes the window or refreshes the page.
+- The app won't terminate unless the user types exit, closes the window or refreshes the page.
 - The app is designed to avoid dead ends which will force the user to restart the app in order to continue. The user can always type a command. 
 
 ### Flowchart
@@ -187,7 +187,7 @@ I manually tested this project throughout the development process by doing the f
    -  __Solution__: <br>
 Implementation of a nested loop to work efficiently with a multi-dimensional data structure like this dataset. If the substring provided by the user was matched by iterating through the spreadsheet and its columns (this dataset is a list that contains other lists), boolean variable returns true and the output displayed. 
 
-2. _Extended ASCII characters (character code 128-255) present in some names couldn't be matched providing printable ASCII characters (character code 128-255)._ 
+2. _Extended ASCII characters (character code 128-255) present in some names couldn't be matched providing printable ASCII characters (character code 32-127)._ 
    -  __Solution__: <br>
 In each search function (title, director, actor, genres) I created a copy of the dataframe and applied the [normalize](https://pandas.pydata.org/docs/reference/api/pandas.Series.str.normalize.html) [encode](https://pandas.pydata.org/docs/reference/api/pandas.Series.str.encode.html) [decode](https://pandas.pydata.org/docs/reference/api/pandas.Series.str.decode.html) methods to the Series (Columns) I wanted to parse. I applied the unicodedata [normalize](https://docs.python.org/3/library/unicodedata.html) to the user's input. 
    -  __Explaination__: <br>
