@@ -215,6 +215,7 @@ I Harnessed the `.title()` method behaviour by passing the user's input as argum
      It worked for the abovementioned example but not for names containing quoted nicknames like (Joanna 'JoJo' Levesque) and names like (Mo'Nique) or (DJ Pooh).  
    -  __Solution__: <br>
  I applied the `.lower()` method to the user's input and to the copy of the dataframe in order for the query to make an exact comparison. 
+ The `.lower()` method also proved to be useful to match movie titles such as (Mission: Impossible II) or (Jurassic Park III) which otherwise would have escaped the query with the `.title()` method. 
  
 ##### By fixing the above issue I've learnt more about: 
 Unicode [normalization](https://withblue.ink/2019/03/11/why-you-need-to-normalize-unicode-strings.html). The `.lower()` and `.title()` methods, the Regular Expressions, the lambda functions, the nature and behaviour of Python's Panda objects and practiced debugging by printing intermediate results.  
