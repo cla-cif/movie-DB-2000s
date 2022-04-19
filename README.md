@@ -8,9 +8,10 @@ The instructions are extremely simply written and require only a minimum of inte
 [Here is the live version](https://movie-db-2000s.herokuapp.com/)
 
 ## Content
- [How it's done](#How-it's-done)<br>
+ [How it's done](#How-it'-s-done)<br>
  [How it works](#How-it-works)<br>
  [Features](#Features)<br>
+ [User Stories](#User-Stories) <br>
  [Testing](#Testing)<br>
  [Technologies](#Technologies-used)<br>
  [Deployment](#Deployment)<br>
@@ -155,6 +156,24 @@ Some potential features include:
 
 > Future features will be based on the users' requests and consequent necessities.
 
+## User Stories
+Looking at our "persona" from the design thinking process, the following user story was the crucial point around which I created an efficient query. The acceptance criteria points have been addressed and documented in the following [Fixed Issue](#Fixed) section. 
+The User Story is in the [Issues](https://github.com/cla-cif/movie-DB-2000s/issues/3) tab of this repository. 
+
+### Story:
+As a film blogger I want my search to be effective so that I can search actors and directors by full name or partial name and, match foreign alphabet characters I don't have on my keyboard by typing the closest character I can think of.
+
+### Acceptance Criteria:
+- I want to be able to write in lower or upper case.
+- I want to be able to find names by typing just one letter.
+- I want to match similar names that differ only by diacritical marks.
+
+Which from the developer's side translated into these __Tasks__:
+- [ ] apply lowercase method to user's input and dataframe.
+- [ ] implement nested loops to match partial strings.
+- [ ] apply normalization method to return the Unicode normal form for the user's input and dataframe.
+
+
 ## Testing
 I manually tested this project throughout the development process by doing the following:
  - I ran the code through the PEP8 linter.
@@ -204,7 +223,7 @@ I Harnessed the `.title()` method behaviour by passing the user's input as argum
    -  __Solution__: <br>
  I applied the `.lower()` method to the user's input and to the copy of the dataframe in order for the query to make an exact comparison. 
  
-##### By fixing the above issue I've learnt more about:
+##### By fixing the above issue I've learnt more about: 
 Unicode [normalization](https://withblue.ink/2019/03/11/why-you-need-to-normalize-unicode-strings.html). The `.lower()` and `.title()` methods, the Regular Expressions, the lambda functions, the nature and behaviour of Python's Panda objects and practiced debugging by printing intermediate results.  
 
 #### Remaining
